@@ -5,7 +5,7 @@ import { userRoutes } from './routes';
 const app = express();
 app.use(express.json());
 
-app.use(userRoutes)
+app.use('/user', userRoutes)
 
 app.use(ErrorHandler.handle)
 

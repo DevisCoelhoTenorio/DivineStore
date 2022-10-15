@@ -4,5 +4,5 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRoutes = void 0;
-var UserRoutes_1 = __importDefault(require("./UserRoutes"));
+const UserRoutes_1 = __importDefault(require("./UserRoutes"));
 exports.userRoutes = UserRoutes_1.default;

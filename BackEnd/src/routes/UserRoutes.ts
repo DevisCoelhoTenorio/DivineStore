@@ -1,14 +1,13 @@
 import { Router } from "express";
-// import { UserController } from '../controllers'
-// import UserRepository from '../model'
-// import UserService from '../services'
+import  UserController  from '../controllers/UserController'
+import UserService from '../services/UserService';
 
 const router = Router();
 
-// const repository = new UserPository();
-// const service = new UserService(repository)
-// const controller = new UserController(service)
+const userService = new UserService();
+const userController = new UserController(userService);
 
-router.post('/',)
+router.get('/',  userController.findAll)
+router.post('/', userController.create)
 
 export default router;

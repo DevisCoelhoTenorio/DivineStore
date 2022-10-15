@@ -22,23 +22,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const promise_1 = __importDefault(require("mysql2/promise"));
-const AbstractConnection_1 = __importDefault(require("./AbstractConnection"));
-const dotenv = __importStar(require("dotenv"));
-dotenv.config({ path: __dirname + '/.env' });
-class MySQLConnection extends AbstractConnection_1.default {
-    connect() {
-        const connection = MySQLConnection.connection = promise_1.default.createPool({
-            host: process.env.MYSQL_HOST || 'localhost',
-            user: process.env.MYSQL_USE || 'root',
-            password: process.env.MYSQL_ROOT_PASSWOR || 'password',
-            database: process.env.MYSQL_DB_NAME || 'divineStore_db',
-        });
-        return connection;
-    }
-}
-exports.default = MySQLConnection;
+const sequelize_1 = require("sequelize");
+const config = __importStar(require("../config/database"));
+exports.default = new sequelize_1.Sequelize(config);

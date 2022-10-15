@@ -7,8 +7,8 @@ dotenv.config({path: __dirname+'/.env'})
 const database = new MySQLConnection();
 
 database.connect().getConnection().then(_result => {
-    app.listen(process.env.MYSQL_PORT || 3306);
-    console.log(`Server start in port ${process.env.MYSQL_PORT || 3306}`);
+    app.listen(process.env.PORT || 3000);
+    console.log(`Server start in port ${process.env.PORT || 3000}`);
     
 }).catch(error => {
     console.log(error);

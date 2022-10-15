@@ -1,12 +1,16 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-// import { UserController } from '../controllers'
+const express_1 = require("express");
+const UserController_1 = __importDefault(require("../controllers/UserController"));
 // import UserRepository from '../model'
 // import UserService from '../services'
-var router = (0, express_1.Router)();
+const router = (0, express_1.Router)();
+const userController = new UserController_1.default();
 // const repository = new UserPository();
 // const service = new UserService(repository)
 // const controller = new UserController(service)
-router.post('/');
+router.get('/', userController.findAll);
 exports.default = router;
