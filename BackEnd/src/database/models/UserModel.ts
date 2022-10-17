@@ -1,3 +1,4 @@
+import { BOOLEAN } from 'sequelize';
 import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.'
 
@@ -20,6 +21,10 @@ User.init({
     },
     password: {
         type: STRING,
+        allowNull: false,
+    },
+    admin: {
+        type: BOOLEAN,
         allowNull: false,
     }
 }, {
