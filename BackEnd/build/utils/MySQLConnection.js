@@ -27,9 +27,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const promise_1 = __importDefault(require("mysql2/promise"));
-const AbstractConnection_1 = __importDefault(require("./AbstractConnection"));
 const dotenv = __importStar(require("dotenv"));
-dotenv.config({ path: __dirname + '/.env' });
+const AbstractConnection_1 = __importDefault(require("./AbstractConnection"));
+dotenv.config({ path: `${__dirname}/.env` });
 class MySQLConnection extends AbstractConnection_1.default {
     connect() {
         const connection = MySQLConnection.connection = promise_1.default.createPool({

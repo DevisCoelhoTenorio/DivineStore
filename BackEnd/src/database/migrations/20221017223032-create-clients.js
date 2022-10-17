@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('clients', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,21 +11,20 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       email: {
+        type: Sequelize.STRING(50)
+      },
+      name: {
         allowNull: false,
         type: Sequelize.STRING(50)
       },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING(30)
-      },
-      admin: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+      phoneNumber: {
+        field: 'phone_number',
+        type: Sequelize.STRING,
       }
     })
   },
 
   async down (queryInterface, _Sequelize) {
-    await queryInterface.dropTable('users')
+    await queryInterface.dropTable('clients');
   }
 };

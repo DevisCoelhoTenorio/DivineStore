@@ -12,13 +12,10 @@ class UserService {
             });
             return foundAllUsers;
         };
+        this.create = async ({ email, password }) => {
+            const result = await UserModel_1.default.create({ email, password });
+            return result;
+        };
     }
 }
 exports.default = UserService;
-// const findAll = async (): Promise<IUser[]> => {
-//     const result = await UserModel.findAll({
-//         attributes: { exclude: ['password']}
-//     })
-//     return result
-// }
-// export default findAll;

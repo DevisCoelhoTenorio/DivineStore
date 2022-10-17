@@ -2,15 +2,16 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up (queryInterface, _Sequelize) {
     await queryInterface.bulkInsert('users', [
       {
         email: 'barbaratenorio@gmail.com',
-        password: '12345'
+        password: '12345',
+        admin: true
       },
       {
         email: 'devistenorio@gmail.com',
-        password: '12345'
+        password: '12345',
       },
       {
         email: 'arthurcoelho@gmail.com',
@@ -19,7 +20,7 @@ module.exports = {
     ])
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface, _Sequelize) {
    await queryInterface.bulkDelete('users', null, {});
   }
 };
