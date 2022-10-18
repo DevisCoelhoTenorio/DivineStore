@@ -1,11 +1,8 @@
 {
   "name": "backend",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "engineStrict": true,
   "scripts": {
     "build": "tsc",
@@ -23,10 +20,13 @@
     "@types/node": "^18.8.5",
     "@types/nodemon": "^1.19.2",
     "@types/sequelize": "^4.28.14",
-    "eslint": "6.8.0",
-    "eslint-config-airbnb-base": "14.2.0",
-    "eslint-config-trybe-backend": "1.0.3",
-    "eslint-plugin-import": "2.22.1",
+    "@typescript-eslint/eslint-plugin": "5.3.1",
+    "@typescript-eslint/parser": "5.3.1",
+    "eslint": "7.32.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-airbnb-typescript": "15.0.0",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-sonarjs": "0.10.0",
     "mysql2": "^2.3.3",
     "sequelize-cli": "^6.5.1",
     "ts-node-dev": "1.1.8",
