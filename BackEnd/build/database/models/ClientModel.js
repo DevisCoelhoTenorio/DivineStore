@@ -24,6 +24,12 @@ Client.init({
     phoneNumber: {
         type: sequelize_1.STRING,
     },
+    updatedAt: {
+        type: sequelize_1.DATE
+    },
+    createAt: {
+        type: sequelize_1.DATE
+    }
 }, {
     sequelize: _1.default,
     underscored: true,

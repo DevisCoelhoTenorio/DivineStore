@@ -1,14 +1,17 @@
 import { Model, INTEGER, STRING, DATE } from 'sequelize';
 import db from '.'
 
-class Client extends Model {
+class Product extends Model {
   id!: number;
   name!: string;
-  email!: string;
-  phone_number!: string;
+  price!: string;
+  description!: string;
+  categoryId!: number;
+  createdAt!: Date;
+  UpdatedAt!: Date;
 }
 
-Client.init({
+Product.init({
   id: {
     type: INTEGER,
     allowNull: false,
@@ -19,11 +22,16 @@ Client.init({
     type: STRING,
     allowNull: false,
   },
-  email: {
+  price: {
+    type: STRING,
+    allowNull: false,
+  },
+  description: {
     type: STRING,
   },
-  phoneNumber: {
-    type: STRING,
+  categoryId: {
+    type: INTEGER,
+    allowNull: false,
   },
   updatedAt: {
     type: DATE
@@ -34,7 +42,7 @@ Client.init({
 }, {
     sequelize: db,
     underscored: true,
-    modelName: 'clients'
+    modelName: 'products',
 })
 
-export default Client;
+export default Product;

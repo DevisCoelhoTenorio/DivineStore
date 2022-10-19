@@ -5,33 +5,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const _1 = __importDefault(require("."));
-class User extends sequelize_1.Model {
+class Inventory extends sequelize_1.Model {
 }
-User.init({
-    id: {
+Inventory.init({
+    productId: {
         type: sequelize_1.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
     },
-    name: {
-        type: sequelize_1.STRING,
+    sizeId: {
+        type: sequelize_1.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+    },
+    quantity: {
+        type: sequelize_1.INTEGER,
         allowNull: false,
     },
-    email: {
-        type: sequelize_1.STRING,
-        allowNull: false,
+    updatedAt: {
+        type: sequelize_1.DATE
     },
-    password: {
-        type: sequelize_1.STRING,
-        allowNull: false,
-    },
-    admin: {
-        type: sequelize_1.BOOLEAN,
+    createAt: {
+        type: sequelize_1.DATE
     }
 }, {
     sequelize: _1.default,
-    modelName: 'users',
-    timestamps: false,
+    underscored: true,
+    modelName: 'inventories',
 });
-exports.default = User;
+exports.default = Inventory;

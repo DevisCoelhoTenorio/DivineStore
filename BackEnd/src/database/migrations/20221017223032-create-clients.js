@@ -20,6 +20,12 @@ module.exports = {
       phoneNumber: {
         field: 'phone_number',
         type: Sequelize.STRING,
+      },
+      updatedAt: {
+        type: Sequelize.DATE
+      },
+      createAt: {
+        type: Sequelize.DATE
       }
     })
   },

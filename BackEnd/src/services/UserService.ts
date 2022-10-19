@@ -1,5 +1,3 @@
-
-import { CreateOptions } from 'sequelize';
 import UserModel from '../database/models/UserModel';
 import { IUser } from '../interfaces/IUser';
 
