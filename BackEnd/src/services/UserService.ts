@@ -1,5 +1,5 @@
 import UserModel from '../database/models/UserModel';
-import { IUser } from '../interfaces/IUser';
+import { IUser } from '../interfaces';
 
 export default class UserService {
    

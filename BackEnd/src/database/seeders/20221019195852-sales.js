@@ -27,7 +27,15 @@ module.exports = {
         price: '160,50',
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
-      }
+      },
+      {
+        order_id: 1,
+        product_id: 3,
+        quantity: 10,
+        price: '150,50',
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
     ])
   },
 

@@ -1,13 +1,26 @@
+import Client from '../database/models/ClientModel';
 import OrderModel from '../database/models/OrderModel';
-import { IOrder } from '../interfaces/IOrder';
+import PaymentMethod from '../database/models/PaymentMethodModel';
+import { IOrder } from '../interfaces';
 
 export default class OrderService {
    
     public findAll = async(): Promise<IOrder[]> => {
 
-        const foundAllOrder = await OrderModel.findAll()
+        const result = await OrderModel.findAll({
+            include: [{
+                model: Client,
+                as: 'client',
+                attributes: { exclude: ['updatedAt', 'createAt'] }
+            },
+            {
+                model: PaymentMethod,
+                as: 'paymentMethod',
+            }
+        ]
+        })
         
-        return foundAllOrder;
+        return result;
     }
     // public create = async({ email, password }: IUser):  Promise<IUser> => {
     //     const result = await UserModel.create({ email, password });

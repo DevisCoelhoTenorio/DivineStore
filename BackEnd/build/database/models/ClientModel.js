@@ -27,7 +27,7 @@ Client.init({
     updatedAt: {
         type: sequelize_1.DATE
     },
-    createAt: {
+    createdAt: {
         type: sequelize_1.DATE
     }
 }, {

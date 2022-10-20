@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const _1 = __importDefault(require("."));
+const OrderModel_1 = __importDefault(require("./OrderModel"));
+const ProductModel_1 = __importDefault(require("./ProductModel"));
 class Sale extends sequelize_1.Model {
 }
 Sale.init({
@@ -29,7 +31,7 @@ Sale.init({
     updatedAt: {
         type: sequelize_1.DATE
     },
-    createAt: {
+    createdAt: {
         type: sequelize_1.DATE
     }
 }, {
@@ -37,4 +39,10 @@ Sale.init({
     underscored: true,
     modelName: 'sales',
 });
+// // Order Association
+Sale.belongsTo(OrderModel_1.default, { foreignKey: 'orderId', as: 'order' });
+OrderModel_1.default.hasMany(Sale, { foreignKey: 'orderId', as: 'order' });
+// // Payment Association
+Sale.belongsTo(ProductModel_1.default, { foreignKey: 'productId', as: 'products' });
+ProductModel_1.default.hasMany(Sale, { foreignKey: 'productId', as: 'products' });
 exports.default = Sale;

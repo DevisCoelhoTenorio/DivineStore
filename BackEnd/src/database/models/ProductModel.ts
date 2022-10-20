@@ -1,5 +1,6 @@
 import { Model, INTEGER, STRING, DATE } from 'sequelize';
-import db from '.'
+import db from '.';
+import Category from './CategoryModel';
 
 class Product extends Model {
   id!: number;
@@ -36,13 +37,17 @@ Product.init({
   updatedAt: {
     type: DATE
   },
-  createAt: {
+  createdAt: {
     type: DATE
   }
 }, {
     sequelize: db,
     underscored: true,
     modelName: 'products',
-})
+});
+
+// Product-Category Association (N:1)
+Product.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
+Category.hasMany(Product, { foreignKey: 'categoryId', as: 'category' });
 
 export default Product;

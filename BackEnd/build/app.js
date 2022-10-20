@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const ErrorHandler_1 = require("./middlewares/ErrorHandler");
-const routes_1 = require("./routes");
+const routes_1 = __importDefault(require("./routes"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use('/user', routes_1.userRoutes);
+app.use(routes_1.default);
 app.use(ErrorHandler_1.ErrorHandler.handle);
 exports.default = app;

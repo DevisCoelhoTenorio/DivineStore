@@ -4,10 +4,10 @@ import UserService from "../services/UserService";
 
 const router = Router();
 
-const userService = new UserService();
-const userController = new UserController(userService);
+const service = new UserService();
+const controller = new UserController(service);
 
-router.get("/", userController.findAll);
-router.post("/", userController.create);
+router.get("/", controller.findAll);
+router.post("/", controller.create);
 
 export default router;

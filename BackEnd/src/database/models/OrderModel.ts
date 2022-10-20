@@ -1,8 +1,8 @@
 import { STRING } from 'sequelize';
-import { Model, INTEGER, DECIMAL, DATE } from 'sequelize';
+import { Model, INTEGER, DATE } from 'sequelize';
 import db from '.';
-import ClientModel from './ClientModel';
-import PaymentMethodModel from './PaymentMethodModel';
+import Client from './ClientModel';
+import PaymentMethod from './PaymentMethodModel';
 
 class Order extends Model {
   id!: number;
@@ -49,11 +49,11 @@ Order.init({
 })
 
 // // Client Association
-// Order.belongsTo(ClientModel, { foreignKey: 'id', as: 'clientId' });
-// ClientModel.hasMany(Order, { foreignKey: 'id', as: 'clientId'});
+Order.belongsTo(Client, { foreignKey: 'clientId', as: 'client' });
+Client.hasMany(Order, { foreignKey: 'clientId', as: 'client' });
 
 // // Payment Association
-// PaymentMethodModel.hasMany(Order, { foreignKey: 'id', as: 'methodId' });
-// Order.belongsTo(PaymentMethodModel, { foreignKey: 'id', as: 'methodId' });
+Order.belongsTo(PaymentMethod, { foreignKey: 'methodId', as: 'paymentMethod' });
+PaymentMethod.hasMany(Order, { foreignKey: 'methodId', as: 'paymentMethod' });
 
 export default Order;

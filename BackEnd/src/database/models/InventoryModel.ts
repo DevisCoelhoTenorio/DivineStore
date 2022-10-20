@@ -1,12 +1,14 @@
 import { Model, INTEGER, DATE } from 'sequelize';
 import db from '.'
+import Product from './ProductModel';
+import Size from './SizeModel';
 
 class Inventory extends Model {
   productId!: number;
-  sizeId!: string;
+  sizeId!: number;
   quantity!: number;
   createdAt!: Date;
-  UpdatedAt!: Date;
+  updatedAt!: Date;
 }
 
 Inventory.init({
@@ -27,7 +29,7 @@ Inventory.init({
   updatedAt: {
     type: DATE
   },
-  createAt: {
+  createdAt: {
     type: DATE
   }
 }, {
@@ -35,5 +37,13 @@ Inventory.init({
     underscored: true,
     modelName: 'inventories',
 })
+
+// // Product Association
+Inventory.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
+Product.hasMany(Inventory, { foreignKey: 'productId', as: 'product' });
+
+// // Payment Association
+Inventory.belongsTo(Size, { foreignKey: 'sizeId', as: 'size' });
+Size.hasMany(Inventory, { foreignKey: 'sizeId', as: 'size' });
 
 export default Inventory;

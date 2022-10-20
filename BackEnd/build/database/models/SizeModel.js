@@ -14,12 +14,13 @@ Size.init({
         primaryKey: true,
         autoIncrement: true,
     },
-    size: {
+    name: {
         type: sequelize_1.STRING,
         allowNull: false,
     },
 }, {
     sequelize: _1.default,
-    modelName: 'sizes'
+    modelName: 'sizes',
+    timestamps: false
 });
 exports.default = Size;

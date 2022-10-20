@@ -1,13 +1,13 @@
 import { Router } from "express";
-import OrderController from "../controllers/OrderController";
-import OrderService from "../services/OrderService";
+import { OrderController } from "../controllers";
+import { OrderService } from "../services";
 
 const router = Router();
 
-const orderService = new OrderService();
-const orderController = new OrderController(orderService);
+const service = new OrderService();
+const controller = new OrderController(service);
 
-router.get("/", orderController.findAll);
+router.get("/", controller.findAll);
 // router.post("/", userController.create);
 
 export default router;

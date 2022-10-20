@@ -5,7 +5,9 @@ class Client extends Model {
   id!: number;
   name!: string;
   email!: string;
-  phone_number!: string;
+  phoneNumber!: string;
+  updatedAt!: Date;
+  createdAt!: Date;
 }
 
 Client.init({
@@ -28,7 +30,7 @@ Client.init({
   updatedAt: {
     type: DATE
   },
-  createAt: {
+  createdAt: {
     type: DATE
   }
 }, {

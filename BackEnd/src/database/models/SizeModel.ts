@@ -3,7 +3,7 @@ import db from '.'
 
 class Size extends Model {
   id!: number;
-  size!: string;
+  name!: string;
 }
 
 Size.init({
@@ -13,13 +13,14 @@ Size.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  size: {
+  name: {
     type: STRING,
     allowNull: false,
   },
 }, {
     sequelize: db,
-    modelName: 'sizes'
+    modelName: 'sizes',
+    timestamps: false
 })
 
 export default Size;

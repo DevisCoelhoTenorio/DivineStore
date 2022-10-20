@@ -10,14 +10,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      method: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING
       }
     })
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface, _Sequelize) {
     await queryInterface.dropTable('paymentMethods');
   }
 };

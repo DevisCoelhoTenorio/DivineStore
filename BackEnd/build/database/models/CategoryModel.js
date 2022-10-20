@@ -14,12 +14,13 @@ Category.init({
         primaryKey: true,
         autoIncrement: true,
     },
-    category: {
+    name: {
         type: sequelize_1.STRING,
         allowNull: false,
     },
 }, {
     sequelize: _1.default,
-    modelName: 'categories'
+    modelName: 'categories',
+    timestamps: false
 });
 exports.default = Category;

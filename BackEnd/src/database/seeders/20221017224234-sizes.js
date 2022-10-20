@@ -5,16 +5,16 @@ module.exports = {
   async up (queryInterface, _Sequelize) {
     await queryInterface.bulkInsert('sizes', [
       {
-        size: 'P'
+        name: 'P'
       },
       {
-        size: 'M'
+        name: 'M'
       },
       {
-        size: 'G'
+        name: 'G'
       },
       {
-        size: 'GG'
+        name: 'GG'
       }
     ])
   },

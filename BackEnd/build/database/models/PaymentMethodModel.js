@@ -14,12 +14,13 @@ PaymentMethod.init({
         primaryKey: true,
         autoIncrement: true,
     },
-    method: {
+    name: {
         type: sequelize_1.STRING,
         allowNull: false,
     },
 }, {
     sequelize: _1.default,
-    modelName: 'paymentMethods'
+    modelName: 'paymentMethods',
+    timestamps: false
 });
 exports.default = PaymentMethod;

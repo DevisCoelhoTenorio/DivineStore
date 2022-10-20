@@ -5,19 +5,19 @@ module.exports = {
   async up (queryInterface, _Sequelize) {
     await queryInterface.bulkInsert('categories', [
       {
-        category: 'Short'
+        name: 'Short'
       },
       {
-        category: 'Camisa'
+        name: 'Camisa'
       },
       {
-        category: 'Calca'
+        name: 'Calca'
       },
       {
-        category: 'Saia'
+        name: 'Saia'
       },
       {
-        category: 'Vestido'
+        name: 'Vestido'
       }
     ])
   },

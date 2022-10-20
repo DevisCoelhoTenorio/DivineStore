@@ -3,7 +3,7 @@ import db from '.'
 
 class PaymentMethod extends Model {
   id!: number;
-  category!: string;
+  name!: string;
 }
 
 PaymentMethod.init({
@@ -13,13 +13,14 @@ PaymentMethod.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  method: {
+  name: {
     type: STRING,
     allowNull: false,
   },
 }, {
     sequelize: db,
-    modelName: 'paymentMethods'
+    modelName: 'paymentMethods',
+    timestamps: false
 })
 
 export default PaymentMethod;

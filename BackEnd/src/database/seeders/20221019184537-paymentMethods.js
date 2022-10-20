@@ -5,16 +5,16 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('paymentMethods', [
       {
-        method: 'Pix'
+        name: 'Pix'
       },
       {
-        method: 'Cartão de Crédito'
+        name: 'Cartão de Crédito'
       },
       {
-        method: 'Cartão de Débito'
+        name: 'Cartão de Débito'
       },
       {
-        method: 'Dinheiro'
+        name: 'Dinheiro'
       }
     ])
   },

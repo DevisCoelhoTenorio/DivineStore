@@ -22,9 +22,11 @@ module.exports = {
         type: Sequelize.STRING,
       },
       updatedAt: {
+        field: 'updated_at',
         type: Sequelize.DATE
       },
-      createAt: {
+     createdAt: {
+        field: 'created_at',
         type: Sequelize.DATE
       }
     })

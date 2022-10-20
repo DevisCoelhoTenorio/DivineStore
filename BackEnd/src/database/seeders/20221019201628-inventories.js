@@ -7,7 +7,7 @@ module.exports = {
       {
         product_id: 1,
         size_id: 3,
-        quantity: 10,
+        quantity: 0,
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
       },

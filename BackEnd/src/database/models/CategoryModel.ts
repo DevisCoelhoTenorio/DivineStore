@@ -3,7 +3,7 @@ import db from '.'
 
 class Category extends Model {
   id!: number;
-  category!: string;
+  name!: string;
 }
 
 Category.init({
@@ -13,13 +13,14 @@ Category.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  category: {
+  name: {
     type: STRING,
     allowNull: false,
   },
 }, {
     sequelize: db,
-    modelName: 'categories'
+    modelName: 'categories',
+    timestamps: false
 })
 
 export default Category;
