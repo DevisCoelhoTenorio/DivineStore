@@ -9,8 +9,4 @@ export default class SizeService {
         
         return result;
     }
-    // public create = async({ email, password }: IUser):  Promise<IUser> => {
-    //     const result = await CategoryModel.create({ email, password });
-    //     return result
-    // }
 }

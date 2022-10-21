@@ -22,8 +22,4 @@ export default class OrderService {
         
         return result;
     }
-    // public create = async({ email, password }: IUser):  Promise<IUser> => {
-    //     const result = await UserModel.create({ email, password });
-    //     return result
-    // }
 }

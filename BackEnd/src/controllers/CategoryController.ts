@@ -1,16 +1,17 @@
 import { CategoryService } from '../services';
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { ICustomRequest } from '../interfaces';
 import 'express-async-errors'
 
-export default class SizeController {
+export default class CategoryController {
     constructor(private service: CategoryService) {}
 
-    public findAll = async (_req: Request, res: Response): Promise<void> => {
-        const result = await this.service.findAll();
+    public findAll = async (req: ICustomRequest, res: Response): Promise<void> => {
+        const result = await this.service.findAll(req.body);
         res.status(200).json(result);
     }
-    // public create = async (req: Request, res: Response) : Promise<void> => {
-    //     const result = await this.userService.create(req.body)
-    //     res.status(201).json(result);
-    // }
+    public create = async (req: ICustomRequest, res: Response) : Promise<void> => {
+        const result = await this.service.create(req.body)
+        res.status(201).json(result);
+    }
 }

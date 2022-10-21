@@ -4,7 +4,7 @@ import CategoryController from './CategoryController';
 import ProductController from './ProductController';
 import ClientController from './ClientController'
 import PaymentMethodController from './PaymentMethod';
-import SizeController from './CategoryController';
+import SizeController from './SizeController';
 import SaleController from './SaleController';
 import InventoryController from './InventoryController';
 

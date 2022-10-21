@@ -7,9 +7,9 @@ import { IInventory } from '../interfaces';
 
 export default class InventoryService {
    
-    public findAll = async(inStock = 'true'): Promise<IInventory[]> => {
+    public findAll = async(inStock = true): Promise<IInventory[]> => {
 
-        const confRequest = inStock === 'true' ? { [Op.gt]: 0 } : 0
+        const confRequest = inStock  ? { [Op.gt]: 0 } : 0
 
         const result = await InventoryModel.findAll({
             where: {quantity: confRequest },
@@ -36,8 +36,4 @@ export default class InventoryService {
         
         return result;
     }
-    // public create = async({ email, password }: IUser):  Promise<IUser> => {
-    //     const result = await CategoryModel.create({ email, password });
-    //     return result
-    // }
 }

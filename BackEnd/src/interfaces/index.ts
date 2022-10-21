@@ -7,6 +7,8 @@ import { IPaymentMethods } from "./IPaymentMethod";
 import { ISize } from "./ISize";
 import { ISale } from "./ISale";
 import { IInventory } from "./IInventory";
+import { IStatusCode } from './IStatusCode'
+import { ICustomRequest } from './ICustomRequest';
 
 export { 
     ICategory,
@@ -18,4 +20,6 @@ export {
     ISize,
     ISale,
     IInventory,
+    IStatusCode,
+    ICustomRequest,
 }

@@ -4,11 +4,11 @@ import Product from './ProductModel';
 import Size from './SizeModel';
 
 class Inventory extends Model {
-  productId!: number;
-  sizeId!: number;
-  quantity!: number;
-  createdAt!: Date;
-  updatedAt!: Date;
+  declare productId: number;
+  declare sizeId: number;
+  declare quantity: number;
+  declare createdAt: Date;
+  declare updatedAt: Date;
 }
 
 Inventory.init({

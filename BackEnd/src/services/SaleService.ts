@@ -23,8 +23,5 @@ export default class SaleService {
         
         return result;
     }
-    // public create = async({ email, password }: IUser):  Promise<IUser> => {
-    //     const result = await CategoryModel.create({ email, password });
-    //     return result
-    // }
+   
 }
