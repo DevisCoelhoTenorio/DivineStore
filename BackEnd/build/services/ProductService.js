@@ -4,23 +4,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ProductModel_1 = __importDefault(require("../database/models/ProductModel"));
+const PhotoModel_1 = __importDefault(require("../database/models/PhotoModel"));
 const CategoryModel_1 = __importDefault(require("../database/models/CategoryModel"));
+const models_1 = __importDefault(require("../database/models"));
 class ProductService {
     constructor() {
-        this.findAll = async () => {
+        this.findAll = async (search = {}) => {
             const foundProducts = await ProductModel_1.default.findAll({
+                where: search,
                 attributes: { exclude: ['categoryId'] },
-                include: {
-                    model: CategoryModel_1.default,
-                    as: 'category',
-                    attributes: ['name']
-                },
+                include: [{
+                        model: CategoryModel_1.default,
+                        as: 'category',
+                        attributes: ['name']
+                    }, {
+                        model: PhotoModel_1.default,
+                        as: 'photos',
+                        attributes: ['img', 'thumbnail']
+                    }],
             });
             return foundProducts;
         };
         this.create = async (newProduct) => {
-            const result = await ProductModel_1.default.create({ ...newProduct });
-            return result;
+            const { photos } = newProduct;
+            const id = await models_1.default.transaction(async (t) => {
+                const { id } = await ProductModel_1.default.create({ ...newProduct }, { transaction: t });
+                const photos2 = photos.map((photo) => ({ ...photo, productId: id }));
+                await PhotoModel_1.default.bulkCreate(photos2, { transaction: t });
+                return id;
+            });
+            const result = await this.findAll({ id });
+            return result[0];
         };
     }
 }

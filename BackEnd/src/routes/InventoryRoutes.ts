@@ -8,7 +8,7 @@ const router = Router();
 const service = new InventoryService();
 const controller = new InventoryController(service);
 
-router.get("/", validation.find , controller.findAll);
+router.get("/", validation.find , controller.find);
 // router.post("/", controller.create);
 
 export default router;

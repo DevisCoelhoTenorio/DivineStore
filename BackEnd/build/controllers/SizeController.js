@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("express-async-errors");
-class CategoryController {
+class SizeController {
     constructor(service) {
         this.service = service;
         this.findAll = async (_req, res) => {
@@ -10,4 +10,4 @@ class CategoryController {
         };
     }
 }
-exports.default = CategoryController;
+exports.default = SizeController;

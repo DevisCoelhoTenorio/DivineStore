@@ -7,6 +7,7 @@ class Product extends Model {
   name!: string;
   price!: string;
   description!: string;
+  promotion!: number;
   categoryId!: number;
   createdAt!: Date;
   UpdatedAt!: Date;
@@ -29,6 +30,9 @@ Product.init({
   },
   description: {
     type: STRING,
+  },
+  promotion: {
+    type: INTEGER,
   },
   categoryId: {
     type: INTEGER,

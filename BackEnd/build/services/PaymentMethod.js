@@ -10,10 +10,15 @@ class PaymentMethodService {
             const result = await PaymentMethodModel_1.default.findAll();
             return result;
         };
-        // public create = async({ email, password }: IUser):  Promise<IUser> => {
-        //     const result = await UserModel.create({ email, password });
-        //     return result
-        // }
+        this.create = async (method) => {
+            const result = await PaymentMethodModel_1.default.create({ method });
+            return result;
+        };
+        this.delete = async (id) => {
+            await PaymentMethodModel_1.default.destroy({
+                where: { id },
+            });
+        };
     }
 }
 exports.default = PaymentMethodService;

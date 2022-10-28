@@ -4,8 +4,9 @@ require("express-async-errors");
 class InventoryController {
     constructor(service) {
         this.service = service;
-        this.findAll = async (_req, res) => {
-            const result = await this.service.findAll();
+        this.find = async (req, res) => {
+            const { inStock } = req.body;
+            const result = await this.service.find(inStock);
             res.status(200).json(result);
         };
     }

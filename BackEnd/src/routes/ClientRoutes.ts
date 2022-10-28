@@ -8,7 +8,7 @@ const router = Router();
 const service = new ClientService();
 const controller = new ClientController(service);
 
-router.get("/", controller.findAll);
+router.get("/", controller.find);
 router.post("/", validation.create, controller.create);
 
 export default router;

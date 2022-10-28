@@ -8,7 +8,7 @@ const router = Router();
 const service = new CategoryService();
 const controller = new CategoryController(service);
 
-router.get("/", validation.find, controller.findAll);
+router.get("/", validation.find, controller.find);
 router.post("/", validation.create, controller.create);
 
 export default router;

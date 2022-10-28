@@ -9,6 +9,7 @@ module.exports = {
         price: '600,45',
         description: 'Longo com manga grande',
         category_id: 3,
+        promotion: 10,
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
       },

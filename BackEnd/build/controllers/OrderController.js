@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("express-async-errors");
-class UserController {
+class OrderController {
     constructor(service) {
         this.service = service;
         this.findAll = async (_req, res) => {
@@ -10,4 +10,4 @@ class UserController {
         };
     }
 }
-exports.default = UserController;
+exports.default = OrderController;

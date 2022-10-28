@@ -4,7 +4,7 @@ import CustomError from '../utils/CustomError';
 
 export default class CategoryService {
    
-    public findAll = async(search = {}): Promise<ICategory[]> => {
+    public find = async(search = {}): Promise<ICategory[]> => {
         
         const result = await CategoryModel.findAll({
             where: search
@@ -15,7 +15,7 @@ export default class CategoryService {
 
     public create = async({ name }: ICategory):  Promise<ICategory> => {
     
-        const checkName = await this.findAll({ name });
+        const checkName = await this.find({ name });
         if(checkName.length > 1) {
             throw new CustomError('This category already exists', 'category.exists');
             

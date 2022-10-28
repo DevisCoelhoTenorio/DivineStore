@@ -26,6 +26,9 @@ Product.init({
     description: {
         type: sequelize_1.STRING,
     },
+    promotion: {
+        type: sequelize_1.INTEGER,
+    },
     categoryId: {
         type: sequelize_1.INTEGER,
         allowNull: false,

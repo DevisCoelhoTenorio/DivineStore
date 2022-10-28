@@ -10,9 +10,10 @@ const ProductModel_1 = __importDefault(require("../database/models/ProductModel"
 const SizeModel_1 = __importDefault(require("../database/models/SizeModel"));
 class InventoryService {
     constructor() {
-        this.findAll = async () => {
+        this.find = async (inStock = true) => {
+            const confRequest = inStock ? { [sequelize_1.Op.gt]: 0 } : 0;
             const result = await InventoryModel_1.default.findAll({
-                where: { quantity: { [sequelize_1.Op.gt]: 0 } },
+                where: { quantity: confRequest },
                 attributes: { exclude: ['productId', 'sizeId'] },
                 include: [{
                         model: ProductModel_1.default,
@@ -35,10 +36,6 @@ class InventoryService {
             });
             return result;
         };
-        // public create = async({ email, password }: IUser):  Promise<IUser> => {
-        //     const result = await CategoryModel.create({ email, password });
-        //     return result
-        // }
     }
 }
 exports.default = InventoryService;

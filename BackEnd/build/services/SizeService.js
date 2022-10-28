@@ -10,10 +10,6 @@ class SizeService {
             const result = await SizeModel_1.default.findAll();
             return result;
         };
-        // public create = async({ email, password }: IUser):  Promise<IUser> => {
-        //     const result = await CategoryModel.create({ email, password });
-        //     return result
-        // }
     }
 }
 exports.default = SizeService;

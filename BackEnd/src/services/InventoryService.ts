@@ -7,7 +7,7 @@ import { IInventory } from '../interfaces';
 
 export default class InventoryService {
    
-    public findAll = async(inStock = true): Promise<IInventory[]> => {
+    public find = async(inStock = true): Promise<IInventory[]> => {
 
         const confRequest = inStock  ? { [Op.gt]: 0 } : 0
 

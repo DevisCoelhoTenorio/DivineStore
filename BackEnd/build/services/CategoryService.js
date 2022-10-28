@@ -4,16 +4,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const CategoryModel_1 = __importDefault(require("../database/models/CategoryModel"));
+const CustomError_1 = __importDefault(require("../utils/CustomError"));
 class CategoryService {
     constructor() {
-        this.findAll = async () => {
-            const result = await CategoryModel_1.default.findAll();
+        this.find = async (search = {}) => {
+            const result = await CategoryModel_1.default.findAll({
+                where: search
+            });
             return result;
         };
-        // public create = async({ email, password }: IUser):  Promise<IUser> => {
-        //     const result = await CategoryModel.create({ email, password });
-        //     return result
-        // }
+        this.create = async ({ name }) => {
+            const checkName = await this.find({ name });
+            if (checkName.length > 1) {
+                throw new CustomError_1.default('This category already exists', 'category.exists');
+            }
+            const result = await CategoryModel_1.default.create({ name });
+            return result;
+        };
     }
 }
 exports.default = CategoryService;
