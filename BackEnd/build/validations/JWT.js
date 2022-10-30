@@ -27,3 +27,4 @@ const authTokenValidation = (token) => {
     }
 };
 exports.authTokenValidation = authTokenValidation;
+//# sourceMappingURL=JWT.js.map

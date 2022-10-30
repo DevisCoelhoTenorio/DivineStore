@@ -1,18 +1,18 @@
-import { ClientService } from '../services';
 import { Response } from 'express';
+import { ClientService } from '../services';
 import { ICustomRequest } from '../interfaces';
-import 'express-async-errors'
+import 'express-async-errors';
 
 export default class ClientController {
-    constructor(private service: ClientService) {}
+  constructor(private service: ClientService) {}
 
-    public find = async (req: ICustomRequest, res: Response): Promise<void> => {
-        const result = await this.service.find(req.body);
-        res.status(200).json(result);
-    }
+  public find = async (req: ICustomRequest, res: Response): Promise<void> => {
+    const result = await this.service.find(req.body);
+    res.status(200).json(result);
+  };
 
-    public create = async (req: ICustomRequest, res: Response): Promise<void> => {
-        const result = await this.service.create(req.body);
-        res.status(201).json(result);
-    }
+  public create = async (req: ICustomRequest, res: Response): Promise<void> => {
+    const result = await this.service.create(req.body);
+    res.status(201).json(result);
+  };
 }

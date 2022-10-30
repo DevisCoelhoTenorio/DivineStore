@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 import userRoutes from './UserRoutes';
 import orderRoutes from './OrderRoutes';
 import categoryRoutes from './CategoryRoutes';
@@ -21,4 +21,4 @@ routes.use('/size', sizeRoutes);
 routes.use('/sale', saleRoutes);
 routes.use('/inventory', inventoryRoutes);
 
-export default routes
+export default routes;

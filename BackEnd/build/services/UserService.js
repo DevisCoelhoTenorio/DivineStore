@@ -9,7 +9,7 @@ class UserService {
         this.findAll = async (id) => {
             const foundAllUsers = await UserModel_1.default.findAll({
                 where: { id },
-                attributes: { exclude: ['password'] }
+                attributes: { exclude: ['password'] },
             });
             return foundAllUsers;
         };
@@ -28,3 +28,4 @@ class UserService {
     }
 }
 exports.default = UserService;
+//# sourceMappingURL=UserService.js.map

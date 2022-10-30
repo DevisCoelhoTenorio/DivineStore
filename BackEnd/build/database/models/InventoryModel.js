@@ -42,3 +42,4 @@ ProductModel_1.default.hasMany(Inventory, { foreignKey: 'productId', as: 'produc
 Inventory.belongsTo(SizeModel_1.default, { foreignKey: 'sizeId', as: 'size' });
 SizeModel_1.default.hasMany(Inventory, { foreignKey: 'sizeId', as: 'size' });
 exports.default = Inventory;
+//# sourceMappingURL=InventoryModel.js.map

@@ -14,3 +14,4 @@ const find = (req, _res, next) => {
 exports.default = {
     find,
 };
+//# sourceMappingURL=inventoryValidation.js.map

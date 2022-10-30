@@ -13,16 +13,17 @@ class OrderService {
                 include: [{
                         model: ClientModel_1.default,
                         as: 'client',
-                        attributes: { exclude: ['updatedAt', 'createAt'] }
+                        attributes: { exclude: ['updatedAt', 'createAt'] },
                     },
                     {
                         model: PaymentMethodModel_1.default,
                         as: 'paymentMethod',
-                    }
-                ]
+                    },
+                ],
             });
             return result;
         };
     }
 }
 exports.default = OrderService;
+//# sourceMappingURL=OrderService.js.map

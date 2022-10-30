@@ -9,7 +9,7 @@ class CategoryService {
     constructor() {
         this.find = async (search = {}) => {
             const result = await CategoryModel_1.default.findAll({
-                where: search
+                where: search,
             });
             return result;
         };
@@ -24,3 +24,4 @@ class CategoryService {
     }
 }
 exports.default = CategoryService;
+//# sourceMappingURL=CategoryService.js.map

@@ -11,3 +11,4 @@ class SizeController {
     }
 }
 exports.default = SizeController;
+//# sourceMappingURL=SizeController.js.map

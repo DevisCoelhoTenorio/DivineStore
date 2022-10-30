@@ -10,3 +10,4 @@ const inStockSchema = joi_1.default.object({
 exports.default = {
     inStockSchema,
 };
+//# sourceMappingURL=inventoryShemas.js.map

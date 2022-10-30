@@ -13,3 +13,4 @@ class SizeService {
     }
 }
 exports.default = SizeService;
+//# sourceMappingURL=SizeService.js.map

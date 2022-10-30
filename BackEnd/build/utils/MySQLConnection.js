@@ -31,14 +31,19 @@ const dotenv = __importStar(require("dotenv"));
 const AbstractConnection_1 = __importDefault(require("./AbstractConnection"));
 dotenv.config({ path: `${__dirname}/.env` });
 class MySQLConnection extends AbstractConnection_1.default {
-    connect() {
-        const connection = MySQLConnection.connection = promise_1.default.createPool({
+    constructor() {
+        super();
+        this.connection = promise_1.default.createPool({
             host: process.env.MYSQL_HOST || 'localhost',
             user: process.env.MYSQL_USE || 'root',
             password: process.env.MYSQL_ROOT_PASSWOR || 'password',
             database: process.env.MYSQL_DB_NAME || 'divineStore_db',
         });
+    }
+    connect() {
+        const { connection } = this;
         return connection;
     }
 }
 exports.default = MySQLConnection;
+//# sourceMappingURL=MySQLConnection.js.map

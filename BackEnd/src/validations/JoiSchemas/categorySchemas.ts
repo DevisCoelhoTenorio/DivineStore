@@ -1,16 +1,15 @@
-
 import Joi from 'joi';
 
 const find = Joi.object({
-    id: Joi.number(),
-    name: Joi.string(),
+  id: Joi.number(),
+  name: Joi.string(),
 });
 
 const create = Joi.object({
-    name: Joi.string().required(),
+  name: Joi.string().required(),
 });
 
 export default {
-    find,
-    create,
-}
+  find,
+  create,
+};

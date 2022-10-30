@@ -46,3 +46,4 @@ OrderModel_1.default.hasMany(Sale, { foreignKey: 'orderId', as: 'order' });
 Sale.belongsTo(ProductModel_1.default, { foreignKey: 'productId', as: 'products' });
 ProductModel_1.default.hasMany(Sale, { foreignKey: 'productId', as: 'products' });
 exports.default = Sale;
+//# sourceMappingURL=SaleModel.js.map

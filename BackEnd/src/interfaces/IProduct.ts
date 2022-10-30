@@ -1,4 +1,4 @@
-import { IPhoto } from './IPhoto'
+import { IPhoto } from './IPhoto';
 
 export interface ISimpleProduct {
   id: number;
@@ -11,9 +11,9 @@ export interface IProduct extends ISimpleProduct {
   name: string;
   price: string;
   description?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  
+  createdAt?: Date;
+  updatedAt?: Date;
+
 }
 
 export interface IFullProduct extends IProduct {

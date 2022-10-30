@@ -50,3 +50,4 @@ ClientModel_1.default.hasMany(Order, { foreignKey: 'clientId', as: 'client' });
 Order.belongsTo(PaymentMethodModel_1.default, { foreignKey: 'methodId', as: 'paymentMethod' });
 PaymentMethodModel_1.default.hasMany(Order, { foreignKey: 'methodId', as: 'paymentMethod' });
 exports.default = Order;
+//# sourceMappingURL=OrderModel.js.map

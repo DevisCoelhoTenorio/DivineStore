@@ -26,14 +26,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv = __importStar(require("dotenv"));
 const app_1 = __importDefault(require("./app"));
 const MySQLConnection_1 = __importDefault(require("./utils/MySQLConnection"));
-const dotenv = __importStar(require("dotenv"));
-dotenv.config({ path: __dirname + '/.env' });
+dotenv.config({ path: `${__dirname}/.env` });
 const database = new MySQLConnection_1.default();
-database.connect().getConnection().then(_result => {
+database.connect().getConnection().then((_result) => {
     app_1.default.listen(process.env.PORT || 3000);
     console.log(`Server start in port ${process.env.PORT || 3000}`);
-}).catch(error => {
+}).catch((error) => {
     console.log(error);
 });
+//# sourceMappingURL=server.js.map

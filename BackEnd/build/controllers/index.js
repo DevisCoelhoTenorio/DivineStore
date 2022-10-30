@@ -22,3 +22,4 @@ const SaleController_1 = __importDefault(require("./SaleController"));
 exports.SaleController = SaleController_1.default;
 const InventoryController_1 = __importDefault(require("./InventoryController"));
 exports.InventoryController = InventoryController_1.default;
+//# sourceMappingURL=index.js.map

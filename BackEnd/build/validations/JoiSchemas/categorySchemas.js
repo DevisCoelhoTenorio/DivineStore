@@ -15,3 +15,4 @@ exports.default = {
     find,
     create,
 };
+//# sourceMappingURL=categorySchemas.js.map

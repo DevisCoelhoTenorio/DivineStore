@@ -15,27 +15,22 @@ class InventoryService {
             const result = await InventoryModel_1.default.findAll({
                 where: { quantity: confRequest },
                 attributes: { exclude: ['productId', 'sizeId'] },
-                include: [{
-                        model: ProductModel_1.default,
+                include: [{ model: ProductModel_1.default,
                         as: 'product',
-                        include: [{
-                                attributes: { exclude: ['id'] },
-                                model: CategoryModel_1.default,
-                                as: 'category'
+                        include: [{ attributes: { exclude: ['id'] }, model: CategoryModel_1.default, as: 'category',
                             }],
                         attributes: {
-                            exclude: ['updatedAt', 'createdAt', 'categoryId', 'id']
-                        }
+                            exclude: ['updatedAt', 'createdAt', 'categoryId', 'id'],
+                        },
                     },
                     {
-                        attributes: { exclude: ['id'] },
-                        model: SizeModel_1.default,
-                        as: 'size',
-                    }
-                ]
+                        attributes: { exclude: ['id'] }, model: SizeModel_1.default, as: 'size',
+                    },
+                ],
             });
             return result;
         };
     }
 }
 exports.default = InventoryService;
+//# sourceMappingURL=InventoryService.js.map

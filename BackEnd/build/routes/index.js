@@ -24,3 +24,4 @@ routes.use('/size', SizeRoutes_1.default);
 routes.use('/sale', SaleRoutes_1.default);
 routes.use('/inventory', InventoryRoutes_1.default);
 exports.default = routes;
+//# sourceMappingURL=index.js.map

@@ -48,3 +48,4 @@ Product.init({
 Product.belongsTo(CategoryModel_1.default, { foreignKey: 'categoryId', as: 'category' });
 CategoryModel_1.default.hasMany(Product, { foreignKey: 'categoryId', as: 'category' });
 exports.default = Product;
+//# sourceMappingURL=ProductModel.js.map

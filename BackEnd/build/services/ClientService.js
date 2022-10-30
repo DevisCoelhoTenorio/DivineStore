@@ -9,7 +9,7 @@ class ClientService {
     constructor() {
         this.find = async (search = {}) => {
             const result = await ClientModel_1.default.findAll({
-                where: search
+                where: search,
             });
             return result;
         };
@@ -37,10 +37,11 @@ class ClientService {
                 throw new CustomError_1.default('Client does not exist', 'not.exist');
             }
             await ClientModel_1.default.destroy({
-                where: search
+                where: search,
             });
             return 'Client has been deleted';
         };
     }
 }
 exports.default = ClientService;
+//# sourceMappingURL=ClientService.js.map

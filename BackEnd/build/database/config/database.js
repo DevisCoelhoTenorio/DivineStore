@@ -9,3 +9,4 @@ const config = {
     dialect: 'mysql',
 };
 module.exports = config;
+//# sourceMappingURL=database.js.map

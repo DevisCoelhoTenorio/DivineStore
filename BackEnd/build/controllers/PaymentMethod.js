@@ -11,3 +11,4 @@ class PaymentMethodController {
     }
 }
 exports.default = PaymentMethodController;
+//# sourceMappingURL=PaymentMethod.js.map

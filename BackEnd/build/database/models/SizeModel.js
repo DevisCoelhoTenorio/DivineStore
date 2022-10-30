@@ -24,3 +24,4 @@ Size.init({
     timestamps: false
 });
 exports.default = Size;
+//# sourceMappingURL=SizeModel.js.map

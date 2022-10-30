@@ -35,3 +35,4 @@ User.init({
     timestamps: false,
 });
 exports.default = User;
+//# sourceMappingURL=UserModel.js.map

@@ -25,3 +25,4 @@ class UserController {
     }
 }
 exports.default = UserController;
+//# sourceMappingURL=UserController.js.map

@@ -24,3 +24,4 @@ PaymentMethod.init({
     timestamps: false
 });
 exports.default = PaymentMethod;
+//# sourceMappingURL=PaymentMethodModel.js.map

@@ -15,3 +15,4 @@ class CategoryController {
     }
 }
 exports.default = CategoryController;
+//# sourceMappingURL=CategoryController.js.map

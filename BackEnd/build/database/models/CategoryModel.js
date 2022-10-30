@@ -24,3 +24,4 @@ Category.init({
     timestamps: false
 });
 exports.default = Category;
+//# sourceMappingURL=CategoryModel.js.map

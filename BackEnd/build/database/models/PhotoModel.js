@@ -38,3 +38,4 @@ Photo.init({
 Photo.belongsTo(ProductModel_1.default, { foreignKey: 'productId', as: 'photos' });
 ProductModel_1.default.hasMany(Photo, { foreignKey: 'productId', as: 'photos' });
 exports.default = Photo;
+//# sourceMappingURL=PhotoModel.js.map

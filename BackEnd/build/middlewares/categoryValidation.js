@@ -21,3 +21,4 @@ exports.default = {
     find,
     create,
 };
+//# sourceMappingURL=categoryValidation.js.map

@@ -10,6 +10,7 @@ const inventoryValidation_1 = __importDefault(require("../middlewares/inventoryV
 const router = (0, express_1.Router)();
 const service = new services_1.InventoryService();
 const controller = new controllers_1.InventoryController(service);
-router.get("/", inventoryValidation_1.default.find, controller.find);
+router.get('/', inventoryValidation_1.default.find, controller.find);
 // router.post("/", controller.create);
 exports.default = router;
+//# sourceMappingURL=InventoryRoutes.js.map

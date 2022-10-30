@@ -12,3 +12,4 @@ class InventoryController {
     }
 }
 exports.default = InventoryController;
+//# sourceMappingURL=InventoryController.js.map

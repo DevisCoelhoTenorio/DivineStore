@@ -23,3 +23,4 @@ const statusCode = {
     'not exist': 422,
 };
 exports.default = statusCode;
+//# sourceMappingURL=StatusCode.js.map

@@ -13,17 +13,18 @@ class SaleService {
                 include: [{
                         model: OrderModel_1.default,
                         as: 'order',
-                        attributes: { exclude: ['updatedAt', 'createAt'] }
+                        attributes: { exclude: ['updatedAt', 'createAt'] },
                     },
                     {
                         model: ProductModel_1.default,
                         as: 'products',
-                        attributes: { exclude: ['updatedAt', 'createAt'] }
-                    }
-                ]
+                        attributes: { exclude: ['updatedAt', 'createAt'] },
+                    },
+                ],
             });
             return result;
         };
     }
 }
 exports.default = SaleService;
+//# sourceMappingURL=SaleService.js.map

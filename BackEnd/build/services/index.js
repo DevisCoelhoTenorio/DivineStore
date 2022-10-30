@@ -22,3 +22,4 @@ const SaleService_1 = __importDefault(require("./SaleService"));
 exports.SaleService = SaleService_1.default;
 const InventoryService_1 = __importDefault(require("./InventoryService"));
 exports.InventoryService = InventoryService_1.default;
+//# sourceMappingURL=index.js.map

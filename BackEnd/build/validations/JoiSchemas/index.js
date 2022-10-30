@@ -10,3 +10,4 @@ const inventoryShemas_1 = __importDefault(require("./inventoryShemas"));
 exports.inventoryShemas = inventoryShemas_1.default;
 const clientSchemas_1 = __importDefault(require("./clientSchemas"));
 exports.clientSchemas = clientSchemas_1.default;
+//# sourceMappingURL=index.js.map

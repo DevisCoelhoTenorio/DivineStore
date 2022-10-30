@@ -10,6 +10,7 @@ const clientValidation_1 = __importDefault(require("../middlewares/clientValidat
 const router = (0, express_1.Router)();
 const service = new services_1.ClientService();
 const controller = new controllers_1.ClientController(service);
-router.get("/", controller.find);
-router.post("/", clientValidation_1.default.create, controller.create);
+router.get('/', controller.find);
+router.post('/', clientValidation_1.default.create, controller.create);
 exports.default = router;
+//# sourceMappingURL=ClientRoutes.js.map

@@ -16,26 +16,27 @@ class ProductService {
                 include: [{
                         model: CategoryModel_1.default,
                         as: 'category',
-                        attributes: ['name']
+                        attributes: ['name'],
                     }, {
                         model: PhotoModel_1.default,
                         as: 'photos',
-                        attributes: ['img', 'thumbnail']
+                        attributes: ['img', 'thumbnail'],
                     }],
             });
             return foundProducts;
         };
         this.create = async (newProduct) => {
             const { photos } = newProduct;
-            const id = await models_1.default.transaction(async (t) => {
+            const newId = await models_1.default.transaction(async (t) => {
                 const { id } = await ProductModel_1.default.create({ ...newProduct }, { transaction: t });
                 const photosWithId = photos.map((photo) => ({ ...photo, productId: id }));
                 await PhotoModel_1.default.bulkCreate(photosWithId, { transaction: t });
                 return id;
             });
-            const result = await this.findAll({ id });
+            const result = await this.findAll({ newId });
             return result[0];
         };
     }
 }
 exports.default = ProductService;
+//# sourceMappingURL=ProductService.js.map

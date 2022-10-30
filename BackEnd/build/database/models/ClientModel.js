@@ -36,3 +36,4 @@ Client.init({
     modelName: 'clients'
 });
 exports.default = Client;
+//# sourceMappingURL=ClientModel.js.map

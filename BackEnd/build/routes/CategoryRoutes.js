@@ -10,6 +10,7 @@ const categoryValidation_1 = __importDefault(require("../middlewares/categoryVal
 const router = (0, express_1.Router)();
 const service = new services_1.CategoryService();
 const controller = new controllers_1.CategoryController(service);
-router.get("/", categoryValidation_1.default.find, controller.find);
-router.post("/", categoryValidation_1.default.create, controller.create);
+router.get('/', categoryValidation_1.default.find, controller.find);
+router.post('/', categoryValidation_1.default.create, controller.create);
 exports.default = router;
+//# sourceMappingURL=CategoryRoutes.js.map

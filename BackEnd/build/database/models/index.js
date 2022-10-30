@@ -26,3 +26,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const config = __importStar(require("../config/database"));
 exports.default = new sequelize_1.Sequelize(config);
+//# sourceMappingURL=index.js.map

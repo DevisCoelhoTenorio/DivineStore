@@ -8,7 +8,7 @@ class PhotoService {
     constructor() {
         this.findAll = async (search = {}) => {
             const result = await PhotoModel_1.default.findAll({
-                where: { search }
+                where: { search },
             });
             return result;
         };
@@ -18,9 +18,10 @@ class PhotoService {
         };
         this.delete = async (id) => {
             await PhotoModel_1.default.destroy({
-                where: { id }
+                where: { id },
             });
         };
     }
 }
 exports.default = PhotoService;
+//# sourceMappingURL=PhotoService.js.map

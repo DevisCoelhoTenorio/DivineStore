@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ErrorHandler = void 0;
 const StatusCode_1 = __importDefault(require("../utils/StatusCode"));
 class ErrorHandler {
     static handle(error, _req, res, _next) {
@@ -14,4 +13,5 @@ class ErrorHandler {
         return res.status(StatusCode_1.default['fatal.error']).json({ message: error.message });
     }
 }
-exports.ErrorHandler = ErrorHandler;
+exports.default = ErrorHandler;
+//# sourceMappingURL=ErrorHandler.js.map

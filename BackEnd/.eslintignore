@@ -3,3 +3,4 @@
 **/seeders/
 **/models/
 **/build/
+**/utils/StatusCode.ts
