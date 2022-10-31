@@ -8,6 +8,7 @@ import paymentMethodRoutes from './PaymentMethodRoutes';
 import sizeRoutes from './SizeRoutes';
 import saleRoutes from './SaleRoutes';
 import inventoryRoutes from './InventoryRoutes';
+import loginRoutes from './LoginRoutes';
 
 const routes = Router();
 
@@ -20,5 +21,6 @@ routes.use('/payment/method', paymentMethodRoutes);
 routes.use('/size', sizeRoutes);
 routes.use('/sale', saleRoutes);
 routes.use('/inventory', inventoryRoutes);
+routes.use('/login', loginRoutes);
 
 export default routes;

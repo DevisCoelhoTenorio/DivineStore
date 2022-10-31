@@ -1,6 +1,6 @@
-import { Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import { ProductService } from '../services';
-import { ICustomRequest, IFullProduct } from '../interfaces';
+import { IFullProduct } from '../interfaces';
 import 'express-async-errors';
 
 export default class ProductController {
@@ -10,18 +10,28 @@ export default class ProductController {
     this.service = service;
   }
 
-  public findAll = async (_req: ICustomRequest, res: Response): Promise<void> => {
+  public findAll = async (_req: Request, res: Response): Promise<void> => {
     const result = await this.service.findAll();
     res.status(200).json(result);
   };
 
-  public findById = async (req: ICustomRequest, res: Response): Promise<void> => {
+  public findById = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const result = await this.service.findById(Number(id));
     res.status(200).json(result);
   };
 
-  public create = async (req: ICustomRequest, res: Response) : Promise<void> => {
+  public findByInStock = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { inStock } = req.query;
+    if (!inStock) {
+      return next();
+    }
+    const stockStatus = inStock === 'true';
+    const result = await this.service.findAll({}, { inStock: stockStatus });
+    res.status(200).json(result);
+  };
+
+  public create = async (req: Request, res: Response) : Promise<void> => {
     const result = await this.service.create(req.body as IFullProduct);
     res.status(201).json(result);
   };

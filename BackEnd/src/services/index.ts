@@ -7,6 +7,7 @@ import PaymentMethodService from './PaymentMethod';
 import SizeService from './SizeService';
 import SaleService from './SaleService';
 import InventoryService from './InventoryService';
+import LoginService from './LoginService';
 
 export {
   OrderService,
@@ -18,4 +19,5 @@ export {
   SizeService,
   SaleService,
   InventoryService,
+  LoginService,
 };

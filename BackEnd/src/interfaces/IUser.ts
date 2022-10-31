@@ -1,7 +1,10 @@
-export interface IUser {
-  id?: number;
-  name?: string;
-  email?: string;
+export interface ILoginUser {
+  email: string;
   password?: string;
+}
+
+export interface IUser extends ILoginUser {
+  id: number;
+  name: string;
   admin?: boolean;
 }

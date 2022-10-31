@@ -7,7 +7,7 @@ import CategoryModel from '../database/models/CategoryModel';
 import Sequelize from '../database/models';
 
 export default class ProductService {
-  public findAll = async (search = {}): Promise<IProduct[]> => {
+  public findAll = async (search = {}, inStock = {}): Promise<IProduct[]> => {
     const foundProducts = await ProductModel.findAll({
       where: search,
       attributes: { exclude: ['categoryId', 'description'] },
@@ -18,7 +18,7 @@ export default class ProductService {
       }, {
         model: PhotoModel,
         as: 'photos',
-        where: { thumbnail: true },
+        where: inStock,
         attributes: ['img', 'thumbnail'],
       }],
     });

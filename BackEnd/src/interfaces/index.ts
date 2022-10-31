@@ -2,7 +2,7 @@ import { ICategory } from './ICategory';
 import { IClient } from './IClient';
 import { IOrder } from './IOrder';
 import { IProduct, ISimpleProduct, IFullProduct } from './IProduct';
-import { IUser } from './IUser';
+import { IUser, ILoginUser } from './IUser';
 import { IPaymentMethods } from './IPaymentMethod';
 import { ISize } from './ISize';
 import { ISale } from './ISale';
@@ -27,4 +27,5 @@ export {
   ISimpleProduct,
   IFullProduct,
   ISimplePhoto,
+  ILoginUser,
 };

@@ -5,6 +5,8 @@ class User extends Model {
     id!: number;
     email!: string;
     password!: string;
+    admin!: boolean;
+    name!: string;
 }
 
 User.init({

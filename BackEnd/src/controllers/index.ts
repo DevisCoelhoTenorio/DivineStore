@@ -7,6 +7,7 @@ import PaymentMethodController from './PaymentMethod';
 import SizeController from './SizeController';
 import SaleController from './SaleController';
 import InventoryController from './InventoryController';
+import LoginController from './LoginController';
 
 export {
   OrderController,
@@ -18,4 +19,5 @@ export {
   SizeController,
   SaleController,
   InventoryController,
+  LoginController,
 };

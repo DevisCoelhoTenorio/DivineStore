@@ -2,12 +2,12 @@ import UserModel from '../database/models/UserModel';
 import { IUser } from '../interfaces';
 
 export default class UserService {
-  public findAll = async (id?: number): Promise<IUser[]> => {
-    const foundAllUsers = await UserModel.findAll({
-      where: { id },
+  public findAll = async (search = {}): Promise<IUser[]> => {
+    const result = await UserModel.findAll({
+      where: search,
       attributes: { exclude: ['password'] },
     });
-    return foundAllUsers;
+    return result;
   };
 
   public create = async ({ email, password }: IUser): Promise<IUser> => {
@@ -21,7 +21,7 @@ export default class UserService {
 
   public update = async (id:number, user: IUser): Promise<IUser[]> => {
     await UserModel.update({ ...user }, { where: { id } });
-    const response = await this.findAll(id);
-    return response;
+    const result = await this.findAll(id);
+    return result;
   };
 }
