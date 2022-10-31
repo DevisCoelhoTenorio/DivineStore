@@ -3,6 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const SizeModel_1 = __importDefault(require("../database/models/SizeModel"));
+const InventoryModel_1 = __importDefault(require("../database/models/InventoryModel"));
 const ProductModel_1 = __importDefault(require("../database/models/ProductModel"));
 const PhotoModel_1 = __importDefault(require("../database/models/PhotoModel"));
 const CategoryModel_1 = __importDefault(require("../database/models/CategoryModel"));
@@ -12,7 +14,7 @@ class ProductService {
         this.findAll = async (search = {}) => {
             const foundProducts = await ProductModel_1.default.findAll({
                 where: search,
-                attributes: { exclude: ['categoryId'] },
+                attributes: { exclude: ['categoryId', 'description'] },
                 include: [{
                         model: CategoryModel_1.default,
                         as: 'category',
@@ -20,10 +22,31 @@ class ProductService {
                     }, {
                         model: PhotoModel_1.default,
                         as: 'photos',
+                        where: { thumbnail: true },
                         attributes: ['img', 'thumbnail'],
                     }],
             });
             return foundProducts;
+        };
+        this.findById = async (id) => {
+            const result = await ProductModel_1.default.findByPk(id, {
+                attributes: { exclude: ['categoryId'] },
+                include: [{
+                        model: CategoryModel_1.default, as: 'category', attributes: ['name'],
+                    }, {
+                        model: PhotoModel_1.default, as: 'photos', attributes: ['img', 'thumbnail'],
+                    }, {
+                        model: InventoryModel_1.default,
+                        as: 'stock',
+                        attributes: ['quantity'],
+                        include: [{
+                                model: SizeModel_1.default,
+                                as: 'size',
+                                attributes: ['name'],
+                            }],
+                    }],
+            });
+            return result;
         };
         this.create = async (newProduct) => {
             const { photos } = newProduct;

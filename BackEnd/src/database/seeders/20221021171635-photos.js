@@ -12,12 +12,12 @@ module.exports = {
       {
         product_id: 2,
         img: 'https://drive.google.com/uc?export=view&id=1MlI7Mb4x7SGBL8Q0o61sVPVJFEQaAjZp',
-        thumbnail: false
+        thumbnail: true
       },
       {
         product_id: 3,
         img: 'https://drive.google.com/uc?export=view&id=1ip7YASxOiFDPwipWTP2rFg5M-KT668iC',
-        thumbnail: false
+        thumbnail: true
       },
       {
         product_id: 1,
@@ -27,7 +27,7 @@ module.exports = {
       {
         product_id: 3,
         img: 'https://drive.google.com/uc?export=view&id=1xBFaW8GWvbCJoxf0_ihCcfg4DU6YDwdL',
-        thumbnail: false
+        thumbnail: true
       }
     ])
   },

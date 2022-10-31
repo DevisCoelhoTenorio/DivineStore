@@ -54,14 +54,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const [category, setCategory] = React.useState([]);
-  React.useEffect(() => {
-    const getCategories = async (): Promise<void> => {
-      const response = await getAllCategory();
-      setCategory(response as any);
-    };
-    getCategories();
-  });
+  // const [category, setCategory] = React.useState([]);
+  // React.useEffect(() => {
+  //   const getCategories = async (): Promise<void> => {
+  //     const response = await getAllCategory();
+  //     setCategory(response as any);
+  //   };
+  //   getCategories();
+  // }, []);
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>

@@ -7,6 +7,11 @@ class ProductController {
             const result = await this.service.findAll();
             res.status(200).json(result);
         };
+        this.findById = async (req, res) => {
+            const { id } = req.params;
+            const result = await this.service.findById(Number(id));
+            res.status(200).json(result);
+        };
         this.create = async (req, res) => {
             const result = await this.service.create(req.body);
             res.status(201).json(result);

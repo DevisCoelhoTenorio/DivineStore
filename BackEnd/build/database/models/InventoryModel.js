@@ -36,8 +36,8 @@ Inventory.init({
     modelName: 'inventories',
 });
 // // Product Association
-Inventory.belongsTo(ProductModel_1.default, { foreignKey: 'productId', as: 'product' });
-ProductModel_1.default.hasMany(Inventory, { foreignKey: 'productId', as: 'product' });
+Inventory.belongsTo(ProductModel_1.default, { foreignKey: 'productId', as: 'stock' });
+ProductModel_1.default.hasMany(Inventory, { foreignKey: 'productId', as: 'stock' });
 // // Payment Association
 Inventory.belongsTo(SizeModel_1.default, { foreignKey: 'sizeId', as: 'size' });
 SizeModel_1.default.hasMany(Inventory, { foreignKey: 'sizeId', as: 'size' });
