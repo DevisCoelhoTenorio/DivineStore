@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const UserModel_1 = __importDefault(require("../database/models/UserModel"));
 class UserService {
     constructor() {
-        this.findAll = async (id) => {
-            const foundAllUsers = await UserModel_1.default.findAll({
-                where: { id },
+        this.findAll = async (search = {}) => {
+            const result = await UserModel_1.default.findAll({
+                where: search,
                 attributes: { exclude: ['password'] },
             });
-            return foundAllUsers;
+            return result;
         };
         this.create = async ({ email, password }) => {
             const result = await UserModel_1.default.create({ email, password });
@@ -22,8 +22,8 @@ class UserService {
         };
         this.update = async (id, user) => {
             await UserModel_1.default.update({ ...user }, { where: { id } });
-            const response = await this.findAll(id);
-            return response;
+            const result = await this.findAll(id);
+            return result;
         };
     }
 }

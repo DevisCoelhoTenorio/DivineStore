@@ -24,3 +24,52 @@ a {
     background: black;
   }
 }
+
+/* header */
+
+.mui-style-hyum1k-MuiToolbar-root {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* burger menu */
+
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: absolute;
+}
+
+.category-text {
+  font-size: 15px;
+  padding: 0 10px 0 10px;
+}
+
+.mui-style-ancrnh-MuiButtonBase-root-MuiIconButton-root:hover {
+  color: #A92564;
+}
+
+/* .mui-style-i4bv87-MuiSvgIcon-root:hover {
+  transition: none;
+  box-shadow: 100px;
+} */
+
+/* logo */
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.logo img {
+  align-self: center;
+}
+
+.logo p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 300px;
+}
+

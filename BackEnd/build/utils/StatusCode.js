@@ -21,6 +21,7 @@ const statusCode = {
     'object.unknown': 422,
     'already.exists': 422,
     'not exist': 422,
+    'not.login': 401,
 };
 exports.default = statusCode;
 //# sourceMappingURL=StatusCode.js.map

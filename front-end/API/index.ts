@@ -18,7 +18,7 @@ const getProductById = async (id: number): Promise<IFullProduct> => {
 
 const getAllCategory = async (): Promise<ICategory[]> => {
   const response = await axios.get('http://localhost:3001/category');
-
+  console.log(response.data);
   return response.data as ICategory[];
 };
 

@@ -5,11 +5,10 @@ import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import BurgerMenu from './BurgerMenu';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -45,45 +44,30 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '12ch',
+      width: '80ch',
       '&:focus': {
-        width: '20ch',
+        width: '85ch',
       },
     },
   },
 }));
 
 export default function Header() {
-  // const [category, setCategory] = React.useState([]);
-  // React.useEffect(() => {
-  //   const getCategories = async (): Promise<void> => {
-  //     const response = await getAllCategory();
-  //     setCategory(response as any);
-  //   };
-  //   getCategories();
-  // }, []);
   return (
     <div>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box className="header">
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <Image
-                src="https://drive.google.com/uc?export=view&id=1QasQHkXQwnUYo6xeGuQxBRNjVVVpkUG4"
-                alt="Vercel Logo"
-                width={50}
-                height={50}
-              />
-              Divine Brasil Store
+            <Typography variant="h6" component="div">
+              <div className="logo">
+                <Image
+                  src="https://drive.google.com/uc?export=view&id=1QasQHkXQwnUYo6xeGuQxBRNjVVVpkUG4"
+                  alt="Vercel Logo"
+                  width={50}
+                  height={50}
+                />
+                <p>Divine Brasil Store</p>
+              </div>
             </Typography>
             <Search>
               <SearchIconWrapper>
@@ -94,6 +78,7 @@ export default function Header() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
+            <BurgerMenu />
           </Toolbar>
         </AppBar>
       </Box>
