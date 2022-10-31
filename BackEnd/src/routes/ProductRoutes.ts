@@ -8,6 +8,7 @@ const service = new ProductService();
 const controller = new ProductController(service);
 
 router.get('/', controller.findAll);
+router.get('/:id', controller.findById);
 router.post('/', controller.create);
 
 export default router;

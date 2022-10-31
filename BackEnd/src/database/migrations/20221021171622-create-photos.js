@@ -23,7 +23,7 @@ module.exports = {
       },
       img: {
         allowNull: false,
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(250)
       },
       thumbnail: {
         default: false,

@@ -1,3 +1,5 @@
+import Size from '../database/models/SizeModel';
+import Inventory from '../database/models/InventoryModel';
 import ProductModel from '../database/models/ProductModel';
 import PhotoModel from '../database/models/PhotoModel';
 import { IProduct, IFullProduct } from '../interfaces';
@@ -8,7 +10,7 @@ export default class ProductService {
   public findAll = async (search = {}): Promise<IProduct[]> => {
     const foundProducts = await ProductModel.findAll({
       where: search,
-      attributes: { exclude: ['categoryId'] },
+      attributes: { exclude: ['categoryId', 'description'] },
       include: [{
         model: CategoryModel,
         as: 'category',
@@ -16,10 +18,32 @@ export default class ProductService {
       }, {
         model: PhotoModel,
         as: 'photos',
+        where: { thumbnail: true },
         attributes: ['img', 'thumbnail'],
       }],
     });
     return foundProducts;
+  };
+
+  public findById = async (id: number): Promise<IProduct | null> => {
+    const result = await ProductModel.findByPk(id, {
+      attributes: { exclude: ['categoryId'] },
+      include: [{
+        model: CategoryModel, as: 'category', attributes: ['name'],
+      }, {
+        model: PhotoModel, as: 'photos', attributes: ['img', 'thumbnail'],
+      }, {
+        model: Inventory,
+        as: 'stock',
+        attributes: ['quantity'],
+        include: [{
+          model: Size,
+          as: 'size',
+          attributes: ['name'],
+        }],
+      }],
+    });
+    return result;
   };
 
   public create = async (newProduct: IFullProduct): Promise<IProduct> => {

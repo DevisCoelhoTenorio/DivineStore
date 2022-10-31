@@ -39,8 +39,8 @@ Inventory.init({
 })
 
 // // Product Association
-Inventory.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
-Product.hasMany(Inventory, { foreignKey: 'productId', as: 'product' });
+Inventory.belongsTo(Product, { foreignKey: 'productId', as: 'stock' });
+Product.hasMany(Inventory, { foreignKey: 'productId', as: 'stock' });
 
 // // Payment Association
 Inventory.belongsTo(Size, { foreignKey: 'sizeId', as: 'size' });

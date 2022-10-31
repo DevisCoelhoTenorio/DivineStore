@@ -15,6 +15,12 @@ export default class ProductController {
     res.status(200).json(result);
   };
 
+  public findById = async (req: ICustomRequest, res: Response): Promise<void> => {
+    const { id } = req.params;
+    const result = await this.service.findById(Number(id));
+    res.status(200).json(result);
+  };
+
   public create = async (req: ICustomRequest, res: Response) : Promise<void> => {
     const result = await this.service.create(req.body as IFullProduct);
     res.status(201).json(result);
