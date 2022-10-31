@@ -1,9 +1,11 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getAllProducts } from '../API';
 import { IFullProduct } from '../interfaces';
 import Loading from '../components/Loading';
 import Header from '../components/Header';
 import BasicCard from '../components/BasicCard';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 // import '../styles/catalog.css';
 
 const Catalog = () => {
@@ -18,8 +20,9 @@ const Catalog = () => {
   return (
     <div>
       <Header />
-      <div className="cards">
+      <Container maxWidth="sm">
         <>
+          <CssBaseline />
           {products.length === 0
             ? Loading
             : products.map((item: IFullProduct) => (
@@ -32,7 +35,7 @@ const Catalog = () => {
                 />
               ))}
         </>
-      </div>
+      </Container>
     </div>
   );
 };

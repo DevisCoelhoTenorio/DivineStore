@@ -15,7 +15,7 @@ export default function BasicCard({
 }: IBasicCard) {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia component="img" alt={name} height="140" image={photos} />
+      <CardMedia component="img" alt={name} height="150" image={photos} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {name}
