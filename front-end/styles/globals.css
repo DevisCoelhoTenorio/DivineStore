@@ -48,12 +48,8 @@ a {
 
 .mui-style-ancrnh-MuiButtonBase-root-MuiIconButton-root:hover {
   color: #A92564;
+  background-color: transparent;
 }
-
-/* .mui-style-i4bv87-MuiSvgIcon-root:hover {
-  transition: none;
-  box-shadow: 100px;
-} */
 
 /* logo */
 
