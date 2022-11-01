@@ -106,7 +106,11 @@ export default function BurgerMenu() {
                   >
                     {categories.length > 0 &&
                       categories.map((category: any) => [
-                        <MenuItem key={category.id} onClick={handleClose}>
+                        <MenuItem
+                          value={category.name}
+                          key={category.id}
+                          onClick={handleClose}
+                        >
                           {category.name}
                         </MenuItem>,
                       ])}
