@@ -30,6 +30,10 @@ export default function BurgerMenu() {
     setOpen((prevOpen) => !prevOpen);
   };
 
+  const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCategory(e.currentTarget.value);
+  };
+
   const handleClose = (event: Event | React.SyntheticEvent) => {
     if (
       anchorRef.current &&
@@ -37,7 +41,6 @@ export default function BurgerMenu() {
     ) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -107,8 +110,8 @@ export default function BurgerMenu() {
                     {categories.length > 0 &&
                       categories.map((category: any) => [
                         <MenuItem
-                          value={category.name}
                           key={category.id}
+                          value={category.name}
                           onClick={handleClose}
                         >
                           {category.name}
