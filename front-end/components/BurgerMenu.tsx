@@ -10,8 +10,10 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { getAllCategory } from '../API';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Category } from '../context';
 
 export default function BurgerMenu() {
+  const { setCategory } = React.useContext(Category.Context);
   const [open, setOpen] = React.useState(false);
   const [categories, setCategories] = React.useState([]);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
