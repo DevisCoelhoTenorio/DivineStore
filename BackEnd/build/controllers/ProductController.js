@@ -12,6 +12,15 @@ class ProductController {
             const result = await this.service.findById(Number(id));
             res.status(200).json(result);
         };
+        this.findByInStock = async (req, res, next) => {
+            const { inStock } = req.query;
+            if (!inStock) {
+                return next();
+            }
+            const stockStatus = inStock === 'true';
+            const result = await this.service.findAll({}, { inStock: stockStatus });
+            res.status(200).json(result);
+        };
         this.create = async (req, res) => {
             const result = await this.service.create(req.body);
             res.status(201).json(result);

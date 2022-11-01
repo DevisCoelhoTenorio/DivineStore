@@ -11,7 +11,7 @@ const CategoryModel_1 = __importDefault(require("../database/models/CategoryMode
 const models_1 = __importDefault(require("../database/models"));
 class ProductService {
     constructor() {
-        this.findAll = async (search = {}) => {
+        this.findAll = async (search = {}, inStock = {}) => {
             const foundProducts = await ProductModel_1.default.findAll({
                 where: search,
                 attributes: { exclude: ['categoryId', 'description'] },
@@ -22,7 +22,7 @@ class ProductService {
                     }, {
                         model: PhotoModel_1.default,
                         as: 'photos',
-                        where: { thumbnail: true },
+                        where: inStock,
                         attributes: ['img', 'thumbnail'],
                     }],
             });
