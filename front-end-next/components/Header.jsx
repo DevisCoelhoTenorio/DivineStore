@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import BurgerMenu from './BurgerMenu';
+import HeaderContext from '../contexts';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,6 +54,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const { setSearch } = React.useContext(HeaderContext.Context);
+  const handleOnChange = (value) => {
+    setSearch(value);
+  }
+
   return (
     <div>
       <Box className="header">
@@ -66,7 +72,6 @@ export default function Header() {
                   width={50}
                   height={50}
                 />
-                {/* <p>Divine Brasil Store</p> */}
               </div>
             </Typography>
             <Search>
@@ -75,6 +80,7 @@ export default function Header() {
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
+                onChange={(e) => handleOnChange(e.target.value)}
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>

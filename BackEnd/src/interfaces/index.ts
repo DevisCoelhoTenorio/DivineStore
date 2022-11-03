@@ -10,6 +10,7 @@ import { IInventory } from './IInventory';
 import { IStatusCode } from './IStatusCode';
 import { ICustomRequest } from './ICustomRequest';
 import { IPhoto, ISimplePhoto } from './IPhoto';
+import { IToken } from './IToken';
 
 export {
   ICategory,
@@ -28,4 +29,5 @@ export {
   IFullProduct,
   ISimplePhoto,
   ILoginUser,
+  IToken,
 };

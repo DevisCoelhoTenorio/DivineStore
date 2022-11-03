@@ -8,7 +8,7 @@ export default class LoginController {
 
   public Login = async (req: ICustomRequest, res: Response): Promise<void> => {
     const response = await this.service.login(req.body);
-    res.status(200).json({ token: response });
+    res.status(200).json(response );
   };
 
   public validate = async (req: Request, res: Response): Promise<void> => {

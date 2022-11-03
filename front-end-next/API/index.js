@@ -1,23 +1,40 @@
 import axios from 'axios';
 
+const URL = 'http://localhost:3001'
+
 // products
 
 const getAllProducts = async () => {
-  const response = await axios.get('http://localhost:3001/product');
+  const response = await axios.get(`${URL}/product`);
 
   return response.data;
 };
 
 const getProductById = async (id) => {
-  const response = await axios.get(`http://localhost:3001/product/${id}`);
+  const response = await axios.get(`${URL}/product/${id}`);
   return response.data;
 };
 
 // category
 
 const getAllCategory = async () => {
-  const response = await axios.get('http://localhost:3001/category');
-  return response.data;
+  try {
+    const response = await axios.get(`${URL}/category`);
+    return response.data;
+  } catch (error) {
+    return error.message
+  }
 };
 
-export { getAllProducts, getAllCategory, getProductById };
+// login
+
+const getToken = async ({email, password}) => {
+  try {
+    const response = await axios.post(`${URL}/login`, {email, password})
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    return error.message
+  }
+}
+export { getAllProducts, getAllCategory, getProductById, getToken };

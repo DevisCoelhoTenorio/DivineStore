@@ -21,7 +21,7 @@ export default function BurgerMenu() {
   React.useEffect(() => {
     const getCategories = async () => {
       const response = await getAllCategory();
-      setCategories(response);
+      setCategories([...response, { id: 'all' , name: 'Todas' } ]);
     };
     getCategories();
   }, []);
@@ -29,6 +29,10 @@ export default function BurgerMenu() {
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
+
+  const handleClick = (category) => {
+    setCategory(category);
+  }
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -103,13 +107,13 @@ export default function BurgerMenu() {
                   >
                     {categories.length > 0
                       && categories.map((category) => [
+                        <div key={category.id} onClick={() => handleClick(category.name)}>
                         <MenuItem
-                          key={category.id}
-                          value={category.name}
                           onClick={handleClose}
                         >
                           {category.name}
-                        </MenuItem>,
+                        </MenuItem>
+                        </div>,
                       ])}
                   </MenuList>
                 </ClickAwayListener>

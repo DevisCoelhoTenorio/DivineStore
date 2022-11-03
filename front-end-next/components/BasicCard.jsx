@@ -22,7 +22,6 @@ export default function BasicCard({
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <p>
-            Categoria:
             {category}
           </p>
           <p>

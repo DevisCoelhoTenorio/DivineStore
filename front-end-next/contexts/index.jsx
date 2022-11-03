@@ -1,3 +1,3 @@
-import Category from './categoryContext';
+import Header from './headerContext';
 
-export default Category;
+export default Header;
