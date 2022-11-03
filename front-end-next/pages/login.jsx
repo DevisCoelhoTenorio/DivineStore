@@ -25,7 +25,6 @@ export default function Login() {
     const { email, password } = values;
     if(email !== '' && password !== ''){
        const { token, admin } = await getToken({ email, password })
-       console.log(admin);
        if(token && admin) {
          localStorage.setItem('key', token)
          router.push('/admin')
