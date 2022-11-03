@@ -14,10 +14,10 @@ export default class LoginService {
     return result[0];
   };
 
-  public login = async (user: ILoginUser): Promise<IToken> => {
+  public login = async (user: ILoginUser): Promise<string> => {
     const { id, email, name, admin } = await this.checkUser(user);
     const token = generateToken({ id, email, name })
-    return { token, admin};
+    return token;
   };
 
   public validade = async (token: string | undefined) => {
