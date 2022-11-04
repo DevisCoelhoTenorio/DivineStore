@@ -11,5 +11,6 @@ const router = (0, express_1.Router)();
 const service = new services_1.LoginService();
 const controller = new controllers_1.LoginController(service);
 router.post('/', userValidation_1.default.login, controller.Login);
+router.get('/', controller.validate);
 exports.default = router;
 //# sourceMappingURL=LoginRoutes.js.map

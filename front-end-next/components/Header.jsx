@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import BurgerMenu from './BurgerMenu';
-import HeaderContext from '../contexts';
+import { HeaderContext } from '../contexts';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const { setSearch } = React.useContext(HeaderContext.Context);
+  const { setSearch } = React.useContext(HeaderContext);
   const handleOnChange = (value) => {
     setSearch(value);
   }

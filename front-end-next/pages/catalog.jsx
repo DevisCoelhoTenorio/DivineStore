@@ -5,12 +5,13 @@ import { getAllProducts } from '../API';
 import Loading from '../components/Loading';
 import Header from '../components/Header';
 import BasicCard from '../components/BasicCard';
-import Category from '../contexts';
+import { HeaderContext } from '../contexts';
 import Footer from '../components/Footer';
+import CarouselComponent from '../components/CarouselComponent';
 
 function Catalog() {
   const [products, setProducts] = useState([]);
-  const { category, search } = React.useContext(Category.Context);
+  const { category, search } = React.useContext(HeaderContext);
 
   const filterCategory = category !== 'Todas' ? products
   .filter(({category: { name }}) => category === name) : products;
@@ -28,6 +29,7 @@ function Catalog() {
   return (
     <div className="catalog-page">
       <Header />
+      <CarouselComponent />
       <Container className="products-container" maxWidth="sm">
           <CssBaseline />
           {products.length === 0

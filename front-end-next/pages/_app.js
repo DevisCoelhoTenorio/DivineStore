@@ -1,12 +1,14 @@
 import '../styles/globals.css';
 import React from 'react';
-import Header from '../contexts';
+import { HeaderProvider, AuthProvider } from '../contexts';
 
 function MyApp({ Component, pageProps }) {
   return (
-  <Header.Provider>
+  <AuthProvider>
+  <HeaderProvider>
     <Component {...pageProps} />
-  </ Header.Provider>
+  </ HeaderProvider>
+  </AuthProvider>
   );
 };
 

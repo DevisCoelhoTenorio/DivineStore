@@ -1,3 +1,9 @@
-import Header from './headerContext';
+import { HeaderProvider, HeaderContext } from './headerContext';
+import { AuthProvider, AuthContext } from './authContext';
 
-export default Header;
+export {
+  HeaderProvider,
+  AuthProvider,
+  HeaderContext,
+  AuthContext,
+};

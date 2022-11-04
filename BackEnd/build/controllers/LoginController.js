@@ -6,12 +6,12 @@ class LoginController {
         this.service = service;
         this.Login = async (req, res) => {
             const response = await this.service.login(req.body);
-            res.status(200).json({ token: response });
+            res.status(200).json(response);
         };
         this.validate = async (req, res) => {
             const { authorization } = req.headers;
-            await this.service.validade(authorization);
-            res.sendStatus(200);
+            const user = await this.service.validade(authorization);
+            res.status(200).json(user);
         };
     }
 }

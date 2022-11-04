@@ -30,11 +30,24 @@ const getAllCategory = async () => {
 
 const getToken = async ({email, password}) => {
   try {
-    const response = await axios.post(`${URL}/login`, {email, password})
-    console.log(response);
+    const response = await axios.post(`${URL}/login`, {email, password })
     return response.data;
   } catch (error) {
-    return error.message
+    return error;
   }
 }
-export { getAllProducts, getAllCategory, getProductById, getToken };
+
+const valideteAcess = async (token) => {
+  try {
+    const response = await axios.get(`${URL}/login`, {
+      headers: {
+        'Authorization': token
+      }
+    })
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+}
+
+export { getAllProducts, getAllCategory, getProductById, getToken, valideteAcess };

@@ -6,14 +6,14 @@ import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } fr
 import Image from 'next/image';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import { getToken } from '../API';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import Link from 'next/link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import { useRouter } from 'next/router'
+import { AuthContext } from '../contexts';
+
 
 export default function Login() {
-  const router = useRouter();
+  const { signIn } = React.useContext(AuthContext);
   const [values, setValues] = React.useState({
     email: '',
     password: '',
@@ -23,13 +23,7 @@ export default function Login() {
 
   const login = async () => {
     const { email, password } = values;
-    if(email !== '' && password !== ''){
-       const { token, admin } = await getToken({ email, password })
-       if(token && admin) {
-         localStorage.setItem('key', token)
-         router.push('/admin')
-       }
-    }
+    signIn({ email, password })
     setValues({...values, showAlert: true });
     setTimeout(() => {
       setValues({...values, showAlert: false });

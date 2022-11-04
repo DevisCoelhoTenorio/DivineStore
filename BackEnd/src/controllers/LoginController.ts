@@ -13,7 +13,7 @@ export default class LoginController {
 
   public validate = async (req: Request, res: Response): Promise<void> => {
     const { authorization } = req.headers;
-    const { admin } = await this.service.validade(authorization);
-    res.status(200).json({acess: admin});
+    const user = await this.service.validade(authorization);
+    res.status(200).json(user);
   };
 }

@@ -1,6 +1,6 @@
 import CustomError from '../utils/CustomError';
 import UserService from './UserService';
-import { ILoginUser, IUser, IToken } from '../interfaces';
+import { ILoginUser, IUser, IResponseLogin } from '../interfaces';
 import { generateToken, authTokenValidation } from '../validations/auth';
 
 export default class LoginService {
@@ -14,10 +14,10 @@ export default class LoginService {
     return result[0];
   };
 
-  public login = async (user: ILoginUser): Promise<string> => {
+  public login = async (user: ILoginUser): Promise<IResponseLogin> => {
     const { id, email, name, admin } = await this.checkUser(user);
-    const token = generateToken({ id, email, name })
-    return token;
+    const token = generateToken({ id, email, name, admin })
+    return { token, user: {name, email, access: admin}};
   };
 
   public validade = async (token: string | undefined) => {

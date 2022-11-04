@@ -1,10 +1,19 @@
 export interface ILoginUser {
   email: string;
   password?: string;
+  admin: boolean;
 }
 
 export interface IUser extends ILoginUser {
-  id: number;
+  id?: number;
   name: string;
-  admin?: boolean;
+}
+
+export interface IResponseLogin {
+  token: string;
+  user: {
+    name: string;
+    access: boolean;
+    email: string;
+  };
 }
