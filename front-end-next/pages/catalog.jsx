@@ -8,6 +8,7 @@ import BasicCard from '../components/BasicCard';
 import { HeaderContext } from '../contexts';
 import Footer from '../components/Footer';
 import CarouselComponent from '../components/CarouselComponent';
+import Advantages from '../components/Advantages';
 
 function Catalog() {
   const [products, setProducts] = useState([]);
@@ -31,6 +32,7 @@ function Catalog() {
     <div className="catalog-page">
       <Header />
       <CarouselComponent />
+      <Advantages />
       <Container className="products-container" maxWidth="sm">
           <CssBaseline />
           {products.length === 0

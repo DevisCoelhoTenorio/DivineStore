@@ -104,7 +104,7 @@ export default function Header() {
           </Toolbar>
       <div className="wide-categories-container">
       {categories.slice(0, 7).map((category) => (
-      <button key={category.id * 10} onClick={() => handleClick(category.name)}>
+      <button type="button" key={category.id * 10} onClick={() => handleClick(category.name)}>
         {category.name}
       </button>))}
       </div>
