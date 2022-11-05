@@ -1,0 +1,16 @@
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: absolute;
+}
+
+.category-text {
+  font-size: 15px;
+  padding: 0 10px 0 10px;
+}
+
+.css-ancrnh-MuiButtonBase-root-MuiIconButton-root:hover {
+  color: #A92564;
+  background-color: transparent;
+}
