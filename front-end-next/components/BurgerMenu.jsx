@@ -8,23 +8,13 @@ import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { getAllCategory } from '../API';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { HeaderContext } from '../contexts';
 
-export default function BurgerMenu() {
+export default function BurgerMenu({ categories }) {
   const { setCategory } = React.useContext(HeaderContext);
   const [open, setOpen] = React.useState(false);
-  const [categories, setCategories] = React.useState([]);
   const anchorRef = React.useRef(null);
-
-  React.useEffect(() => {
-    const getCategories = async () => {
-      const response = await getAllCategory();
-      setCategories([...response, { id: 'all' , name: 'Todas' } ]);
-    };
-    getCategories();
-  }, []);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);

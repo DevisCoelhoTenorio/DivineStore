@@ -10,6 +10,8 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import BurgerMenu from './BurgerMenu';
 import { HeaderContext } from '../contexts';
+import { getAllCategory } from '../API';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,13 +56,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const { setSearch } = React.useContext(HeaderContext);
+  const { setSearch, setCategory } = React.useContext(HeaderContext);
+  const [categories, setCategories] = React.useState([]);
+
+  React.useEffect(() => {
+  const getCategories = async () => {
+    const response = await getAllCategory();
+    setCategories([...response, { id: 'all' , name: 'Todas' } ]);
+  };
+  getCategories();
+  }, []);
+
   const handleOnChange = (value) => {
     setSearch(value);
   }
 
+  const handleClick = (category) => {
+    setCategory(category);
+  }
+
   return (
-    <div>
+    <nav>
       <Box className="header">
         <AppBar position="static">
           <Toolbar>
@@ -84,10 +100,16 @@ export default function Header() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
-            <BurgerMenu />
+            <BurgerMenu categories={categories}/>
           </Toolbar>
+      <div className="wide-categories-container">
+      {categories.slice(0, 7).map((category) => (
+      <button key={category.id * 10} onClick={() => handleClick(category.name)}>
+        {category.name}
+      </button>))}
+      </div>
         </AppBar>
       </Box>
-    </div>
+    </nav>
   );
 }

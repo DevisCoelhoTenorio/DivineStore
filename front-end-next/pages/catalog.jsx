@@ -26,6 +26,7 @@ function Catalog() {
     };
     getProducts();
   }, []);
+
   return (
     <div className="catalog-page">
       <Header />
