@@ -76,7 +76,7 @@ export default function Header() {
   }
 
   return (
-    <nav>
+    <header className="main-header">
       <Box className="header">
         <AppBar position="static">
           <Toolbar>
@@ -102,14 +102,14 @@ export default function Header() {
             </Search>
             <BurgerMenu categories={categories}/>
           </Toolbar>
-      <div className="wide-categories-container">
+      <nav className="wide-categories-container">
       {categories.slice(0, 7).map((category) => (
       <button type="button" key={category.id * 10} onClick={() => handleClick(category.name)}>
         {category.name}
       </button>))}
-      </div>
+      </nav>
         </AppBar>
       </Box>
-    </nav>
+    </header>
   );
 }

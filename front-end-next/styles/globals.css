@@ -35,13 +35,19 @@ body {
 
 /* carrousel  */
 
-.carrousel-container {
-  z-index: -1;
+.carrousel-image {
+  width: 100%;
+  padding-top: 106px;
+  height: unset;
 }
 
-.carrousel-image {
-  width: 100% !important;
-  height: unset !important;
+.carrousel-image-container {
+  background-color: transparent;
+  display: flex;
+}
+
+.css-1m9128y {
+  margin: 0;
 }
 
 /* media */

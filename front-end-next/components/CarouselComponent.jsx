@@ -10,7 +10,8 @@ export default function CarouselComponent() {
     {
       image: 'https://img.lojasrenner.com.br/banner/01-home/20221103_HOME_CARROSSEL_ALTOVERAO_PECAUNICA_DESK_GERAL.jpg',
     }
-]
+  ];
+
   return (
     <Carousel className="carrousel-container">
       {
