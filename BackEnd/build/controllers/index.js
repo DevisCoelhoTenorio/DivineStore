@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginController = exports.InventoryController = exports.SaleController = exports.SizeController = exports.PaymentMethodController = exports.ClientController = exports.ProductController = exports.CategoryController = exports.UserController = exports.OrderController = void 0;
+exports.BannerController = exports.LoginController = exports.InventoryController = exports.SaleController = exports.SizeController = exports.PaymentMethodController = exports.ClientController = exports.ProductController = exports.CategoryController = exports.UserController = exports.OrderController = void 0;
 const OrderController_1 = __importDefault(require("./OrderController"));
 exports.OrderController = OrderController_1.default;
 const UserController_1 = __importDefault(require("./UserController"));
@@ -24,4 +24,6 @@ const InventoryController_1 = __importDefault(require("./InventoryController"));
 exports.InventoryController = InventoryController_1.default;
 const LoginController_1 = __importDefault(require("./LoginController"));
 exports.LoginController = LoginController_1.default;
+const BannerController_1 = __importDefault(require("./BannerController"));
+exports.BannerController = BannerController_1.default;
 //# sourceMappingURL=index.js.map

@@ -8,6 +8,7 @@ import SizeController from './SizeController';
 import SaleController from './SaleController';
 import InventoryController from './InventoryController';
 import LoginController from './LoginController';
+import BannerController from './BannerController';
 
 export {
   OrderController,
@@ -20,4 +21,5 @@ export {
   SaleController,
   InventoryController,
   LoginController,
+  BannerController,
 };

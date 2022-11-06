@@ -21,6 +21,11 @@ class CategoryService {
             const result = await CategoryModel_1.default.create({ name });
             return result;
         };
+        this.delete = async (id) => {
+            await CategoryModel_1.default.destroy({
+                where: { id },
+            });
+        };
     }
 }
 exports.default = CategoryService;

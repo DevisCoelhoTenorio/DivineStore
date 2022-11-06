@@ -1,4 +1,4 @@
-import { Model, INTEGER, STRING } from 'sequelize';
+import { Model, INTEGER, STRING, DATE } from 'sequelize';
 import db from '.'
 
 class Banner extends Model {
@@ -23,10 +23,17 @@ Banner.init({
   img: {
     type: STRING,
     allowNull: false,
+  },
+  updatedAt: {
+    type: DATE
+  },
+  createdAt: {
+    type: DATE
   }
 }, {
     sequelize: db,
     modelName: 'banners',
+    underscored: true,
 })
 
 export default Banner;

@@ -19,4 +19,10 @@ export default class CategoryService {
     const result = await CategoryModel.create({ name });
     return result;
   };
+
+  public delete = async (id: number): Promise<void> => {
+    await CategoryModel.destroy({
+      where: { id },
+    });
+  };
 }

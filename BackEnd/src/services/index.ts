@@ -8,6 +8,7 @@ import SizeService from './SizeService';
 import SaleService from './SaleService';
 import InventoryService from './InventoryService';
 import LoginService from './LoginService';
+import BannerService from './BannerService';
 
 export {
   OrderService,
@@ -20,4 +21,5 @@ export {
   SaleService,
   InventoryService,
   LoginService,
+  BannerService,
 };

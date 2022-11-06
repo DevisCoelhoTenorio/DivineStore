@@ -21,6 +21,12 @@ Banner.init({
     img: {
         type: sequelize_1.STRING,
         allowNull: false,
+    },
+    updatedAt: {
+        type: sequelize_1.DATE
+    },
+    createdAt: {
+        type: sequelize_1.DATE
     }
 }, {
     sequelize: _1.default,

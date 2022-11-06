@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("express-async-errors");
-class CategoryController {
+class BannerController {
     constructor(service) {
         this.service = service;
         this.find = async (req, res) => {
@@ -15,9 +15,9 @@ class CategoryController {
         this.delete = async (req, res) => {
             const { id } = req.params;
             await this.service.delete(Number(id));
-            res.status(200).json({ message: 'Category deletado com sucesso' });
+            res.status(200).json({ message: 'Banner deletado com sucesso' });
         };
     }
 }
-exports.default = CategoryController;
-//# sourceMappingURL=CategoryController.js.map
+exports.default = BannerController;
+//# sourceMappingURL=BannerController.js.map

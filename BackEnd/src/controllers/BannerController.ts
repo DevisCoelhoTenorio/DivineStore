@@ -1,10 +1,10 @@
 import { Response } from 'express';
-import { CategoryService } from '../services';
+import { BannerService } from '../services';
 import { ICustomRequest } from '../interfaces';
 import 'express-async-errors';
 
-export default class CategoryController {
-  constructor(private service: CategoryService) {}
+export default class BannerController {
+  constructor(private service: BannerService) {}
 
   public find = async (req: ICustomRequest, res: Response): Promise<void> => {
     const result = await this.service.find(req.body);
@@ -19,6 +19,6 @@ export default class CategoryController {
   public delete = async (req: ICustomRequest, res: Response): Promise<void> => {
     const { id } = req.params;
     await this.service.delete(Number(id));
-    res.status(200).json({ message: 'Category deletado com sucesso' });
+    res.status(200).json({ message: 'Banner deletado com sucesso' });
   };
 }

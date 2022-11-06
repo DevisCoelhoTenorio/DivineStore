@@ -10,8 +10,9 @@ export const HeaderContext = React.createContext({
 export function HeaderProvider({ children }) {
   const [category, setCategory] = React.useState('Todas');
   const [search, setSearch] = React.useState('');
+  const [banner, setBanner] = React.useState([])
 
-  const value = React.useMemo(() => ({ category, setCategory, search, setSearch }));
+  const value = React.useMemo(() => ({ category, setCategory, search, setSearch, banner, setBanner }));
 
   return (
     <HeaderContext.Provider value={value}>

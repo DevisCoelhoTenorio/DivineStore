@@ -22,6 +22,7 @@ const statusCode: IStatusCode = {
   'already.exists': 422,
   'not exist': 422,
   'not.login': 401,
+  'banner.exists': 422,
 };
 
 export default statusCode;

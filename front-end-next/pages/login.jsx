@@ -23,7 +23,7 @@ export default function Login() {
 
   const login = async () => {
     const { email, password } = values;
-    signIn({ email, password })
+    await signIn({ email, password })
     setValues({...values, showAlert: true });
     setTimeout(() => {
       setValues({...values, showAlert: false });

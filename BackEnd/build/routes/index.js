@@ -14,6 +14,7 @@ const SizeRoutes_1 = __importDefault(require("./SizeRoutes"));
 const SaleRoutes_1 = __importDefault(require("./SaleRoutes"));
 const InventoryRoutes_1 = __importDefault(require("./InventoryRoutes"));
 const LoginRoutes_1 = __importDefault(require("./LoginRoutes"));
+const BannerRoutes_1 = __importDefault(require("./BannerRoutes"));
 const routes = (0, express_1.Router)();
 routes.use('/user', UserRoutes_1.default);
 routes.use('/order', OrderRoutes_1.default);
@@ -25,5 +26,6 @@ routes.use('/size', SizeRoutes_1.default);
 routes.use('/sale', SaleRoutes_1.default);
 routes.use('/inventory', InventoryRoutes_1.default);
 routes.use('/login', LoginRoutes_1.default);
+routes.use('/banner', BannerRoutes_1.default);
 exports.default = routes;
 //# sourceMappingURL=index.js.map

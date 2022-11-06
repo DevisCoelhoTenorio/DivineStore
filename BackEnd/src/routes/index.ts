@@ -9,6 +9,7 @@ import sizeRoutes from './SizeRoutes';
 import saleRoutes from './SaleRoutes';
 import inventoryRoutes from './InventoryRoutes';
 import loginRoutes from './LoginRoutes';
+import bannerRoutes from './BannerRoutes';
 
 const routes = Router();
 
@@ -22,5 +23,6 @@ routes.use('/size', sizeRoutes);
 routes.use('/sale', saleRoutes);
 routes.use('/inventory', inventoryRoutes);
 routes.use('/login', loginRoutes);
+routes.use('/banner', bannerRoutes);
 
 export default routes;
