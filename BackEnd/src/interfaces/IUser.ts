@@ -13,7 +13,7 @@ export interface IResponseLogin {
   token: string;
   user: {
     name: string;
-    access: boolean;
+    admin: boolean;
     email: string;
   };
 }

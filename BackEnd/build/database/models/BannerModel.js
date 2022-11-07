@@ -31,6 +31,7 @@ Banner.init({
 }, {
     sequelize: _1.default,
     modelName: 'banners',
+    underscored: true,
 });
 exports.default = Banner;
 //# sourceMappingURL=BannerModel.js.map

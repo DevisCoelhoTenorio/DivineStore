@@ -3,7 +3,7 @@ import Router from 'next/router'
 import { createContext } from "react";
 import { getToken } from '../API'
 import { valideteAcess } from '../API'
-import { setCookie, parseCookies } from 'nookies';
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
 
 export const AuthContext = createContext({})
 
@@ -13,10 +13,8 @@ export function AuthProvider({children}) {
   React.useEffect(() => {
     const checkLogin = async () => {
       const { 'divine.token': token } = parseCookies()
-      console.log(token);
       if(token) {
         const payload = await valideteAcess(token)
-        console.log("aqui", payload);
         if(payload) setUser(payload);
       }
     }
@@ -34,9 +32,14 @@ export function AuthProvider({children}) {
       return Router.push('/admin')
     }
   }
+  function logout() {
+    destroyCookie(undefined, 'divine.token')
+    setUser(null)
+    return Router.push('/catalog')
+  }
 
   return (
-    <AuthContext.Provider value={{ user, signIn  }}>
+    <AuthContext.Provider value={{ user, signIn, logout }}>
         {children}
     </AuthContext.Provider>
   )

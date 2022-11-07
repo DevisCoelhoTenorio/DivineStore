@@ -1,35 +1,31 @@
 import React from "react";
-// import Loading from '../components/Loading';
 import { parseCookies } from 'nookies'
+import HeaderAdmin from "../components/HeaderAdmin";
+import NavigationBarAdmin from "../components/NavigationBarAdmin";
+import { valideteAcess } from '../API'
 import { AuthContext } from "../contexts";
-import Image from "next/image";
-import Loading from '../components/Loading'
+import Loading from "../components/Loading";
 
 export default function Admin() {
   const { user } = React.useContext(AuthContext);
 
   return(
     <div>
-      {!user.name ? <Loading/> : (
-    <header className="main-header">
-      <div className="logo">
-        <Image
-                  src="https://drive.google.com/uc?export=view&id=1QasQHkXQwnUYo6xeGuQxBRNjVVVpkUG4"
-                  alt="Vercel Logo"
-                  width={50}
-                  height={50}
-          />
-        </div>
-        <h1>{`Bem vindo(a) ${user.name}`}</h1>
-    </header>
-      )}
+      {user ? (
+        <header>
+          {/* <HeaderAdmin /> */}
+          <NavigationBarAdmin />
+        </header>
+      ): <Loading />}
     </div>
   )
 }
 
 export const getServerSideProps = async (ctx) => {
     const { 'divine.token': token } = parseCookies(ctx);
-    if(!token) {
+
+    const { admin } = await valideteAcess(token)
+    if(!admin) {
      return {
       redirect: {
         destination: '/catalog',

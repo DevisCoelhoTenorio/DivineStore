@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { getAllProducts } from '../API';
 import Loading from '../components/Loading';
-import Header from '../components/Header';
+import HeaderCatalog from '../components/HeaderCatalog';
 import BasicCard from '../components/BasicCard';
 import { HeaderContext } from '../contexts';
 import Footer from '../components/Footer';
@@ -30,7 +30,7 @@ function Catalog() {
 
   return (
     <div className="catalog-page">
-      <Header />
+      <HeaderCatalog />
       <CarouselComponent />
       <Advantages />
       <Container className="products-container" maxWidth="sm">

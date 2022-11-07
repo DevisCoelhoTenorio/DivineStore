@@ -9,7 +9,9 @@ import Stack from '@mui/material/Stack';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import Link from 'next/link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { valideteAcess } from '../API'
 import { AuthContext } from '../contexts';
+import { parseCookies } from 'nookies';
 
 
 export default function Login() {
@@ -21,7 +23,8 @@ export default function Login() {
     showAlert: false,
   });
 
-  const login = async () => {
+  const login = async (e) => {
+    e.preventDefault();
     const { email, password } = values;
     await signIn({ email, password })
     setValues({...values, showAlert: true });
@@ -52,7 +55,7 @@ export default function Login() {
        <Alert severity="error">Email ou Password incorreto!</Alert>
        </Stack>
      ): null}
-  <form className="login-page" action="">
+  <form className="login-page" action="" onSubmit={ login } >
     <div className="login-box">
       <div className="logo-container">
         <Image
@@ -101,7 +104,7 @@ export default function Login() {
 </FormControl>
 <Button
 className="login-btn"
-onClick= {login}
+type='submit'
 variant="contained" disableElevation>
      Entrar
     </Button>
@@ -126,4 +129,29 @@ variant="contained" disableElevation>
   </form>
   </div>
 )
+}
+
+export const getServerSideProps = async (ctx) => {
+  const { 'divine.token': token } = parseCookies(ctx);
+  const { admin, name } = await valideteAcess(token)
+  if(admin) {
+   return {
+    redirect: {
+      destination: '/admin',
+      permanent: false,
+    }
+   }
+}
+  if(name) {
+    return {
+      redirect: {
+        destination: '/catalog',
+        permanent: false,
+      }
+     }
+  }
+
+  return {
+    props: {}
+  }
 }

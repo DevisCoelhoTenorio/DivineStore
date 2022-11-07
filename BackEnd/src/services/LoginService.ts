@@ -16,8 +16,8 @@ export default class LoginService {
 
   public login = async (user: ILoginUser): Promise<IResponseLogin> => {
     const { id, email, name, admin } = await this.checkUser(user);
-    const token = generateToken({ id, email, name, admin })
-    return { token, user: {name, email, access: admin}};
+    const token = generateToken({ id, email, name, admin });
+    return { token, user: { name, email, admin } };
   };
 
   public validade = async (token: string | undefined) => {

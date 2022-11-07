@@ -9,8 +9,12 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import BurgerMenu from './BurgerMenu';
-import { HeaderContext } from '../contexts';
+import SettingsIcon from '@mui/icons-material/Settings';
+import MeetingRoomSharpIcon from '@mui/icons-material/MeetingRoomSharp';
+import Router from 'next/router';
+import { AuthContext, HeaderContext } from '../contexts';
 import { getAllCategory } from '../API';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -55,8 +59,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Header() {
+export default function HeaderCatalog() {
   const { setSearch, setCategory } = React.useContext(HeaderContext);
+  const { user, logout } = React.useContext(AuthContext);
   const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
@@ -88,6 +93,12 @@ export default function Header() {
                   width={50}
                   height={50}
                 />
+                {user?.admin ? (
+                  <div>
+                    <SettingsIcon onClick={ ()=> Router.push('/admin')} />
+                    <MeetingRoomSharpIcon onClick= {() => logout()} />
+                  </div>
+                ) : null}
               </div>
             </Typography>
             <Search>
