@@ -49,14 +49,14 @@ class ProductService {
             return result;
         };
         this.create = async (newProduct) => {
-            const { photos } = newProduct;
+            const { photos, ...rest } = newProduct;
             const newId = await models_1.default.transaction(async (t) => {
-                const { id } = await ProductModel_1.default.create({ ...newProduct }, { transaction: t });
+                const { id } = await ProductModel_1.default.create({ ...rest }, { transaction: t });
                 const photosWithId = photos.map((photo) => ({ ...photo, productId: id }));
                 await PhotoModel_1.default.bulkCreate(photosWithId, { transaction: t });
                 return id;
             });
-            const result = await this.findAll({ newId });
+            const result = await this.findAll({ id: newId });
             return result[0];
         };
     }

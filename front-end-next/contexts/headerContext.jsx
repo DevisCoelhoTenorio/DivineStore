@@ -9,22 +9,22 @@ export const HeaderContext = React.createContext({
 
 const BASE_MANAGEMENTS = [
   {
-    id: 1, name: 'Produtos', active: true, path: '/admin/products',
+    code: 1, name: 'Produtos', active: true, path: '/admin/products',
   },
   {
-    id: 2, name: 'Banners', active: false, path: '/admin/banners',
+    code: 2, name: 'Banners', active: false, path: '/admin/products',
   },
   {
-    id: 3, name: 'Clientes', active: false, path: '/admin/clients',
+    code: 3, name: 'Clientes', active: false, path: '/admin/clients',
   },
   {
-    id: 4, name: 'Tamanhos', active: false, path: '/admin/sizes',
+    code: 4, name: 'Tamanhos', active: false, path: '/admin/sizes',
   },
   {
-    id: 5, name: 'Vendas', active: false, path: '/admin/sales',
+    code: 5, name: 'Vendas', active: false, path: '/admin/sales',
   },
   {
-    id: 6, name: 'Metodos de Pagamento', active: false, path: '/admin/paymentMethods',
+    code: 6, name: 'Metodos de Pagamento', active: false, path: '/admin/paymentMethods',
   },
 ];
 
@@ -35,20 +35,16 @@ export function HeaderProvider({ children }) {
   const [managements, setManagements] = React.useState(BASE_MANAGEMENTS);
 
   const selectManagement = (id) => {
-    let newActive = [];
-    const setActive = newActive.map((item) => {
-      if (item.id === id) {
-        newActive = [...newActive, { ...item, active: true }];
-        return newActive;
+    const setActive = managements.map((item) => {
+      if (item.code === id) {
+        return { ...item, active: true };
       }
       if (item.active) {
-        newActive = [...newActive, { ...item, active: false }];
-        return newActive;
+        return { ...item, active: false };
       }
-      newActive = [...newActive, item];
-      return newActive;
+      return item;
     });
-    setManagements(setActive);
+    setManagements([...setActive]);
   };
 
   const value = React.useMemo(() => ({

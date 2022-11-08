@@ -1,15 +1,18 @@
 import { IPhoto } from './IPhoto';
 
-export interface ISimpleProduct {
+interface ISize {
   id: number;
+  name: string;
+  quantity: number;
+}
+
+export interface ISimpleProduct {
+  id?: number;
   name: string;
   price: string;
   category?: number;
 }
 export interface IProduct extends ISimpleProduct {
-  id: number;
-  name: string;
-  price: string;
   description?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -18,4 +21,5 @@ export interface IProduct extends ISimpleProduct {
 
 export interface IFullProduct extends IProduct {
   photos: IPhoto[];
+  sizes: ISize[];
 }

@@ -47,16 +47,16 @@ export default class ProductService {
   };
 
   public create = async (newProduct: IFullProduct): Promise<IProduct> => {
-    const { photos } = newProduct;
+    const { photos, ...rest } = newProduct;
 
     const newId = await Sequelize.transaction(async (t) => {
-      const { id } = await ProductModel.create({ ...newProduct }, { transaction: t });
+      const { id } = await ProductModel.create({ ...rest }, { transaction: t });
       const photosWithId = photos.map((photo) => ({ ...photo, productId: id }));
       await PhotoModel.bulkCreate(photosWithId, { transaction: t });
       return id;
     });
 
-    const result = await this.findAll({ newId });
+    const result = await this.findAll({ id: newId });
     return result[0];
   };
 }

@@ -28,7 +28,7 @@ export const getServerSideProps = async (ctx) => {
   if (!admin) {
     return {
       redirect: {
-        destination: '/catalog',
+        destination: '/login',
         permanent: false,
       },
     };

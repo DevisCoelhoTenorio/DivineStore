@@ -26,6 +26,15 @@ const getProductById = async (id) => {
   return response.data;
 };
 
+const setNewProduct = async ({
+  name, price, description, photos, category,
+}) => {
+  const response = await axios.post(`${BASE_URL}/product`, {
+    name, price, description, photos, category,
+  });
+  return response.data;
+};
+
 // category
 
 const getAllCategory = async () => {
@@ -72,6 +81,24 @@ const getAllBanners = async () => {
   }
 };
 
+// Size
+
+const getAllSizes = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/size`);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
+
 export {
-  getAllProducts, getAllCategory, getProductById, getToken, valideteAcess, getAllBanners,
+  getAllProducts,
+  getAllCategory,
+  getProductById,
+  getToken,
+  valideteAcess,
+  getAllBanners,
+  setNewProduct,
+  getAllSizes,
 };

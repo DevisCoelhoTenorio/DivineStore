@@ -16,7 +16,7 @@ export default function NavigationBarAdmin() {
             color="inherit"
             href={item.path}
             key={nanoid()}
-            onClick={() => selectManagement(item.id)}
+            onClick={() => selectManagement(item.code)}
           >
             {item.name}
           </Link>
