@@ -13,15 +13,19 @@ export default function Footer() {
             href="https://www.linkedin.com/in/devis-coelho-tenorio/"
             target="_blank"
           >
+            {' '}
             Dêvis
           </Link>
+          {' '}
           e
           <Link
             href="https://www.linkedin.com/in/arthurccoelho/"
             target="_blank"
           >
+            {' '}
             Arthur
           </Link>
+          {' '}
           Coelho
         </p>
       </div>

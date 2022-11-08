@@ -11,6 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MeetingRoomSharpIcon from '@mui/icons-material/MeetingRoomSharp';
 import Router from 'next/router';
+import { nanoid } from 'nanoid';
 import BurgerMenu from './BurgerMenu';
 import { AuthContext, HeaderContext } from '../contexts';
 import { getAllCategory } from '../API';
@@ -59,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function HeaderCatalog() {
   const { setSearch, setCategory } = React.useContext(HeaderContext);
-  const { user, logout } = React.useContext(AuthContext);
+  const { activeUser, logout } = React.useContext(AuthContext);
   const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
@@ -91,7 +92,7 @@ export default function HeaderCatalog() {
                   width={50}
                   height={50}
                 />
-                {user?.admin ? (
+                {activeUser?.admin ? (
                   <div>
                     <SettingsIcon onClick={() => Router.push('/admin')} />
                     <MeetingRoomSharpIcon onClick={() => logout()} />
@@ -113,7 +114,7 @@ export default function HeaderCatalog() {
           </Toolbar>
           <nav className="wide-categories-container">
             {categories.slice(0, 7).map((category) => (
-              <button type="button" key={category.id * 10} onClick={() => handleClick(category.name)}>
+              <button type="button" key={nanoid()} onClick={() => handleClick(category.name)}>
                 {category.name}
               </button>
             ))}

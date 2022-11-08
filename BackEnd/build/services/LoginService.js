@@ -19,7 +19,7 @@ class LoginService {
         this.login = async (user) => {
             const { id, email, name, admin } = await this.checkUser(user);
             const token = (0, auth_1.generateToken)({ id, email, name, admin });
-            return { token, user: { name, email, access: admin } };
+            return { token, user: { name, email, admin } };
         };
         this.validade = async (token) => {
             const payload = (0, auth_1.authTokenValidation)(token);

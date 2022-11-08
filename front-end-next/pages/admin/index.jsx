@@ -1,19 +1,19 @@
 import React from 'react';
 import { parseCookies } from 'nookies';
-import HeaderAdmin from '../../components/HeaderAdmin';
+// import HeaderAdmin from '../../components/HeaderAdmin';
 import NavigationBarAdmin from '../../components/NavigationBarAdmin';
 import { valideteAcess } from '../../API';
 import { AuthContext } from '../../contexts';
 import Loading from '../../components/Loading';
 
 export default function Admin() {
-  const { user } = React.useContext(AuthContext);
+  const { activeUser } = React.useContext(AuthContext);
 
   return (
     <div>
-      {user ? (
+      {activeUser ? (
         <header>
-          <HeaderAdmin />
+          {/* <HeaderAdmin /> */}
           <NavigationBarAdmin />
         </header>
       ) : <Loading />}

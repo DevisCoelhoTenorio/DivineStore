@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { nanoid } from 'nanoid';
 import { HeaderContext } from '../contexts';
 
 export default function BurgerMenu({ categories }) {
@@ -99,7 +100,7 @@ export default function BurgerMenu({ categories }) {
                     {categories.length > 0
                       && categories.map((category) => [
                         <MenuItem
-                          key={category.id}
+                          key={nanoid()}
                           onClick={() => {
                             handleClick(category.name);
                             handleClose();
@@ -121,7 +122,6 @@ export default function BurgerMenu({ categories }) {
 
 BurgerMenu.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
     name: PropTypes.string,
   })).isRequired,
 };

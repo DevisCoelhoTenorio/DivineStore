@@ -42,9 +42,5 @@ BasicCard.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  photos: PropTypes.arrayOf(PropTypes.string),
-};
-
-BasicCard.defaultProps = {
-  photos: [],
+  photos: PropTypes.string.isRequired,
 };

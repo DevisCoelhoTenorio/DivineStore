@@ -1,4 +1,5 @@
 import React from 'react';
+import { nanoid } from 'nanoid';
 import AdvantageCard from './AdvantageCard';
 
 const divineAdvantages = [
@@ -27,7 +28,7 @@ export default function Advantages() {
     <div className="advantages-container">
       {divineAdvantages.map((advantage) => (
         <AdvantageCard
-          key={advantage.id}
+          key={nanoid()}
           title={advantage.title}
           content={advantage.content}
           img={advantage.img}

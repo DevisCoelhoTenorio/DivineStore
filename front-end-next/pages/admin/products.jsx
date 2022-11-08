@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { parseCookies } from 'nookies';
 import OptionsManagement from '../../components/OptionsManagement';
-import HeaderAdmin from '../../components/HeaderAdmin';
+// import HeaderAdmin from '../../components/HeaderAdmin';
 import Addform from '../../components/products/AddForm';
 import { valideteAcess } from '../../API';
 
 const BASE_OPTIONS = [
-  { id: 1, name: 'Adicionar' },
-  { id: 2, name: 'Remover' },
-  { id: 3, name: 'Editar' },
-  { id: 4, name: 'Ver' },
+  { code: 1, name: 'Adicionar' },
+  { code: 2, name: 'Remover' },
+  { code: 3, name: 'Editar' },
+  { code: 4, name: 'Ver' },
 ];
 
 export default function Products() {
@@ -21,7 +21,7 @@ export default function Products() {
 
   return (
     <div>
-      <HeaderAdmin />
+      {/* <HeaderAdmin /> */}
       {!typeRender ? (
         <div>
           <h1>Opções de Produtos</h1>

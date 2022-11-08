@@ -1,5 +1,6 @@
 import Carousel from 'react-material-ui-carousel';
 import React from 'react';
+import { nanoid } from 'nanoid';
 import CarouselItem from './CarouselItem';
 import { HeaderContext } from '../contexts/headerContext';
 import { getAllBanners } from '../API';
@@ -19,7 +20,7 @@ export default function CarouselComponent() {
     <Carousel className="carrousel-container">
       {
        banner.length !== 0 ? banner
-         .map((item) => <CarouselItem key={item.id} image={item.img} />) : null
+         .map((item) => <CarouselItem key={nanoid()} image={item.img} />) : null
       }
     </Carousel>
   );
