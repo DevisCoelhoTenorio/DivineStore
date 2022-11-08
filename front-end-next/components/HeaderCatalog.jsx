@@ -8,14 +8,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import BurgerMenu from './BurgerMenu';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MeetingRoomSharpIcon from '@mui/icons-material/MeetingRoomSharp';
 import Router from 'next/router';
+import BurgerMenu from './BurgerMenu';
 import { AuthContext, HeaderContext } from '../contexts';
 import { getAllCategory } from '../API';
-
-
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -65,20 +63,20 @@ export default function HeaderCatalog() {
   const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
-  const getCategories = async () => {
-    const response = await getAllCategory();
-    setCategories([...response, { id: 'all' , name: 'Todas' } ]);
-  };
-  getCategories();
+    const getCategories = async () => {
+      const response = await getAllCategory();
+      setCategories([...response, { id: 'all', name: 'Todas' }]);
+    };
+    getCategories();
   }, []);
 
   const handleOnChange = (value) => {
     setSearch(value);
-  }
+  };
 
   const handleClick = (category) => {
     setCategory(category);
-  }
+  };
 
   return (
     <header className="main-header">
@@ -95,8 +93,8 @@ export default function HeaderCatalog() {
                 />
                 {user?.admin ? (
                   <div>
-                    <SettingsIcon onClick={ ()=> Router.push('/admin')} />
-                    <MeetingRoomSharpIcon onClick= {() => logout()} />
+                    <SettingsIcon onClick={() => Router.push('/admin')} />
+                    <MeetingRoomSharpIcon onClick={() => logout()} />
                   </div>
                 ) : null}
               </div>
@@ -111,14 +109,15 @@ export default function HeaderCatalog() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
-            <BurgerMenu categories={categories}/>
+            <BurgerMenu categories={categories} />
           </Toolbar>
-      <nav className="wide-categories-container">
-      {categories.slice(0, 7).map((category) => (
-      <button type="button" key={category.id * 10} onClick={() => handleClick(category.name)}>
-        {category.name}
-      </button>))}
-      </nav>
+          <nav className="wide-categories-container">
+            {categories.slice(0, 7).map((category) => (
+              <button type="button" key={category.id * 10} onClick={() => handleClick(category.name)}>
+                {category.name}
+              </button>
+            ))}
+          </nav>
         </AppBar>
       </Box>
     </header>

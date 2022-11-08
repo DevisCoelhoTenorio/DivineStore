@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import Proptypes from 'prop-types';
 
 export default function AdvantageCard({ title, content, img }) {
   return (
@@ -10,5 +11,11 @@ export default function AdvantageCard({ title, content, img }) {
         <p>{content}</p>
       </div>
     </div>
-  )
+  );
 }
+
+AdvantageCard.propTypes = {
+  title: Proptypes.string.isRequired,
+  content: Proptypes.string.isRequired,
+  img: Proptypes.string.isRequired,
+};

@@ -17,6 +17,7 @@ import { IconButton } from '@mui/material';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
+  // eslint-disable-next-line react/jsx-props-no-spreading
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',

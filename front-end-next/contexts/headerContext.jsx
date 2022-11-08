@@ -8,13 +8,25 @@ export const HeaderContext = React.createContext({
 });
 
 const BASE_MANAGEMENTS = [
-  {id: 1, name: 'Produtos', active: true, path: '/admin/products' },
-  {id: 2, name: 'Banners', active: false, path: '/admin/banners'  },
-  {id: 3, name: 'Clientes', active: false, path: '/admin/clients'  },
-  {id: 4, name: 'Tamanhos', active: false, path: '/admin/sizes'  },
-  {id: 5, name: 'Vendas', active: false, path: '/admin/sales'  },
-  {id: 6, name: 'Metodos de Pagamento', active: false, path: '/admin/paymentMethods' },
-]
+  {
+    id: 1, name: 'Produtos', active: true, path: '/admin/products',
+  },
+  {
+    id: 2, name: 'Banners', active: false, path: '/admin/banners',
+  },
+  {
+    id: 3, name: 'Clientes', active: false, path: '/admin/clients',
+  },
+  {
+    id: 4, name: 'Tamanhos', active: false, path: '/admin/sizes',
+  },
+  {
+    id: 5, name: 'Vendas', active: false, path: '/admin/sales',
+  },
+  {
+    id: 6, name: 'Metodos de Pagamento', active: false, path: '/admin/paymentMethods',
+  },
+];
 
 export function HeaderProvider({ children }) {
   const [category, setCategory] = React.useState('Todas');
@@ -23,25 +35,27 @@ export function HeaderProvider({ children }) {
   const [managements, setManagements] = React.useState(BASE_MANAGEMENTS);
 
   const selectManagement = (id) => {
-    const setActive = managements.map((item) => {
+    let newActive = [];
+    const setActive = newActive.map((item) => {
       if (item.id === id) {
-        item.active = true;
-        return item;
+        newActive = [...newActive, { ...item, active: true }];
+        return newActive;
       }
       if (item.active) {
-        item.active = false;
-        return item;
+        newActive = [...newActive, { ...item, active: false }];
+        return newActive;
       }
-      return item;
+      newActive = [...newActive, item];
+      return newActive;
     });
-    console.log(setActive);
     setManagements(setActive);
   };
 
   const value = React.useMemo(() => ({
     category,
     setCategory,
-    search, setSearch,
+    search,
+    setSearch,
     banner,
     setBanner,
     managements,

@@ -15,10 +15,10 @@ function Catalog() {
   const { category, search } = React.useContext(HeaderContext);
 
   const filterCategory = category !== 'Todas' ? products
-  .filter(({category: { name }}) => category === name) : products;
+    .filter(({ category: { name } }) => category === name) : products;
 
   const filterSearch = filterCategory
-  .filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()));
+    .filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()));
 
   useEffect(() => {
     const getProducts = async () => {
@@ -34,19 +34,19 @@ function Catalog() {
       <CarouselComponent />
       <Advantages />
       <Container className="products-container" maxWidth="sm">
-          <CssBaseline />
-          {products.length === 0
-            ? Loading
-            : filterSearch.map((item) => (
-              <BasicCard
-                className="product-card"
-                key={item.id}
-                name={item.name}
-                price={item.price}
-                category={item.category.name}
-                photos={item.photos[0].img}
-              />
-            ))}
+        <CssBaseline />
+        {products.length === 0
+          ? Loading
+          : filterSearch.map((item) => (
+            <BasicCard
+              className="product-card"
+              key={item.id}
+              name={item.name}
+              price={item.price}
+              category={item.category.name}
+              photos={item.photos[0].img}
+            />
+          ))}
       </Container>
       <Footer />
     </div>

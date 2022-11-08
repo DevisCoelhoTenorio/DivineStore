@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
+import PropTypes from 'prop-types';
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
@@ -22,13 +23,12 @@ export default function BurgerMenu({ categories }) {
 
   const handleClick = (category) => {
     setCategory(category);
-  }
+  };
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -81,6 +81,7 @@ export default function BurgerMenu({ categories }) {
         >
           {({ TransitionProps, placement }) => (
             <Grow
+              // eslint-disable-next-line react/jsx-props-no-spreading
               {...TransitionProps}
               style={{
                 transformOrigin:
@@ -93,17 +94,19 @@ export default function BurgerMenu({ categories }) {
                     autoFocusItem={open}
                     id="composition-menu"
                     aria-labelledby="composition-button"
-                    onKeyDown={handleListKeyDown}
+                    onKeyDown={() => handleListKeyDown()}
                   >
                     {categories.length > 0
                       && categories.map((category) => [
-                        <div key={category.id} onClick={() => handleClick(category.name)}>
                         <MenuItem
-                          onClick={handleClose}
+                          key={category.id}
+                          onClick={() => {
+                            handleClick(category.name);
+                            handleClose();
+                          }}
                         >
                           {category.name}
-                        </MenuItem>
-                        </div>,
+                        </MenuItem>,
                       ])}
                   </MenuList>
                 </ClickAwayListener>
@@ -115,3 +118,10 @@ export default function BurgerMenu({ categories }) {
     </Stack>
   );
 }
+
+BurgerMenu.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+  })).isRequired,
+};
