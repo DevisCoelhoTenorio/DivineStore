@@ -4,7 +4,6 @@ import OptionsManagement from '../../components/OptionsManagement';
 // import HeaderAdmin from '../../components/HeaderAdmin';
 import Addform from '../../components/products/AddForm';
 import { valideteAcess } from '../../API';
-import { HeaderContext } from '../../contexts';
 
 const BASE_OPTIONS = [
   { code: 1, name: 'Adicionar' },
@@ -15,13 +14,10 @@ const BASE_OPTIONS = [
 
 export default function Products() {
   const [typeRender, setTypeRender] = React.useState(null);
-  const { managements } = React.useContext(HeaderContext);
 
   const setStateRender = (type) => {
     setTypeRender(type);
   };
-
-  console.table(managements);
 
   return (
     <div>

@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const SizeModel_1 = __importDefault(require("../database/models/SizeModel"));
-const InventoryModel_1 = __importDefault(require("../database/models/InventoryModel"));
 const ProductModel_1 = __importDefault(require("../database/models/ProductModel"));
+const InventoryModel_1 = __importDefault(require("../database/models/InventoryModel"));
 const PhotoModel_1 = __importDefault(require("../database/models/PhotoModel"));
 const CategoryModel_1 = __importDefault(require("../database/models/CategoryModel"));
 const models_1 = __importDefault(require("../database/models"));
@@ -49,15 +49,21 @@ class ProductService {
             return result;
         };
         this.create = async (newProduct) => {
-            const { photos, ...rest } = newProduct;
+            const { photos, sizes, ...rest } = newProduct;
             const newId = await models_1.default.transaction(async (t) => {
                 const { id } = await ProductModel_1.default.create({ ...rest }, { transaction: t });
                 const photosWithId = photos.map((photo) => ({ ...photo, productId: id }));
+                const inventoryWithId = sizes.map((inventory) => ({
+                    productId: id,
+                    quantity: inventory.quantity,
+                    sizeId: inventory.id,
+                }));
                 await PhotoModel_1.default.bulkCreate(photosWithId, { transaction: t });
+                await InventoryModel_1.default.bulkCreate(inventoryWithId, { transaction: t });
                 return id;
             });
-            const result = await this.findAll({ id: newId });
-            return result[0];
+            const result = await this.findById(newId);
+            return result;
         };
     }
 }

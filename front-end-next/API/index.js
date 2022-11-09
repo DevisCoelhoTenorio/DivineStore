@@ -26,13 +26,13 @@ const getProductById = async (id) => {
   return response.data;
 };
 
-const setNewProduct = async ({
-  name, price, description, photos, category,
-}) => {
-  const response = await axios.post(`${BASE_URL}/product`, {
-    name, price, description, photos, category,
-  });
-  return response.data;
+const createNewProduct = async (newProduct) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/product`, newProduct);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
 };
 
 // category
@@ -99,6 +99,6 @@ export {
   getToken,
   valideteAcess,
   getAllBanners,
-  setNewProduct,
+  createNewProduct,
   getAllSizes,
 };

@@ -1,6 +1,6 @@
-import Size from '../database/models/SizeModel';
-import Inventory from '../database/models/InventoryModel';
+import SizeModel from '../database/models/SizeModel';
 import ProductModel from '../database/models/ProductModel';
+import InventoryModel from '../database/models/InventoryModel';
 import PhotoModel from '../database/models/PhotoModel';
 import { IProduct, IFullProduct } from '../interfaces';
 import CategoryModel from '../database/models/CategoryModel';
@@ -33,11 +33,11 @@ export default class ProductService {
       }, {
         model: PhotoModel, as: 'photos', attributes: ['img', 'thumbnail'],
       }, {
-        model: Inventory,
+        model: InventoryModel,
         as: 'stock',
         attributes: ['quantity'],
         include: [{
-          model: Size,
+          model: SizeModel,
           as: 'size',
           attributes: ['name'],
         }],
@@ -46,17 +46,23 @@ export default class ProductService {
     return result;
   };
 
-  public create = async (newProduct: IFullProduct): Promise<IProduct> => {
-    const { photos, ...rest } = newProduct;
+  public create = async (newProduct: IFullProduct): Promise<IProduct | null> => {
+    const { photos, sizes, ...rest } = newProduct;
 
     const newId = await Sequelize.transaction(async (t) => {
       const { id } = await ProductModel.create({ ...rest }, { transaction: t });
       const photosWithId = photos.map((photo) => ({ ...photo, productId: id }));
+      const inventoryWithId = sizes.map((inventory) => ({
+        productId: id,
+        quantity: inventory.quantity,
+        sizeId: inventory.id,
+      }));
       await PhotoModel.bulkCreate(photosWithId, { transaction: t });
+      await InventoryModel.bulkCreate(inventoryWithId, { transaction: t });
       return id;
     });
 
-    const result = await this.findAll({ id: newId });
-    return result[0];
+    const result = await this.findById(newId);
+    return result;
   };
 }
