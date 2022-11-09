@@ -2,13 +2,13 @@ import React from 'react';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-import {
-  FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput,
-} from '@mui/material';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
 import Image from 'next/image';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import Link from 'next/link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { parseCookies } from 'nookies';
@@ -18,16 +18,22 @@ import { AuthContext } from '../contexts';
 export default function Login() {
   const { signIn } = React.useContext(AuthContext);
   const [values, setValues] = React.useState({
-    email: '',
-    password: '',
     showPassword: false,
     showAlert: false,
   });
 
-  const login = async (e) => {
-    e.preventDefault();
-    const { email, password } = values;
-    const status = await signIn({ email, password });
+  const validationSchema = yup.object({
+    email: yup
+      .string()
+      .email('É necessário uso de um e-mail válido!')
+      .required('O campo email não pode ser vazio!'),
+    password: yup
+      .string()
+      .required('O campo senha não pode estar vazio!'),
+  });
+
+  const login = async (loginRequest) => {
+    const status = await signIn(loginRequest);
     if (!status) {
       setValues({ ...values, showAlert: true });
       setTimeout(() => {
@@ -36,9 +42,16 @@ export default function Login() {
     }
   };
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+  const initialValues = {
+    email: '',
+    password: '',
   };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (loginRequest) => login(loginRequest),
+  });
 
   const handleClickShowPassword = () => {
     setValues({
@@ -58,7 +71,7 @@ export default function Login() {
           <Alert severity="error">Email ou Password incorreto!</Alert>
         </Stack>
       ) : null}
-      <form className="login-page" action="" onSubmit={login}>
+      <form className="login-page" action="" onSubmit={formik.handleSubmit}>
         <div className="login-box">
           <div className="logo-container">
             <Image
@@ -73,38 +86,38 @@ export default function Login() {
               <h2>Olá,</h2>
               <h4>seja bem vinda(o)!</h4>
             </div>
-            <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-email"
-                type="text"
-                value={values.email}
-                onChange={handleChange('email')}
-                label="Email"
-              />
-            </FormControl>
-            <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                onChange={handleChange('password')}
-                endAdornment={(
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-    )}
-                label="Password"
-              />
-            </FormControl>
+            <TextField
+              id="email"
+              type="email"
+              name="email"
+              value={formik.values.email}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              onChange={formik.handleChange}
+              label="E-mail"
+            />
+            <TextField
+              id="password"
+              name="password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+              endAdornment={(
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+                )}
+              label="Senha"
+            />
             <Button
               className="login-btn"
               type="submit"

@@ -41,6 +41,7 @@ export default function AddForm() {
   const [size, setSize] = React.useState(INITIAL_SIZE);
   const [quantity, setQuantity] = React.useState('');
   const [isDisabled, setIsDisabled] = React.useState(INITIAL_ISDISABLED);
+  const [previewImg, setPreviewImg] = React.useState(null);
 
   React.useEffect(() => {
     const getCategories = async () => {
@@ -86,6 +87,7 @@ export default function AddForm() {
       return;
     }
     setValues({ ...values, photos: [...values.photos, { img: urlImg, thumbnail }] });
+    setPreviewImg(null);
     setUrlImg('');
   };
 
@@ -253,11 +255,20 @@ export default function AddForm() {
               type="button"
               variant="contained"
               disableElevation
+              onClick={() => setPreviewImg(urlImg)}
+            >
+              UPLOAD FOTO
+            </Button>
+            <Button
+              className="login-btn"
+              type="button"
+              variant="contained"
+              disableElevation
               onClick={addPhoto}
             >
               Add Foto
             </Button>
-            <img src={urlImg || DEFAULT_IMG} width={300} height={300} alt="showcase" />
+            <img src={previewImg || DEFAULT_IMG} width={300} height={300} alt="showcase" />
             {values.photos.map((photo) => (
               <div key={photo.img}>
                 <Image src={photo.img} width={50} height={50} alt="itensAdd" />

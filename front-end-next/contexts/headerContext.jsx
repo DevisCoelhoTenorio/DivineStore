@@ -1,5 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
+import GroupsIcon from '@mui/icons-material/Groups';
+import StraightenIcon from '@mui/icons-material/Straighten';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import SellIcon from '@mui/icons-material/Sell';
 
 export const HeaderContext = React.createContext({
   category: '',
@@ -9,22 +15,42 @@ export const HeaderContext = React.createContext({
 
 const BASE_MANAGEMENTS = [
   {
-    code: 1, name: 'Produtos', active: true, path: '/admin/products',
+    code: 1,
+    name: 'Produtos',
+    active: true,
+    path: '/admin/products',
+    icon: InventoryIcon,
   },
   {
-    code: 2, name: 'Banners', active: false, path: '/admin/products',
+    code: 2,
+    name: 'Banners',
+    active: false,
+    path: '/admin/products',
+    icon: ViewCarouselIcon,
   },
   {
-    code: 3, name: 'Clientes', active: false, path: '/admin/clients',
+    code: 3,
+    name: 'Clientes',
+    active: false,
+    path: '/admin/clients',
+    icon: GroupsIcon,
   },
   {
-    code: 4, name: 'Tamanhos', active: false, path: '/admin/sizes',
+    code: 4,
+    name: 'Tamanhos',
+    active: false,
+    path: '/admin/sizes',
+    icon: StraightenIcon,
   },
   {
-    code: 5, name: 'Vendas', active: false, path: '/admin/sales',
+    code: 5, name: 'Vendas', active: false, path: '/admin/sales', icon: SellIcon,
   },
   {
-    code: 6, name: 'Metodos de Pagamento', active: false, path: '/admin/paymentMethods',
+    code: 6,
+    name: 'Pagamentos',
+    active: false,
+    path: '/admin/paymentMethods',
+    icon: MonetizationOnIcon,
   },
 ];
 
