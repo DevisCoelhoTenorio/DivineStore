@@ -12,15 +12,15 @@ import * as yup from 'yup';
 import Link from 'next/link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { parseCookies } from 'nookies';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
 import { valideteAcess } from '../API';
 import { AuthContext } from '../contexts';
 
 export default function Login() {
   const { signIn } = React.useContext(AuthContext);
-  const [values, setValues] = React.useState({
-    showPassword: false,
-    showAlert: false,
-  });
+  // const [openForgotPassword, setOpenForgotPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
 
   const validationSchema = yup.object({
     email: yup
@@ -32,12 +32,16 @@ export default function Login() {
       .required('O campo senha não pode estar vazio!'),
   });
 
+  // function handleForgotPassword() {
+  //   setOpenForgotPassword(!openForgotPassword);
+  // }
+
   const login = async (loginRequest) => {
     const status = await signIn(loginRequest);
     if (!status) {
-      setValues({ ...values, showAlert: true });
+      setShowAlert(true);
       setTimeout(() => {
-        setValues({ ...values, showAlert: false });
+        setShowAlert(false);
       }, 5000);
     }
   };
@@ -53,20 +57,9 @@ export default function Login() {
     onSubmit: (loginRequest) => login(loginRequest),
   });
 
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <div>
-      {values.showAlert ? (
+      {showAlert ? (
         <Stack className="alert" sx={{ width: '100%' }} spacing={2}>
           <Alert severity="error">Email ou Password incorreto!</Alert>
         </Stack>
@@ -74,6 +67,9 @@ export default function Login() {
       <form className="login-page" action="" onSubmit={formik.handleSubmit}>
         <div className="login-box">
           <div className="logo-container">
+            <Link className="go-back-icon" href="/catalog">
+              <FirstPageIcon />
+            </Link>
             <Image
               src="https://drive.google.com/uc?export=view&id=1QasQHkXQwnUYo6xeGuQxBRNjVVVpkUG4"
               width={200}
@@ -90,6 +86,7 @@ export default function Login() {
               id="email"
               type="email"
               name="email"
+              className="credential-field"
               value={formik.values.email}
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
@@ -99,23 +96,24 @@ export default function Login() {
             <TextField
               id="password"
               name="password"
-              type={values.showPassword ? 'text' : 'password'}
+              className="credential-field"
+              type={showPassword ? 'text' : 'password'}
               value={formik.values.password}
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
-              endAdornment={(
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-                )}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
               label="Senha"
             />
             <Button
