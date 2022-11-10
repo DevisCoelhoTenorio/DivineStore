@@ -1,34 +1,24 @@
 import * as React from 'react';
 import { parseCookies } from 'nookies';
-import OptionsManagement from '../../components/OptionsManagement';
 import HeaderAdmin from '../../components/HeaderAdmin';
-import Addform from '../../components/products/AddForm';
+import ManagerForm from '../../components/products/ManagerForm';
 import { valideteAcess } from '../../API';
-
-const BASE_OPTIONS = [
-  { code: 1, name: 'Adicionar' },
-  { code: 2, name: 'Remover' },
-  { code: 3, name: 'Editar' },
-  { code: 4, name: 'Ver' },
-];
+import HomeScreen from '../../components/products/HomeScreen';
 
 export default function Products() {
-  const [typeRender, setTypeRender] = React.useState(null);
+  const [typeRender] = React.useState(null);
 
-  const setStateRender = (type) => {
-    setTypeRender(type);
-  };
+  // const setStateRender = (type) => {
+  //   setTypeRender(type);
+  // };
 
   return (
     <section className="products-page">
       <HeaderAdmin text="Gerenciar Produtos" showManagement />
       {!typeRender ? (
-        <div className="product-section">
-          <h1>Gerenciar Produtos</h1>
-          <OptionsManagement options={BASE_OPTIONS} onclick={setStateRender} />
-        </div>
+        <HomeScreen />
       ) : null }
-      {typeRender === 'Adicionar' ? <Addform /> : null }
+      {typeRender === 'Adicionar' ? <ManagerForm /> : null }
     </section>
   );
 }

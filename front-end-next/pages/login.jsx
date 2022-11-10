@@ -16,6 +16,11 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import { valideteAcess } from '../API';
 import { AuthContext } from '../contexts';
 
+const initialValues = {
+  email: '',
+  password: '',
+};
+
 export default function Login() {
   const { signIn } = React.useContext(AuthContext);
   // const [openForgotPassword, setOpenForgotPassword] = React.useState(false);
@@ -44,11 +49,6 @@ export default function Login() {
         setShowAlert(false);
       }, 5000);
     }
-  };
-
-  const initialValues = {
-    email: '',
-    password: '',
   };
 
   const formik = useFormik({

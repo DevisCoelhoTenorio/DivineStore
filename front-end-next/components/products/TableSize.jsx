@@ -9,15 +9,17 @@ import Paper from '@mui/material/Paper';
 import PropTypes from 'prop-types';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
+const TABLE_HEADERS = [{ name: 'Tamanho', align: '' }, { name: 'Quantidade', align: 'right' }, { name: 'Excluir', align: 'right' }];
+
 export default function TableSize({ sizes, deleteSize }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Tamanho</TableCell>
-            <TableCell align="right">Quantidade</TableCell>
-            <TableCell align="right">Excluir</TableCell>
+            {TABLE_HEADERS.map((headers) => (
+              <TableCell align={headers.align}>{headers.name}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>

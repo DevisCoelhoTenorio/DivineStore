@@ -12,14 +12,16 @@ export default class ProductService {
       where: search,
       attributes: { exclude: ['categoryId', 'description'] },
       include: [{
-        model: CategoryModel,
-        as: 'category',
-        attributes: ['name'],
+        model: CategoryModel, as: 'category', attributes: ['name'],
       }, {
-        model: PhotoModel,
-        as: 'photos',
-        where: inStock,
-        attributes: ['img', 'thumbnail'],
+        model: PhotoModel, as: 'photos', where: inStock, attributes: ['img', 'thumbnail'],
+      }, {
+        model: InventoryModel,
+        as: 'stock',
+        attributes: ['quantity'],
+        include: [{
+          model: SizeModel, as: 'size', attributes: ['name'],
+        }],
       }],
     });
     return foundProducts;

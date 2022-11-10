@@ -1,28 +1,26 @@
 import {
-  Button,
-  Checkbox,
-  FormControl, FormControlLabel, InputLabel, OutlinedInput,
+  Button, Checkbox, FormControlLabel, TextField,
 } from '@mui/material';
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Image from 'next/image';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import { getAllCategory, getAllSizes, createNewProduct } from '../../API';
 import Loading from '../Loading';
 import TableSize from './TableSize';
 
 // const DEFAULT_IMG = 'https://drive.google.com/uc?export=view&id=1SM76ru0V3C3wrHMJNNhFeTjftet_3L_4';
 
-const INITIAL_VALUES = {
+const initialValues = {
   name: '',
   price: '',
   description: '',
   category: '',
-  photos: [],
-  sizes: [],
+  promotion: null,
 };
 
 const INITIAL_ISDISABLED = {
@@ -31,15 +29,22 @@ const INITIAL_ISDISABLED = {
 
 const INITIAL_SIZE = { id: '', name: '' };
 
-export default function AddForm() {
-  const [values, setValues] = React.useState(INITIAL_VALUES);
-  const [alert, setAlert] = React.useState({ img: false, create: false });
+const INITIAL_ALERT = {
+  img: false,
+  createSuccess: false,
+  createFailure: false,
+};
+
+export default function ManagerForm() {
+  const [quantity, setQuantity] = React.useState('');
+  const [urlImg, setUrlImg] = React.useState('');
+  const [photos, setPhotos] = React.useState([]);
+  const [size, setSize] = React.useState(INITIAL_SIZE);
+  const [registerSizes, setRegisterSizes] = React.useState([]);
+  const [alert, setAlert] = React.useState(INITIAL_ALERT);
   const [categories, setCategories] = React.useState(null);
   const [sizeList, setSizesList] = React.useState([]);
-  const [urlImg, setUrlImg] = React.useState('');
   const [thumbnail, setThumbnail] = React.useState(false);
-  const [size, setSize] = React.useState(INITIAL_SIZE);
-  const [quantity, setQuantity] = React.useState('');
   const [isDisabled, setIsDisabled] = React.useState(INITIAL_ISDISABLED);
   const [previewImg, setPreviewImg] = React.useState(null);
 
@@ -56,8 +61,23 @@ export default function AddForm() {
     getSizes();
   }, []);
 
+  const validationSchema = yup.object({
+    name: yup
+      .string()
+      .required('O campo "Nome" não pode ser vazio!'),
+    price: yup
+      .string()
+      .required('O campo "Preço" não pode estar vazio!'),
+    description: yup
+      .string()
+      .required('O campo "Descrição" não pode ser vazio!'),
+    category: yup
+      .number()
+      .required('O campo "Categoria" não pode ser vazio!'),
+  });
+
   const verifyThumbnail = () => {
-    if (values.photos.some((photo) => photo.thumbnail === true)) {
+    if (photos.some((photo) => photo.thumbnail === true)) {
       setIsDisabled({ ...isDisabled, thumbnail: true });
       setThumbnail(false);
       return;
@@ -70,14 +90,10 @@ export default function AddForm() {
 
   React.useEffect(() => {
     verifyThumbnail();
-  }, [values.photos]);
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  }, [photos]);
 
   const addPhoto = async () => {
-    const checkImg = values.photos.some((photo) => urlImg === photo.img);
+    const checkImg = photos.some((photo) => urlImg === photo.img);
     if (checkImg) {
       setUrlImg('');
       setAlert({ ...alert, img: true });
@@ -86,55 +102,68 @@ export default function AddForm() {
       }, 5000);
       return;
     }
-    setValues({ ...values, photos: [...values.photos, { img: urlImg, thumbnail }] });
+    setPhotos([...photos, { img: urlImg, thumbnail }]);
     setPreviewImg(null);
     setUrlImg('');
   };
 
   const remainingSize = sizeList.reduce((acc, curr) => {
-    if (values.sizes.some((item) => item.name === curr.name)) {
+    if (registerSizes.some((item) => item.name === curr.name)) {
       return acc;
     }
     return [...acc, curr];
   }, []);
 
+  const isDisableSize = remainingSize.length === 0;
+
   const addSize = () => {
-    setValues({ ...values, sizes: [...values.sizes, { ...size, quantity: Number(quantity) }] });
+    setRegisterSizes([...registerSizes, { ...size, quantity }]);
     setSize(INITIAL_SIZE);
     setQuantity('');
   };
 
   const deleteSize = (id) => {
-    const newArray = values.sizes.filter((item) => item.id !== id);
-    setValues({ ...values, sizes: [...newArray] });
+    const newArray = registerSizes.filter((item) => item.id !== id);
+    setRegisterSizes(newArray);
   };
 
   const deletePhoto = (link) => {
-    const newArray = values.photos.filter((photo) => photo.img !== link);
-    setValues({ ...values, photos: [...newArray] });
+    const newArray = photos.filter((photo) => photo.img !== link);
+    setPhotos([...newArray]);
   };
 
-  const cadastrarProduto = async () => {
-    const {
-      name, price, description, photos, category, sizes,
-    } = values;
+  const cadastrarProduto = async ({
+    name, price, description, category,
+  }) => {
     const newProduct = {
-      name, price, description, photos, categoryId: Number(category), sizes,
+      name, price, description, photos, categoryId: Number(category), sizes: registerSizes,
     };
+    if (photos.length === 0 || !thumbnail || registerSizes.length === 0) {
+      setAlert({ ...alert, createFailure: true });
+      setTimeout(() => {
+        setAlert({ ...alert, createFailure: false });
+      }, 5000);
+      return;
+    }
     const response = await createNewProduct(newProduct);
     if (response) {
-      setUrlImg('');
-      setAlert({ ...alert, create: true });
+      setAlert({ ...alert, createSuccess: true });
       setTimeout(() => {
-        setAlert({ ...alert, create: false });
+        setAlert({ ...alert, createSuccess: false });
       }, 5000);
     }
   };
 
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (submitInputs) => cadastrarProduto(submitInputs),
+  });
+
   return (
     <div className="add-product-container">
       {
-        alert.create ? (
+        alert.createSuccess ? (
           <Stack className="alert" sx={{ width: '100%' }} spacing={2}>
             <Alert severity="success">Produto cadastrado com sucesso!</Alert>
           </Stack>
@@ -147,51 +176,61 @@ export default function AddForm() {
           </Stack>
         ) : null
       }
+      {
+        alert.createFailure ? (
+          <Stack className="alert" sx={{ width: '100%' }} spacing={2}>
+            <Alert severity="error">Erro ao adicionar Fotos ou Tamanhos</Alert>
+          </Stack>
+        ) : null
+      }
       {!categories || !sizeList ? <Loading /> : (
-        <form className="add-product-form" action="">
+        <form className="add-product-form" action="" onSubmit={formik.handleSubmit}>
           <div className="all-info-container">
             <div className="product-basic-info">
               <p>Informações do Produto</p>
-              <FormControl className="form-control" sx={{ m: 1, width: '35ch' }} variant="outlined">
-                <InputLabel htmlFor="outlined-multiline-flexible">Nome</InputLabel>
-                <OutlinedInput
-                  id="outlined-multiline-flexible"
-                  type="text"
-                  value={values.name}
-                  onChange={handleChange('name')}
-                  label="name"
-                />
-              </FormControl>
-              <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-email">Preço</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-email"
-                  type="number"
-                  value={values.price}
-                  onChange={handleChange('price')}
-                  label="price"
-                />
-              </FormControl>
-              <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-email">Descrição</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-email"
-                  type="text"
-                  value={values.description}
-                  onChange={handleChange('description')}
-                  label="description"
-                  multiline
-                  rows={5}
-                />
-              </FormControl>
+              <TextField
+                id="name"
+                name="name"
+                type="text"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                label="Nome"
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.namel}
+              />
+              <TextField
+                id="price"
+                name="price"
+                type="number"
+                value={formik.values.price}
+                onChange={formik.handleChange}
+                error={formik.touched.price && Boolean(formik.errors.price)}
+                helperText={formik.touched.price && formik.errors.price}
+                label="Preço"
+              />
+              <TextField
+                id="description"
+                name="description"
+                type="text"
+                value={formik.values.description}
+                onChange={formik.handleChange}
+                label="Descrição"
+                multiline
+                rows={5}
+                error={formik.touched.description && Boolean(formik.errors.description)}
+                helperText={formik.touched.description && formik.errors.description}
+              />
               <p>Informe a categoria</p>
               <TextField
-                id="outlined-select-currency"
+                id="category"
+                name="category"
                 select
                 className="category-selection"
                 label="Categoria"
-                value={values.category}
-                onChange={handleChange('category')}
+                value={formik.values.category}
+                onChange={formik.handleChange}
+                error={formik.touched.category && Boolean(formik.errors.category)}
+                helperText={formik.touched.category && formik.errors.category}
               >
                 {categories.map((option) => (
                   <MenuItem key={option.name} value={option.id}>
@@ -199,6 +238,14 @@ export default function AddForm() {
                   </MenuItem>
                 ))}
               </TextField>
+              <TextField
+                id="promotion"
+                name="promotion"
+                type="number"
+                value={formik.values.promotion}
+                onChange={formik.handleChange}
+                label="Desconto"
+              />
             </div>
             <div className="size-info">
               <p>Tamanhos e quatidades</p>
@@ -208,6 +255,7 @@ export default function AddForm() {
                 label="Tamanho"
                 value={size.name}
                 className="size-selection"
+                disabled={isDisableSize}
               >
                 {remainingSize.map((option) => (
                   <MenuItem
@@ -219,39 +267,40 @@ export default function AddForm() {
                   </MenuItem>
                 ))}
               </TextField>
-              <FormControl className="quantity-selection" sx={{ m: 1, width: '35ch' }} variant="outlined">
-                <InputLabel htmlFor="outlined-multiline-flexible">Quantidade</InputLabel>
-                <OutlinedInput
-                  id="outlined-multiline-flexible"
-                  type="number"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  label="Quantidade"
-                />
-              </FormControl>
+              <TextField
+                id="quantity"
+                name="quantity"
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+                label="Quantidade"
+                disabled={isDisableSize}
+              />
               <Button
                 className="add-product-btn"
                 type="button"
                 variant="contained"
                 disableElevation
                 onClick={addSize}
+                disabled={isDisableSize}
               >
                 Adicionar
               </Button>
-              <TableSize sizes={values.sizes} deleteSize={deleteSize} />
+              <TableSize
+                sizes={registerSizes}
+                deleteSize={deleteSize}
+              />
             </div>
             <div className="image-info">
               <p>Fotos</p>
-              <FormControl className="form-control" sx={{ m: 1, width: '35ch' }} variant="outlined">
-                <InputLabel htmlFor="outlined-multiline-flexible">Foto</InputLabel>
-                <OutlinedInput
-                  id="outlined-multiline-flexible"
-                  type="text"
-                  value={urlImg}
-                  onChange={(e) => setUrlImg(e.target.value)}
-                  label="urlImg"
-                />
-              </FormControl>
+              <TextField
+                id="urlImg"
+                name="urlImg"
+                type="text"
+                value={urlImg}
+                onChange={(e) => setUrlImg(e.target.value)}
+                label="Link"
+              />
               <FormControlLabel
                 control={(
                   <Checkbox
@@ -283,7 +332,7 @@ export default function AddForm() {
             </div>
           </div>
           <div className="preview-images">
-            {values.photos.map((photo) => (
+            {photos.map((photo) => (
               <div key={photo.img} className="image-div">
                 <Image src={photo.img} width={100} height={100} alt="itensAdd" />
                 <DeleteForeverIcon onClick={() => deletePhoto(photo.img)} />
@@ -292,10 +341,9 @@ export default function AddForm() {
           </div>
           <Button
             className="add-product-btn finish-btn"
-            type="button"
+            type="submit"
             variant="contained"
             disableElevation
-            onClick={cadastrarProduto}
           >
             Finalizar Produto
           </Button>
