@@ -1,7 +1,7 @@
 import React from 'react';
 import { parseCookies } from 'nookies';
-// import HeaderAdmin from '../../components/HeaderAdmin';
-import NavigationBarAdmin from '../../components/NavigationBarAdmin';
+import HeaderAdmin from '../../components/HeaderAdmin';
+import AdminTools from '../../components/AdminTools';
 import { valideteAcess } from '../../API';
 import { AuthContext } from '../../contexts';
 import Loading from '../../components/Loading';
@@ -10,11 +10,11 @@ export default function Admin() {
   const { activeUser } = React.useContext(AuthContext);
 
   return (
-    <div>
+    <div className="admin-page">
       {activeUser ? (
         <header>
-          {/* <HeaderAdmin /> */}
-          <NavigationBarAdmin />
+          <HeaderAdmin />
+          <AdminTools />
         </header>
       ) : <Loading />}
     </div>

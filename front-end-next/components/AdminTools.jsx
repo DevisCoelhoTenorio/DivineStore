@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import { HeaderContext } from '../contexts';
 import NavigationIcon from './NavigationIcon';
 
-export default function NavigationBarAdmin() {
+export default function AdminTools() {
   const { managements, selectManagement } = React.useContext(HeaderContext);
 
   return (
