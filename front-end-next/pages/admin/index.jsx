@@ -13,7 +13,7 @@ export default function Admin() {
     <div className="admin-page">
       {activeUser ? (
         <header>
-          <HeaderAdmin />
+          <HeaderAdmin text={`Bem vindo(a), ${activeUser.name}!`} />
           <AdminTools />
         </header>
       ) : <Loading />}

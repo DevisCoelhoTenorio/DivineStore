@@ -7,6 +7,7 @@ import '../styles/burgerMenu.css';
 import '../styles/footer.css';
 import '../styles/login.css';
 import '../styles/admin.css';
+import '../styles/products.css';
 import React from 'react';
 import { HeaderProvider, AuthProvider } from '../contexts';
 

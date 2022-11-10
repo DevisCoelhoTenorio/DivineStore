@@ -23,9 +23,11 @@
 
 .admin-header {
   display: flex;
+  flex-direction: column;
   width : 100%;
   position: fixed;
   top: 0;
+  z-index: 2;
   background-color: #B886BC;
 }
 
@@ -39,7 +41,7 @@
 }
 
 .header-icon {
-  margin: 0 20px;
+  margin: 0 5px;
   transition: 0.3s;
 }
 
@@ -55,6 +57,10 @@
   align-items: center;
   justify-content: space-between;
   color: white;
+}
+
+.navigation p {
+  font-size: 20px;
 }
 
 .admin-section a:hover {
@@ -106,3 +112,67 @@
   padding: 0;
 }
 
+.nav-tools {
+  display: flex;
+  background-color: #B886BC;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.nav-tool p {
+  color: white;
+  margin: 0 10px;
+  padding: 0;
+  transition: 0.3s;
+}
+
+.nav-tool:hover p {
+  transform: translate(0px, -3px);
+}
+
+.nav-tool hr {
+  color: white;
+  margin: 0;
+  margin-bottom: 10px;
+  opacity: 0;
+  width: 0;
+  transition: width 0.3s;
+}
+
+.nav-tool {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-tool:hover hr {
+  width: 85%;
+  opacity: 1;
+}
+
+.go-back-admin-catalog {
+  display: flex;
+}
+
+.go-back-admin-catalog a {
+  margin: 0;
+}
+
+@media(min-width: 768px) {
+  .navigation-item {
+    width: 200px;
+    height: 120px;
+    padding: 15px;
+    margin: 30px 40px;
+    justify-content: center;
+  }
+
+  .navigation-item p {
+    font-size: 20px;
+  }
+
+  .nav-icon {
+    font-size: 40px;
+  }
+}

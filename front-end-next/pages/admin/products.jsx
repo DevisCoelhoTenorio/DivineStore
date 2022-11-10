@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { parseCookies } from 'nookies';
 import OptionsManagement from '../../components/OptionsManagement';
-// import HeaderAdmin from '../../components/HeaderAdmin';
+import HeaderAdmin from '../../components/HeaderAdmin';
 import Addform from '../../components/products/AddForm';
 import { valideteAcess } from '../../API';
 
@@ -20,16 +20,16 @@ export default function Products() {
   };
 
   return (
-    <div>
-      {/* <HeaderAdmin /> */}
+    <section className="products-page">
+      <HeaderAdmin text="Gerenciar Produtos" showManagement />
       {!typeRender ? (
-        <div>
+        <div className="product-section">
           <h1>Gerenciar Produtos</h1>
           <OptionsManagement options={BASE_OPTIONS} onclick={setStateRender} />
         </div>
       ) : null }
       {typeRender === 'Adicionar' ? <Addform /> : null }
-    </div>
+    </section>
   );
 }
 

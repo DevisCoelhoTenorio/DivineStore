@@ -94,8 +94,8 @@ export default function HeaderCatalog() {
                 />
                 {activeUser?.admin ? (
                   <div>
-                    <SettingsIcon onClick={() => Router.push('/admin')} />
-                    <MeetingRoomSharpIcon onClick={() => logout()} />
+                    <SettingsIcon className="catalog-admin-icon" onClick={() => Router.push('/admin')} />
+                    <MeetingRoomSharpIcon className="catalog-admin-icon" onClick={() => logout()} />
                   </div>
                 ) : null}
               </div>
