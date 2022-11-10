@@ -50,6 +50,12 @@ body {
   margin: 0;
 }
 
+.alert {
+  opacity: 1;
+  position: fixed;
+  top: 0;
+}
+
 /* media */
 
 @media (max-width: 620px) {

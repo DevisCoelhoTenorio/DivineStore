@@ -14,7 +14,7 @@ import { getAllCategory, getAllSizes, createNewProduct } from '../../API';
 import Loading from '../Loading';
 import TableSize from './TableSize';
 
-const DEFAULT_IMG = 'https://drive.google.com/uc?export=view&id=1SM76ru0V3C3wrHMJNNhFeTjftet_3L_4';
+// const DEFAULT_IMG = 'https://drive.google.com/uc?export=view&id=1SM76ru0V3C3wrHMJNNhFeTjftet_3L_4';
 
 const INITIAL_VALUES = {
   name: '',
@@ -132,7 +132,7 @@ export default function AddForm() {
   };
 
   return (
-    <div>
+    <div className="add-product-container">
       {
         alert.create ? (
           <Stack className="alert" sx={{ width: '100%' }} spacing={2}>
@@ -148,142 +148,156 @@ export default function AddForm() {
         ) : null
       }
       {!categories || !sizeList ? <Loading /> : (
-        <form action="">
-          <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-multiline-flexible">Nome</InputLabel>
-            <OutlinedInput
-              id="outlined-multiline-flexible"
-              type="text"
-              value={values.name}
-              onChange={handleChange('name')}
-              label="name"
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-email">Preço</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-email"
-              type="number"
-              value={values.price}
-              onChange={handleChange('price')}
-              label="price"
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-email">Descrição</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-email"
-              type="text"
-              value={values.description}
-              onChange={handleChange('description')}
-              label="description"
-              multiline
-              rows={5}
-            />
-          </FormControl>
-          <TextField
-            id="outlined-select-currency"
-            select
-            label="category"
-            value={values.category}
-            onChange={handleChange('category')}
-          >
-            {categories.map((option) => (
-              <MenuItem key={option.name} value={option.id}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            id="outlined-select-currency"
-            select
-            label="size"
-            value={size.name}
-          >
-            {remainingSize.map((option) => (
-              <MenuItem
-                key={option.id}
-                value={option.name}
-                onClick={() => setSize(option)}
-              >
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
-          <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-multiline-flexible">Quant.</InputLabel>
-            <OutlinedInput
-              id="outlined-multiline-flexible"
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              label="quantity"
-            />
-          </FormControl>
-          <Button
-            className="login-btn"
-            type="button"
-            variant="contained"
-            disableElevation
-            onClick={addSize}
-          >
-            Add tamanho
-          </Button>
-          <TableSize sizes={values.sizes} deleteSize={deleteSize} />
-          <div>
-            <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
-              <InputLabel htmlFor="outlined-multiline-flexible">Foto</InputLabel>
-              <OutlinedInput
-                id="outlined-multiline-flexible"
-                type="text"
-                value={urlImg}
-                onChange={(e) => setUrlImg(e.target.value)}
-                label="urlImg"
-              />
-            </FormControl>
-            <FormControlLabel
-              control={(
-                <Checkbox
-                  disabled={isDisabled.thumbnail}
-                  onClick={() => setThumbnail(!thumbnail)}
+        <form className="add-product-form" action="">
+          <div className="all-info-container">
+            <div className="product-basic-info">
+              <p>Informações do Produto</p>
+              <FormControl className="form-control" sx={{ m: 1, width: '35ch' }} variant="outlined">
+                <InputLabel htmlFor="outlined-multiline-flexible">Nome</InputLabel>
+                <OutlinedInput
+                  id="outlined-multiline-flexible"
+                  type="text"
+                  value={values.name}
+                  onChange={handleChange('name')}
+                  label="name"
                 />
+              </FormControl>
+              <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-email">Preço</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-email"
+                  type="number"
+                  value={values.price}
+                  onChange={handleChange('price')}
+                  label="price"
+                />
+              </FormControl>
+              <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-email">Descrição</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-email"
+                  type="text"
+                  value={values.description}
+                  onChange={handleChange('description')}
+                  label="description"
+                  multiline
+                  rows={5}
+                />
+              </FormControl>
+              <p>Informe a categoria</p>
+              <TextField
+                id="outlined-select-currency"
+                select
+                className="category-selection"
+                label="Categoria"
+                value={values.category}
+                onChange={handleChange('category')}
+              >
+                {categories.map((option) => (
+                  <MenuItem key={option.name} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <div className="size-info">
+              <p>Tamanhos e quatidades</p>
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Tamanho"
+                value={size.name}
+                className="size-selection"
+              >
+                {remainingSize.map((option) => (
+                  <MenuItem
+                    key={option.id}
+                    value={option.name}
+                    onClick={() => setSize(option)}
+                  >
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <FormControl className="quantity-selection" sx={{ m: 1, width: '35ch' }} variant="outlined">
+                <InputLabel htmlFor="outlined-multiline-flexible">Quantidade</InputLabel>
+                <OutlinedInput
+                  id="outlined-multiline-flexible"
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  label="Quantidade"
+                />
+              </FormControl>
+              <Button
+                className="add-product-btn"
+                type="button"
+                variant="contained"
+                disableElevation
+                onClick={addSize}
+              >
+                Adicionar
+              </Button>
+              <TableSize sizes={values.sizes} deleteSize={deleteSize} />
+            </div>
+            <div className="image-info">
+              <p>Fotos</p>
+              <FormControl className="form-control" sx={{ m: 1, width: '35ch' }} variant="outlined">
+                <InputLabel htmlFor="outlined-multiline-flexible">Foto</InputLabel>
+                <OutlinedInput
+                  id="outlined-multiline-flexible"
+                  type="text"
+                  value={urlImg}
+                  onChange={(e) => setUrlImg(e.target.value)}
+                  label="urlImg"
+                />
+              </FormControl>
+              <FormControlLabel
+                control={(
+                  <Checkbox
+                    disabled={isDisabled.thumbnail}
+                    onClick={() => setThumbnail(!thumbnail)}
+                  />
                 )}
-              label="Foto de Capa"
-            />
-            <Button
-              className="login-btn"
-              type="button"
-              variant="contained"
-              disableElevation
-              onClick={() => setPreviewImg(urlImg)}
-            >
-              UPLOAD FOTO
-            </Button>
-            <Button
-              className="login-btn"
-              type="button"
-              variant="contained"
-              disableElevation
-              onClick={addPhoto}
-            >
-              Add Foto
-            </Button>
-            <img src={previewImg || DEFAULT_IMG} width={300} height={300} alt="showcase" />
+                label="Foto de Capa"
+              />
+              <Button
+                className="add-product-btn"
+                type="button"
+                variant="contained"
+                disableElevation
+                onClick={() => setPreviewImg(urlImg)}
+              >
+                Carregar foto
+              </Button>
+              <Button
+                className="add-product-btn"
+                type="button"
+                variant="contained"
+                disableElevation
+                onClick={addPhoto}
+              >
+                Adicionar
+              </Button>
+              {previewImg && <img src={previewImg} width={300} height={300} alt="showcase" />}
+            </div>
+          </div>
+          <div className="preview-images">
             {values.photos.map((photo) => (
-              <div key={photo.img}>
-                <Image src={photo.img} width={50} height={50} alt="itensAdd" />
+              <div key={photo.img} className="image-div">
+                <Image src={photo.img} width={100} height={100} alt="itensAdd" />
                 <DeleteForeverIcon onClick={() => deletePhoto(photo.img)} />
               </div>
             ))}
           </div>
           <Button
-            className="login-btn"
+            className="add-product-btn finish-btn"
             type="button"
             variant="contained"
             disableElevation
             onClick={cadastrarProduto}
           >
-            Add Produto
+            Finalizar Produto
           </Button>
         </form>
       )}
