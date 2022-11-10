@@ -11,6 +11,11 @@
   justify-content: center;
 }
 
+.table-products-admin {
+  position: relative;
+  top: 100px;
+}
+
 .add-product-form {
   display: flex;
   flex-direction: column;

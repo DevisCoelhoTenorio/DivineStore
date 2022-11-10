@@ -18,7 +18,7 @@ export default function TableSize({ sizes, deleteSize }) {
         <TableHead>
           <TableRow>
             {TABLE_HEADERS.map((headers) => (
-              <TableCell align={headers.align}>{headers.name}</TableCell>
+              <TableCell key={headers.name} align={headers.align}>{headers.name}</TableCell>
             ))}
           </TableRow>
         </TableHead>
