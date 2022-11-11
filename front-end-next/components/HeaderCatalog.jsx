@@ -83,7 +83,7 @@ export default function HeaderCatalog() {
     <header className="main-header">
       <Box className="header">
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar className="search-bar-header">
             <Typography variant="h6" component="div">
               <div className="logo">
                 <Image
@@ -115,7 +115,8 @@ export default function HeaderCatalog() {
           <nav className="wide-categories-container">
             {categories.slice(0, 7).map((category) => (
               <button type="button" key={nanoid()} onClick={() => handleClick(category.name)}>
-                {category.name}
+                <p>{category.name}</p>
+                <hr />
               </button>
             ))}
           </nav>

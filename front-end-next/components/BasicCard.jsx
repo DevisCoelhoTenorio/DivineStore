@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import MobileScreenShareIcon from '@mui/icons-material/MobileScreenShare';
+import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 
 export default function BasicCard({
   name,
@@ -17,22 +19,21 @@ export default function BasicCard({
     <Card className="product-card" sx={{ maxWidth: 345 }}>
       <CardMedia className="image-card" component="img" alt={name} height="150" image={photos} />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {name}
-        </Typography>
+        <p>{name}</p>
         <Typography variant="body2" color="text.secondary">
           <p>
             {category}
           </p>
           <p>
-            R$:
+            R$
+            {' '}
             {price}
           </p>
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Compartilhar</Button>
-        <Button size="small">Detalhes</Button>
+      <CardActions className="card-action-container">
+        <Button size="small" className="mobile-share-btn"><MobileScreenShareIcon /></Button>
+        <Button size="small" className="computer-share-btn"><ScreenShareIcon /></Button>
       </CardActions>
     </Card>
   );

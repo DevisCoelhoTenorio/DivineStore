@@ -58,6 +58,7 @@ export default function BurgerMenu({ categories }) {
         <IconButton
           size="large"
           edge="start"
+          className="category-selection-header"
           color="inherit"
           aria-label="menu"
           sx={{ mr: 2 }}

@@ -16,14 +16,16 @@ class ProductService {
                 where: search,
                 attributes: { exclude: ['categoryId', 'description'] },
                 include: [{
-                        model: CategoryModel_1.default,
-                        as: 'category',
-                        attributes: ['name'],
+                        model: CategoryModel_1.default, as: 'category', attributes: ['name'],
                     }, {
-                        model: PhotoModel_1.default,
-                        as: 'photos',
-                        where: inStock,
-                        attributes: ['img', 'thumbnail'],
+                        model: PhotoModel_1.default, as: 'photos', where: inStock, attributes: ['img', 'thumbnail'],
+                    }, {
+                        model: InventoryModel_1.default,
+                        as: 'stock',
+                        attributes: ['quantity'],
+                        include: [{
+                                model: SizeModel_1.default, as: 'size', attributes: ['name'],
+                            }],
                     }],
             });
             return foundProducts;

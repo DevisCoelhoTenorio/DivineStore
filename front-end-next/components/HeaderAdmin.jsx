@@ -26,7 +26,6 @@ export default function HeaderAdmin({ text, showManagement }) {
         <div className="nav-tools">
           {(showManagement && managements?.length > 0) ? managements.map((item) => (
             <Link
-              underline="hover"
               className="nav-tool"
               color="inherit"
               href={item.path}

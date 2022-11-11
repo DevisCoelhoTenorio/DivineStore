@@ -60,7 +60,8 @@ body {
 /* media */
 
 @media (max-width: 620px) {
-  .devs-container {
+  .devs-container, .carrousel-container {
     display: none;
   }
+
 }
