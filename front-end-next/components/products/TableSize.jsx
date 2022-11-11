@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import PropTypes from 'prop-types';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-const TABLE_HEADERS = [{ name: 'Tamanho', align: '' }, { name: 'Quantidade', align: 'right' }, { name: 'Excluir', align: 'right' }];
+const TABLE_HEADERS = [{ name: 'Tamanho' }, { name: 'Quantidade' }, { name: 'Excluir' }];
 
 export default function TableSize({ sizes, deleteSize }) {
   return (
@@ -18,7 +18,7 @@ export default function TableSize({ sizes, deleteSize }) {
         <TableHead>
           <TableRow>
             {TABLE_HEADERS.map((headers) => (
-              <TableCell key={headers.name} align={headers.align}>{headers.name}</TableCell>
+              <TableCell key={headers.name} align="center">{headers.name}</TableCell>
             ))}
           </TableRow>
         </TableHead>

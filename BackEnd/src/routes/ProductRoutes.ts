@@ -12,5 +12,6 @@ router.get('/', controller.findAll);
 router.get('/:id', controller.findById);
 router.post('/', controller.create);
 router.delete('/:id', controller.delete);
+router.put('/:id', controller.update);
 
 export default router;

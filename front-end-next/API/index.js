@@ -49,6 +49,15 @@ const createNewProduct = async (newProduct) => {
   }
 };
 
+const updateProduct = async (id, product) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/product/${id}`, product);
+    return response.status;
+  } catch (error) {
+    return null;
+  }
+};
+
 // category
 
 const getAllCategory = async () => {
@@ -116,4 +125,5 @@ export {
   createNewProduct,
   getAllSizes,
   deleteProduct,
+  updateProduct,
 };

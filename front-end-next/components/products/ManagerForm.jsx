@@ -9,21 +9,11 @@ import Image from 'next/image';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useRouter } from 'next/router';
-import { getAllCategory, getAllSizes, createNewProduct } from '../../API';
+import PropTypes from 'prop-types';
+import { getAllCategory, getAllSizes } from '../../API';
 import Loading from '../Loading';
 import TableSize from './TableSize';
 import useAlert from '../../hooks/useAlert';
-
-// const DEFAULT_IMG = 'https://drive.google.com/uc?export=view&id=1SM76ru0V3C3wrHMJNNhFeTjftet_3L_4';
-
-const initialValues = {
-  name: '',
-  price: '',
-  description: '',
-  category: '',
-  promotion: null,
-};
 
 const INITIAL_ISDISABLED = {
   thumbnail: false,
@@ -31,35 +21,50 @@ const INITIAL_ISDISABLED = {
 
 const INITIAL_SIZE = { id: '', name: '' };
 
-export default function ManagerForm() {
+export default function ManagerForm({
+  initialState, submitFunc, type,
+}) {
   const [quantity, setQuantity] = React.useState('');
   const [urlImg, setUrlImg] = React.useState('');
   const [photos, setPhotos] = React.useState([]);
+  const [categoriesList, setCategoriesList] = React.useState([]);
   const [size, setSize] = React.useState(INITIAL_SIZE);
   const [registerSizes, setRegisterSizes] = React.useState([]);
-  const [categories, setCategories] = React.useState(null);
   const [sizeList, setSizesList] = React.useState([]);
   const [thumbnail, setThumbnail] = React.useState(false);
   const [isDisabled, setIsDisabled] = React.useState(INITIAL_ISDISABLED);
   const [previewImg, setPreviewImg] = React.useState(null);
   const [alert, setAlert] = useAlert();
-  const { query } = useRouter();
+
+  const { imgsList, sizesItemList, ...rest } = initialState;
+  const initialValues = rest;
 
   React.useEffect(() => {
-    const getCategories = async () => {
-      const response = await getAllCategory();
-      setCategories(response);
-    };
     const getSizes = async () => {
       const response = await getAllSizes();
       setSizesList(response);
     };
+    const getCategories = async () => {
+      const response = await getAllCategory();
+      setCategoriesList(response);
+    };
     getCategories();
     getSizes();
-    if (query.id) {
-      console.log(query.id);
-    }
+    setPhotos(imgsList);
+    setRegisterSizes(sizesItemList);
   }, []);
+
+  const verifyThumbnail = () => {
+    if (photos.some((photo) => photo.thumbnail === true)) {
+      setIsDisabled({ ...isDisabled, thumbnail: true });
+      setThumbnail(false);
+      return;
+    }
+    if (isDisabled.thumbnail) {
+      setIsDisabled({ ...isDisabled, thumbnail: false });
+      setThumbnail(true);
+    }
+  };
 
   const validationSchema = yup.object({
     name: yup
@@ -75,18 +80,6 @@ export default function ManagerForm() {
       .number()
       .required('O campo "Categoria" não pode ser vazio!'),
   });
-
-  const verifyThumbnail = () => {
-    if (photos.some((photo) => photo.thumbnail === true)) {
-      setIsDisabled({ ...isDisabled, thumbnail: true });
-      setThumbnail(false);
-      return;
-    }
-    if (isDisabled.thumbnail) {
-      setIsDisabled({ ...isDisabled, thumbnail: false });
-      setThumbnail(true);
-    }
-  };
 
   React.useEffect(() => {
     verifyThumbnail();
@@ -130,18 +123,25 @@ export default function ManagerForm() {
   };
 
   const cadastrarProduto = async ({
-    name, price, description, category,
+    name, price, description, category, promotion,
   }) => {
     const newProduct = {
-      name, price, description, photos, categoryId: Number(category), sizes: registerSizes,
+      name,
+      price,
+      description,
+      photos,
+      categoryId: Number(category),
+      sizes: registerSizes,
+      promotion,
     };
-    if (photos.length === 0 || !thumbnail || registerSizes.length === 0) {
+    if (photos.length === 0 || !isDisabled.thumbnail || registerSizes.length === 0) {
       setAlert('registerProductFailure');
       return;
     }
-    const response = await createNewProduct(newProduct);
+    const response = await submitFunc(newProduct);
     if (response) {
-      setAlert('registerProductSuccess');
+      const keyAlert = type === 'Add' ? 'registerProductSuccess' : 'updateProductSuccess';
+      setAlert(keyAlert);
     }
   };
 
@@ -160,7 +160,7 @@ export default function ManagerForm() {
           </Stack>
         ) : null
       }
-      {!categories || !sizeList ? <Loading /> : (
+      {!sizeList && !categoriesList ? <Loading /> : (
         <form className="add-product-form" action="" onSubmit={formik.handleSubmit}>
           <div className="all-info-container">
             <div className="product-basic-info">
@@ -209,8 +209,11 @@ export default function ManagerForm() {
                 error={formik.touched.category && Boolean(formik.errors.category)}
                 helperText={formik.touched.category && formik.errors.category}
               >
-                {categories.map((option) => (
-                  <MenuItem key={option.name} value={option.id}>
+                {categoriesList.map((option) => (
+                  <MenuItem
+                    key={option.name}
+                    value={option.id}
+                  >
                     {option.name}
                   </MenuItem>
                 ))}
@@ -221,7 +224,7 @@ export default function ManagerForm() {
                 type="number"
                 value={formik.values.promotion}
                 onChange={formik.handleChange}
-                label="Desconto"
+                label="% Desconto"
               />
             </div>
             <div className="size-info">
@@ -322,10 +325,24 @@ export default function ManagerForm() {
             variant="contained"
             disableElevation
           >
-            Finalizar Produto
+            { type === 'Add' ? 'Adicionar Produto' : 'Editar Produto'}
           </Button>
         </form>
       )}
     </div>
   );
 }
+
+ManagerForm.propTypes = {
+  initialState: PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.string,
+    description: PropTypes.string,
+    category: PropTypes.string,
+    promotion: PropTypes.number,
+    imgsList: PropTypes.arrayOf(PropTypes.string),
+    sizesItemList: PropTypes.arrayOf(Object),
+  }).isRequired,
+  submitFunc: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
+};

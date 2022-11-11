@@ -1,10 +1,5 @@
 import { IPhoto } from './IPhoto';
-
-interface ISize {
-  id: number;
-  name: string;
-  quantity: number;
-}
+import { ISize } from './ISize';
 
 export interface ISimpleProduct {
   id?: number;

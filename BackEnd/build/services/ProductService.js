@@ -9,6 +9,7 @@ const InventoryModel_1 = __importDefault(require("../database/models/InventoryMo
 const PhotoModel_1 = __importDefault(require("../database/models/PhotoModel"));
 const CategoryModel_1 = __importDefault(require("../database/models/CategoryModel"));
 const models_1 = __importDefault(require("../database/models"));
+const Formatters_1 = require("../utils/Formatters");
 class ProductService {
     constructor() {
         this.findAll = async (search = {}, inStock = {}) => {
@@ -34,7 +35,7 @@ class ProductService {
             const result = await ProductModel_1.default.findByPk(id, {
                 attributes: { exclude: ['categoryId'] },
                 include: [{
-                        model: CategoryModel_1.default, as: 'category', attributes: ['name'],
+                        model: CategoryModel_1.default, as: 'category', attributes: ['name', 'id'],
                     }, {
                         model: PhotoModel_1.default, as: 'photos', attributes: ['img', 'thumbnail'],
                     }, {
@@ -44,7 +45,7 @@ class ProductService {
                         include: [{
                                 model: SizeModel_1.default,
                                 as: 'size',
-                                attributes: ['name'],
+                                attributes: ['name', 'id'],
                             }],
                     }],
             });
@@ -54,12 +55,8 @@ class ProductService {
             const { photos, sizes, ...rest } = newProduct;
             const newId = await models_1.default.transaction(async (t) => {
                 const { id } = await ProductModel_1.default.create({ ...rest }, { transaction: t });
-                const photosWithId = photos.map((photo) => ({ ...photo, productId: id }));
-                const inventoryWithId = sizes.map((inventory) => ({
-                    productId: id,
-                    quantity: inventory.quantity,
-                    sizeId: inventory.id,
-                }));
+                const photosWithId = (0, Formatters_1.formatterPhotosForCreate)(photos, id);
+                const inventoryWithId = (0, Formatters_1.formatterSizeForCreate)(sizes, id);
                 await PhotoModel_1.default.bulkCreate(photosWithId, { transaction: t });
                 await InventoryModel_1.default.bulkCreate(inventoryWithId, { transaction: t });
                 return id;
@@ -69,6 +66,18 @@ class ProductService {
         };
         this.delete = async (id) => {
             await ProductModel_1.default.destroy({ where: { id } });
+        };
+        this.update = async (id, updateProduct) => {
+            const { photos, sizes, ...rest } = updateProduct;
+            await models_1.default.transaction(async (t) => {
+                await ProductModel_1.default.update({ ...rest }, { where: { id }, transaction: t });
+                await PhotoModel_1.default.destroy({ where: { productId: id }, transaction: t });
+                await InventoryModel_1.default.destroy({ where: { productId: id }, transaction: t });
+                const photosWithId = (0, Formatters_1.formatterPhotosForCreate)(photos, id);
+                const inventoryWithId = (0, Formatters_1.formatterSizeForCreate)(sizes, id);
+                await PhotoModel_1.default.bulkCreate(photosWithId, { transaction: t });
+                await InventoryModel_1.default.bulkCreate(inventoryWithId, { transaction: t });
+            });
         };
     }
 }

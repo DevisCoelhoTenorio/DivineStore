@@ -41,7 +41,7 @@ export default function BasicCard({
 
 BasicCard.propTypes = {
   name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   category: PropTypes.string.isRequired,
   photos: PropTypes.string.isRequired,
 };

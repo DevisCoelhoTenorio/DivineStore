@@ -36,6 +36,12 @@ export default class ProductController {
     res.status(201).json(result);
   };
 
+  public update = async (req: Request, res: Response) : Promise<void> => {
+    const { id } = req.params;
+    await this.service.update(Number(id), req.body as IFullProduct);
+    res.sendStatus(201);
+  };
+
   public delete = async (req: Request, res: Response) : Promise<void> => {
     const { id } = req.params;
     await this.service.delete(Number(id));

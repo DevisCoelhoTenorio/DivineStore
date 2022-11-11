@@ -17,4 +17,25 @@ function formatterForListProducts(response) {
   return productsMap;
 }
 
+export function formatterForInitalEditState({
+  name, description, photos, promotion, price, category, stock,
+}) {
+  const newStock = stock.map((item) => ({
+    name: item.size.name,
+    quantity: item.quantity,
+    id: item.size.id,
+  }));
+  const newPrice = Number(price.replace(',', '.'));
+  const product = {
+    name,
+    price: newPrice,
+    description,
+    category: category.id,
+    promotion,
+    imgsList: photos,
+    sizesItemList: newStock,
+  };
+  return product;
+}
+
 export default formatterForListProducts;

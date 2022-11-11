@@ -2,13 +2,24 @@ import * as React from 'react';
 import { parseCookies } from 'nookies';
 import HeaderAdmin from '../../../components/HeaderAdmin';
 import ManagerForm from '../../../components/products/ManagerForm';
-import { valideteAcess } from '../../../API';
+import {
+  valideteAcess, createNewProduct,
+} from '../../../API';
 
 export default function Products() {
+  const INITIAL_STATE = {
+    name: '',
+    price: '',
+    description: '',
+    category: '',
+    promotion: 0,
+    imgsList: [],
+    sizesItemList: [],
+  };
   return (
     <section className="products-page">
-      <HeaderAdmin text="Gerenciar Produtos" showManagement />
-      <ManagerForm />
+      <HeaderAdmin text="Adicionar Produto" showManagement />
+      <ManagerForm initialState={INITIAL_STATE} submitFunc={createNewProduct} type="Add" />
     </section>
   );
 }
