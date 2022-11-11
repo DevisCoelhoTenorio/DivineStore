@@ -17,8 +17,8 @@ export default function HeaderAdmin({ text, showManagement }) {
       <header className="admin-header">
         <div className="navigation">
           <div className="go-back-admin-catalog">
-            <HomeSharpIcon className="header-icon" onClick={() => Router.back()} />
-            {showManagement ? <Link href="/admin"><FirstPageIcon /></Link> : null }
+            <HomeSharpIcon className="header-icon" onClick={() => Router.push('/catalog')} />
+            {showManagement ? <FirstPageIcon onClick={() => Router.back()} /> : null }
           </div>
           <p>{text}</p>
           <MeetingRoomSharpIcon className="header-icon" onClick={() => logout()} />
