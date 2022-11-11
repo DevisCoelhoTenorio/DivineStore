@@ -45,7 +45,7 @@ function Catalog() {
               name={item.name}
               price={item.price}
               category={item.category.name}
-              photos={item.photos[0].img}
+              photos={item.photos.img}
             />
           ))}
       </Container>

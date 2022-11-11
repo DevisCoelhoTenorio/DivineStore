@@ -67,4 +67,8 @@ export default class ProductService {
     const result = await this.findById(newId);
     return result;
   };
+
+  public delete = async (id: number): Promise<void> => {
+    await ProductModel.destroy({ where: { id } });
+  };
 }

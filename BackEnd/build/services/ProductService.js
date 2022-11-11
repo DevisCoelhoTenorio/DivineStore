@@ -67,6 +67,9 @@ class ProductService {
             const result = await this.findById(newId);
             return result;
         };
+        this.delete = async (id) => {
+            await ProductModel_1.default.destroy({ where: { id } });
+        };
     }
 }
 exports.default = ProductService;

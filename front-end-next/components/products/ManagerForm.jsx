@@ -9,9 +9,11 @@ import Image from 'next/image';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useRouter } from 'next/router';
 import { getAllCategory, getAllSizes, createNewProduct } from '../../API';
 import Loading from '../Loading';
 import TableSize from './TableSize';
+import useAlert from '../../hooks/useAlert';
 
 // const DEFAULT_IMG = 'https://drive.google.com/uc?export=view&id=1SM76ru0V3C3wrHMJNNhFeTjftet_3L_4';
 
@@ -29,24 +31,19 @@ const INITIAL_ISDISABLED = {
 
 const INITIAL_SIZE = { id: '', name: '' };
 
-const INITIAL_ALERT = {
-  img: false,
-  createSuccess: false,
-  createFailure: false,
-};
-
 export default function ManagerForm() {
   const [quantity, setQuantity] = React.useState('');
   const [urlImg, setUrlImg] = React.useState('');
   const [photos, setPhotos] = React.useState([]);
   const [size, setSize] = React.useState(INITIAL_SIZE);
   const [registerSizes, setRegisterSizes] = React.useState([]);
-  const [alert, setAlert] = React.useState(INITIAL_ALERT);
   const [categories, setCategories] = React.useState(null);
   const [sizeList, setSizesList] = React.useState([]);
   const [thumbnail, setThumbnail] = React.useState(false);
   const [isDisabled, setIsDisabled] = React.useState(INITIAL_ISDISABLED);
   const [previewImg, setPreviewImg] = React.useState(null);
+  const [alert, setAlert] = useAlert();
+  const { query } = useRouter();
 
   React.useEffect(() => {
     const getCategories = async () => {
@@ -59,6 +56,9 @@ export default function ManagerForm() {
     };
     getCategories();
     getSizes();
+    if (query.id) {
+      console.log(query.id);
+    }
   }, []);
 
   const validationSchema = yup.object({
@@ -96,10 +96,7 @@ export default function ManagerForm() {
     const checkImg = photos.some((photo) => urlImg === photo.img);
     if (checkImg) {
       setUrlImg('');
-      setAlert({ ...alert, img: true });
-      setTimeout(() => {
-        setAlert({ ...alert, img: false });
-      }, 5000);
+      setAlert('addPhotoFailure');
       return;
     }
     setPhotos([...photos, { img: urlImg, thumbnail }]);
@@ -139,18 +136,12 @@ export default function ManagerForm() {
       name, price, description, photos, categoryId: Number(category), sizes: registerSizes,
     };
     if (photos.length === 0 || !thumbnail || registerSizes.length === 0) {
-      setAlert({ ...alert, createFailure: true });
-      setTimeout(() => {
-        setAlert({ ...alert, createFailure: false });
-      }, 5000);
+      setAlert('registerProductFailure');
       return;
     }
     const response = await createNewProduct(newProduct);
     if (response) {
-      setAlert({ ...alert, createSuccess: true });
-      setTimeout(() => {
-        setAlert({ ...alert, createSuccess: false });
-      }, 5000);
+      setAlert('registerProductSuccess');
     }
   };
 
@@ -163,23 +154,9 @@ export default function ManagerForm() {
   return (
     <div className="add-product-container">
       {
-        alert.createSuccess ? (
+        alert.status ? (
           <Stack className="alert" sx={{ width: '100%' }} spacing={2}>
-            <Alert severity="success">Produto cadastrado com sucesso!</Alert>
-          </Stack>
-        ) : null
-      }
-      {
-        alert.img ? (
-          <Stack className="alert" sx={{ width: '100%' }} spacing={2}>
-            <Alert severity="error">Essa foto já foi adicionada!</Alert>
-          </Stack>
-        ) : null
-      }
-      {
-        alert.createFailure ? (
-          <Stack className="alert" sx={{ width: '100%' }} spacing={2}>
-            <Alert severity="error">Erro ao adicionar Fotos ou Tamanhos</Alert>
+            <Alert severity={alert.type}>{alert.message}</Alert>
           </Stack>
         ) : null
       }

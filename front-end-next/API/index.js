@@ -1,4 +1,5 @@
 import axios from 'axios';
+import formatterForListProducts from '../Services/formatters';
 // import { parseCookies } from 'nookies';
 
 // const { 'divine.token': token } = parseCookies();
@@ -16,14 +17,27 @@ const BASE_URL = 'http://localhost:3001';
 // products
 
 const getAllProducts = async () => {
-  const response = await axios.get(`${BASE_URL}/product`);
-
-  return response.data;
+  try {
+    const { data } = await axios.get(`${BASE_URL}/product`);
+    const formattedProducts = formatterForListProducts(data);
+    return formattedProducts;
+  } catch (error) {
+    return null;
+  }
 };
 
 const getProductById = async (id) => {
   const response = await axios.get(`${BASE_URL}/product/${id}`);
   return response.data;
+};
+
+const deleteProduct = async (id) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/product/${id}`);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
 };
 
 const createNewProduct = async (newProduct) => {
@@ -101,4 +115,5 @@ export {
   getAllBanners,
   createNewProduct,
   getAllSizes,
+  deleteProduct,
 };

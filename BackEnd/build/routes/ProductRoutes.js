@@ -10,5 +10,6 @@ router.get('/', controller.findByInStock);
 router.get('/', controller.findAll);
 router.get('/:id', controller.findById);
 router.post('/', controller.create);
+router.delete('/:id', controller.delete);
 exports.default = router;
 //# sourceMappingURL=ProductRoutes.js.map
