@@ -12,10 +12,12 @@ import Image from 'next/image';
 import {
   Alert,
   Button,
+  Checkbox,
   ClickAwayListener,
   Dialog,
   DialogActions,
-  DialogContent, DialogContentText, DialogTitle, Fab, Grow, MenuItem, MenuList, Popper, Stack,
+  DialogContent,
+  DialogContentText, DialogTitle, Fab, FormControlLabel, Grow, MenuItem, MenuList, Popper, Stack,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/router';
@@ -35,6 +37,7 @@ export default function HomeScreen() {
   const [openSizeOption, setOpenSizeOption] = React.useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState(null);
+  const [inStock, setInStock] = React.useState(false);
   const [alert, setAlert] = useAlert();
   const anchorRef = React.useRef(null);
   const Router = useRouter();
@@ -116,6 +119,11 @@ export default function HomeScreen() {
     qtdValue = stock.find((item) => item.size === name);
     return qtdValue?.quantity || 0;
   };
+  const verifyInStock = (stock) => {
+    if (inStock && getQtd(selectedSize, stock) === 0) return false;
+    return true;
+  };
+
   return (
     <div>
       {
@@ -153,6 +161,12 @@ export default function HomeScreen() {
           <Fab size="small" color="secondary" aria-label="add">
             <AddIcon onClick={() => Router.push('/admin/products/add')} />
           </Fab>
+          <div className="filte-box">
+            <FormControlLabel
+              control={<Checkbox onClick={() => setInStock(!inStock)} />}
+              label="Em Stock"
+            />
+          </div>
           <TableContainer className="table-products-admin" component={Paper}>
             <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
               <TableHead>
@@ -206,33 +220,38 @@ export default function HomeScreen() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {products.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">{row.id}</TableCell>
-                    <TableCell align="center">
-                      <Image
-                        src={row.photos.img}
-                        alt={row.name}
-                        width={50}
-                        height={50}
-                      />
-                    </TableCell>
-                    <TableCell align="center">{row.name}</TableCell>
-                    <TableCell align="center">{`R$ ${row.price.toFixed(2).replace('.', ',')}`}</TableCell>
-                    <TableCell align="center">{`${row.promotion || 0}%`}</TableCell>
-                    <TableCell align="center">{row.category.name}</TableCell>
-                    <TableCell align="center">{selectedSize}</TableCell>
-                    <TableCell align="center">{getQtd(selectedSize, row.stock)}</TableCell>
-                    <TableCell align="center">{`${new Date(row.createdAt).toLocaleString()}`}</TableCell>
-                    <TableCell align="center">
-                      <DeleteForeverIcon onClick={() => handleClickOpenDeleteAlert(row)} />
-                      <EditIcon onClick={() => Router.push(`/admin/products/edit/${row.id}`)} />
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {products.map((row) => {
+                  if (verifyInStock(row.stock)) {
+                    return (
+                      <TableRow
+                        key={row.id}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <TableCell component="th" scope="row">{row.id}</TableCell>
+                        <TableCell align="center">
+                          <Image
+                            src={row.photos.img}
+                            alt={row.name}
+                            width={50}
+                            height={50}
+                          />
+                        </TableCell>
+                        <TableCell align="center">{row.name}</TableCell>
+                        <TableCell align="center">{`R$ ${row.price.toFixed(2).replace('.', ',')}`}</TableCell>
+                        <TableCell align="center">{`${row.promotion || 0}%`}</TableCell>
+                        <TableCell align="center">{row.category.name}</TableCell>
+                        <TableCell align="center">{selectedSize}</TableCell>
+                        <TableCell align="center">{getQtd(selectedSize, row.stock)}</TableCell>
+                        <TableCell align="center">{`${new Date(row.createdAt).toLocaleString()}`}</TableCell>
+                        <TableCell align="center">
+                          <DeleteForeverIcon onClick={() => handleClickOpenDeleteAlert(row)} />
+                          <EditIcon onClick={() => Router.push(`/admin/products/edit/${row.id}`)} />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  }
+                  return null;
+                })}
               </TableBody>
             </Table>
           </TableContainer>
