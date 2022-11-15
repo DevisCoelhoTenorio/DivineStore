@@ -12,12 +12,13 @@ import Image from 'next/image';
 import {
   Alert,
   Button,
-  Checkbox,
   ClickAwayListener,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText, DialogTitle, Fab, FormControlLabel, Grow, MenuItem, MenuList, Popper, Stack,
+  DialogContentText,
+  DialogTitle,
+  Fab, Grow, MenuItem, MenuList, Popper, Stack, TextField,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/router';
@@ -30,6 +31,8 @@ const TABLE_HEADERS = [
   'Tamanho', 'Quantidade', 'Registro', 'Editar/Apagar',
 ];
 
+const STOCK_OPTION = ['Com Estoque', 'Sem Estoque', 'Todos'];
+
 export default function HomeScreen() {
   const [products, setProducts] = React.useState(null);
   const [sizeList, setSizesList] = React.useState(null);
@@ -37,7 +40,7 @@ export default function HomeScreen() {
   const [openSizeOption, setOpenSizeOption] = React.useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState(null);
-  const [inStock, setInStock] = React.useState(false);
+  const [inStock, setInStock] = React.useState('Todos');
   const [alert, setAlert] = useAlert();
   const anchorRef = React.useRef(null);
   const Router = useRouter();
@@ -120,7 +123,8 @@ export default function HomeScreen() {
     return qtdValue?.quantity || 0;
   };
   const verifyInStock = (stock) => {
-    if (inStock && getQtd(selectedSize, stock) === 0) return false;
+    if (inStock === STOCK_OPTION[0] && getQtd(selectedSize, stock) === 0) return false;
+    if (inStock === STOCK_OPTION[1] && getQtd(selectedSize, stock) !== 0) return false;
     return true;
   };
 
@@ -162,10 +166,24 @@ export default function HomeScreen() {
             <AddIcon onClick={() => Router.push('/admin/products/add')} />
           </Fab>
           <div className="filte-box">
-            <FormControlLabel
-              control={<Checkbox onClick={() => setInStock(!inStock)} />}
-              label="Em Stock"
-            />
+            <TextField
+              id="category"
+              name="category"
+              select
+              className="category-selection"
+              label="Opções de Estoque"
+              value={inStock}
+              onChange={(e) => setInStock(e.target.value)}
+            >
+              {STOCK_OPTION.map((option) => (
+                <MenuItem
+                  key={option}
+                  value={option}
+                >
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
           </div>
           <TableContainer className="table-products-admin" component={Paper}>
             <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
