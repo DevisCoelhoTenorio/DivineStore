@@ -32,6 +32,7 @@ import {
 } from '../../API';
 import Loading from '../Loading';
 import useAlert from '../../hooks/useAlert';
+import { HeaderContext } from '../../contexts';
 
 const TABLE_HEADERS = [
   'ID', 'Imagem', 'Produto', 'Preço', 'Desconto', 'Categoria',
@@ -83,6 +84,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function HomeScreen() {
+  const { selectProductName } = React.useContext(HeaderContext);
   const [products, setProducts] = React.useState(null);
   const [sizeList, setSizesList] = React.useState(null);
   const [selectedSize, setSelectedSize] = React.useState('Todos');
@@ -113,6 +115,11 @@ export default function HomeScreen() {
       setCategoriesList([{ id: 0, name: 'Todas' }, ...response]);
     };
 
+    const verifySelectProduct = () => {
+      if (selectProductName) setSearchName(selectProductName);
+    };
+
+    verifySelectProduct();
     getSizes();
     getProducts();
     getCategories();
@@ -272,6 +279,7 @@ export default function HomeScreen() {
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
+                value={searchName}
                 placeholder="Search…"
                 onChange={(e) => setSearchName(e.target.value)}
                 inputProps={{ 'aria-label': 'search' }}

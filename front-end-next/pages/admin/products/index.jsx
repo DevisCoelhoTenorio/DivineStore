@@ -4,6 +4,7 @@ import HeaderAdmin from '../../../components/HeaderAdmin';
 import ManagerForm from '../../../components/products/ManagerForm';
 import { valideteAcess } from '../../../API';
 import HomeScreen from '../../../components/products/HomeScreen';
+import Footer from '../../../components/Footer';
 
 export default function Products() {
   const [typeRender, setTypeRender] = React.useState(null);
@@ -19,6 +20,7 @@ export default function Products() {
         <HomeScreen setTypeRender={setTypeRender} />
       ) : null }
       {typeRender ? <ManagerForm /> : null }
+      <Footer />
     </section>
   );
 }

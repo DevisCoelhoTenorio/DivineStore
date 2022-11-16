@@ -18,7 +18,7 @@ export function formatterForListProducts(response) {
 }
 
 export function formatterProductShow({
-  name, description, photos, promotion, price, category, stock,
+  name, description, photos, promotion, price, category, stock, id,
 }) {
   const newStock = stock.map((item) => ({
     name: item.size.name,
@@ -35,6 +35,7 @@ export function formatterProductShow({
     promotion,
     imgsList: photos,
     sizesItemList: newStock,
+    id,
   };
   return product;
 }

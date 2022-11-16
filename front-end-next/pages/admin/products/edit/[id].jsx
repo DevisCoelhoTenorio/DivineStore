@@ -7,6 +7,7 @@ import {
   valideteAcess, updateProduct, getProductById,
 } from '../../../../API';
 import Loading from '../../../../components/Loading';
+import Footer from '../../../../components/Footer';
 
 export default function Products() {
   const [initialState, setInitialState] = React.useState(null);
@@ -33,6 +34,7 @@ export default function Products() {
       {initialState ? (
         <ManagerForm initialState={initialState} submitFunc={editProduct} type="Update" />
       ) : <Loading />}
+      <Footer />
     </section>
   );
 }

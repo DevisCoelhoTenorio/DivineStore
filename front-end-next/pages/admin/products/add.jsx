@@ -5,6 +5,7 @@ import ManagerForm from '../../../components/products/ManagerForm';
 import {
   valideteAcess, createNewProduct,
 } from '../../../API';
+import Footer from '../../../components/Footer';
 
 export default function Products() {
   const INITIAL_STATE = {
@@ -20,6 +21,7 @@ export default function Products() {
     <section className="products-page">
       <HeaderAdmin text="Adicionar Produto" showManagement />
       <ManagerForm initialState={INITIAL_STATE} submitFunc={createNewProduct} type="Add" />
+      <Footer />
     </section>
   );
 }

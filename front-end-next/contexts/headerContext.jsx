@@ -58,6 +58,7 @@ export function HeaderProvider({ children }) {
   const [category, setCategory] = React.useState('Todas');
   const [search, setSearch] = React.useState('');
   const [banner, setBanner] = React.useState([]);
+  const [selectProductName, setSelectProductName] = React.useState('');
   const [managements, setManagements] = React.useState(BASE_MANAGEMENTS);
 
   const selectManagement = (id) => {
@@ -83,6 +84,8 @@ export function HeaderProvider({ children }) {
     managements,
     setManagements,
     selectManagement,
+    selectProductName,
+    setSelectProductName,
   }));
 
   return (

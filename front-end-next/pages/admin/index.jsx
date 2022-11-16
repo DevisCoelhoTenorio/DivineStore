@@ -5,6 +5,7 @@ import AdminTools from '../../components/AdminTools';
 import { valideteAcess } from '../../API';
 import { AuthContext } from '../../contexts';
 import Loading from '../../components/Loading';
+import Footer from '../../components/Footer';
 
 export default function Admin() {
   const { activeUser } = React.useContext(AuthContext);
@@ -12,10 +13,11 @@ export default function Admin() {
   return (
     <div className="admin-page">
       {activeUser ? (
-        <header>
+        <div>
           <HeaderAdmin text={`Bem vindo(a), ${activeUser.name}!`} />
           <AdminTools />
-        </header>
+          <Footer />
+        </div>
       ) : <Loading />}
     </div>
   );

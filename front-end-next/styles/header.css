@@ -95,6 +95,13 @@
   justify-content: space-between;
 }
 
+.user-header {
+  display: flex;
+  background-color: #B886BC;
+  justify-content: space-between;
+  align-items: center;
+}
+
 @media (max-width: 620px) {
   .category-text {
     display: none;

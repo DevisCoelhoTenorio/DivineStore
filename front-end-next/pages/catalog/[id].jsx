@@ -1,14 +1,21 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { getProductById } from '../../API';
+import EditIcon from '@mui/icons-material/Edit';
+import { parseCookies } from 'nookies';
+import HomeSharpIcon from '@mui/icons-material/HomeSharp';
+import { getProductById, valideteAcess } from '../../API';
 import Loading from '../../components/Loading';
+import { HeaderContext } from '../../contexts';
+import Footer from '../../components/Footer';
 
 export default function Detail() {
+  const { setSelectProductName } = React.useContext(HeaderContext);
   const [product, setProduct] = React.useState(null);
   const [selectPhoto, setSelectPhoto] = React.useState(null);
   const [discount, setDiscount] = React.useState(null);
   const [installments, setInstallments] = React.useState(null);
+  const [adm, setAdmin] = React.useState(false);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -27,28 +34,59 @@ export default function Detail() {
     const calcDiscount = (price, promotion) => {
       if (promotion && promotion !== 0) {
         const value = ((price * promotion) / 100);
-        setInstallments(calcInstallments(price - value));
+        const paymentValue = price - value;
+        setInstallments(calcInstallments(paymentValue));
         return setDiscount(value);
       }
+      setInstallments(calcInstallments(price));
       return calcInstallments(price);
+    };
+
+    const persistId = (id) => {
+      if (id) {
+        localStorage.setItem('divine.detail.product', id);
+        return id;
+      }
+      const storageId = localStorage.getItem('divine.detail.product');
+
+      if (storageId) return storageId;
+
+      return router.push('/catalog');
     };
 
     const findProductById = async () => {
       const { query: { id } } = router;
-      if (!id) return router.push('/catalog');
-      const result = await getProductById(id);
+      const idProduct = persistId(id);
+      const result = await getProductById(idProduct);
       const selectPhotoStart = result.imgsList.find((item) => item.thumbnail === true);
       setSelectPhoto(selectPhotoStart);
       calcDiscount(result.price, result.promotion);
       return setProduct(result);
     };
     findProductById();
+
+    const verifyAdm = async () => {
+      const { 'divine.token': token } = parseCookies();
+      const { admin } = await valideteAcess(token);
+      if (admin) setAdmin(true);
+    };
+    verifyAdm();
   }, []);
 
   return (
     <div>
       {product ? (
         <div>
+          <header className="user-header">
+            <Image
+              src="https://drive.google.com/uc?export=view&id=1QasQHkXQwnUYo6xeGuQxBRNjVVVpkUG4"
+              alt="Vercel Logo"
+              width={50}
+              height={50}
+            />
+            <h1>Divine Brazil</h1>
+            <HomeSharpIcon className="header-icon" onClick={() => router.push('/catalog')} />
+          </header>
           <h1>{product.name}</h1>
           <div>
             {product.imgsList.map((photo) => (
@@ -76,8 +114,26 @@ export default function Detail() {
             <p>
               {`De R$ ${product.price} por R$${(product.price - discount).toFixed(2)}`}
             </p>
+          ) : (
+            <p>
+              {`R$ ${product.price}`}
+            </p>
+          )}
+          {installments > 1 ? (
+            <p>{`Em até ${installments}x sem juros no cartão`}</p>
           ) : null}
-          <p>{`Em até ${installments} sem juros`}</p>
+          {adm ? (
+            <div>
+              <EditIcon
+                className="edit-icon"
+                onClick={() => {
+                  setSelectProductName(product.name);
+                  router.push('/admin/products');
+                }}
+              />
+            </div>
+          ) : null}
+          <Footer />
         </div>
       ) : <Loading />}
     </div>
