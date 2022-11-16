@@ -21,16 +21,16 @@ export default function Detail() {
         currentValue -= minInstallment;
         countInstallment += 1;
       }
-      setInstallments(countInstallment);
+      return countInstallment;
     };
 
     const calcDiscount = (price, promotion) => {
       if (promotion && promotion !== 0) {
         const value = ((price * promotion) / 100);
-        calcInstallments(value);
-        setDiscount(value);
+        setInstallments(calcInstallments(price - value));
+        return setDiscount(value);
       }
-      calcInstallments(price);
+      return calcInstallments(price);
     };
 
     const findProductById = async () => {
@@ -52,12 +52,14 @@ export default function Detail() {
           <h1>{product.name}</h1>
           <div>
             {product.imgsList.map((photo) => (
-              <Image
+              <input
+                type="image"
                 key={photo.img}
                 src={photo.img}
                 alt={photo.img}
-                width={80}
-                height={80}
+                width="80"
+                height="80"
+                onClick={() => setSelectPhoto(photo)}
               />
             ))}
             <Image src={selectPhoto.img} alt={selectPhoto.img} width={500} height={300} />
