@@ -6,7 +6,7 @@ import ManagerForm from '../../../../components/products/ManagerForm';
 import {
   valideteAcess, updateProduct, getProductById,
 } from '../../../../API';
-import { formatterForInitalEditState } from '../../../../Services/formatters';
+import Loading from '../../../../components/Loading';
 
 export default function Products() {
   const [initialState, setInitialState] = React.useState(null);
@@ -16,8 +16,7 @@ export default function Products() {
     const getProduct = async () => {
       const { id } = query;
       const result = await getProductById(id);
-      const product = formatterForInitalEditState(result);
-      setInitialState(product);
+      setInitialState(result);
     };
     getProduct();
   }, []);
@@ -33,7 +32,7 @@ export default function Products() {
       <HeaderAdmin text="Editar Produto" showManagement />
       {initialState ? (
         <ManagerForm initialState={initialState} submitFunc={editProduct} type="Update" />
-      ) : null}
+      ) : <Loading />}
     </section>
   );
 }

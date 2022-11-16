@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { nanoid } from 'nanoid';
-import { getAllProducts } from '../API';
-import Loading from '../components/Loading';
-import HeaderCatalog from '../components/HeaderCatalog';
-import BasicCard from '../components/BasicCard';
-import { HeaderContext } from '../contexts';
-import Footer from '../components/Footer';
-import CarouselComponent from '../components/CarouselComponent';
-import Advantages from '../components/Advantages';
+import { getAllProducts } from '../../API';
+import Loading from '../../components/Loading';
+import HeaderCatalog from '../../components/HeaderCatalog';
+import BasicCard from '../../components/BasicCard';
+import { HeaderContext } from '../../contexts';
+import Footer from '../../components/Footer';
+import CarouselComponent from '../../components/CarouselComponent';
+import Advantages from '../../components/Advantages';
 
 function Catalog() {
   const [products, setProducts] = useState([]);
@@ -46,6 +46,7 @@ function Catalog() {
               price={item.price}
               category={item.category.name}
               photos={item.photos.img}
+              id={item.id}
             />
           ))}
       </Container>

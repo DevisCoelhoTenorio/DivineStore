@@ -1,4 +1,4 @@
-function formatterForListProducts(response) {
+export function formatterForListProducts(response) {
   const productsMap = response.map((product) => {
     const newStock = product.stock.map((item) => ({
       size: item.size.name,
@@ -17,7 +17,7 @@ function formatterForListProducts(response) {
   return productsMap;
 }
 
-export function formatterForInitalEditState({
+export function formatterProductShow({
   name, description, photos, promotion, price, category, stock,
 }) {
   const newStock = stock.map((item) => ({
@@ -25,11 +25,12 @@ export function formatterForInitalEditState({
     quantity: item.quantity,
     id: item.size.id,
   }));
-  const newPrice = Number(price.replace(',', '.').toFixed(2));
+  const newPrice = Number(price.replace(',', '.')).toFixed(2);
   const product = {
     name,
     price: newPrice,
     description,
+    categoryName: category.name,
     category: category.id,
     promotion,
     imgsList: photos,
@@ -37,5 +38,3 @@ export function formatterForInitalEditState({
   };
   return product;
 }
-
-export default formatterForListProducts;

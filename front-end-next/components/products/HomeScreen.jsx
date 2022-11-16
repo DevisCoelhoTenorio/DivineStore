@@ -26,6 +26,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/router';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
+import Link from 'next/link';
 import {
   getAllProducts, getAllSizes, deleteProduct, getAllCategory,
 } from '../../API';
@@ -347,7 +348,9 @@ export default function HomeScreen() {
                             height={50}
                           />
                         </TableCell>
-                        <TableCell component="tr" align="center">{row.name}</TableCell>
+                        <Link href={`/catalog/${row.id}`}>
+                          <TableCell component="tr" align="center">{row.name}</TableCell>
+                        </Link>
                         <TableCell component="tr" align="center">{`R$ ${row.price.replace('.', ',')}`}</TableCell>
                         <TableCell component="tr" align="center">{`${row.promotion || 0}%`}</TableCell>
                         <TableCell component="tr" align="center">{row.category.name}</TableCell>

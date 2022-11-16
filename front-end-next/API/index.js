@@ -1,5 +1,5 @@
 import axios from 'axios';
-import formatterForListProducts from '../Services/formatters';
+import { formatterForListProducts, formatterProductShow } from '../Services/formatters';
 // import { parseCookies } from 'nookies';
 
 // const { 'divine.token': token } = parseCookies();
@@ -27,8 +27,13 @@ const getAllProducts = async () => {
 };
 
 const getProductById = async (id) => {
-  const response = await axios.get(`${BASE_URL}/product/${id}`);
-  return response.data;
+  try {
+    const { data } = await axios.get(`${BASE_URL}/product/${id}`);
+    const formattedProduct = formatterProductShow(data);
+    return formattedProduct;
+  } catch (error) {
+    return null;
+  }
 };
 
 const deleteProduct = async (id) => {
