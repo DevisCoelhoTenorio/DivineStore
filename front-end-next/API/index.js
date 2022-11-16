@@ -62,6 +62,16 @@ const updateProduct = async (id, product) => {
     return null;
   }
 };
+// clients
+
+const getAllClients = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/client`);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+};
 
 // category
 
@@ -131,4 +141,5 @@ export {
   getAllSizes,
   deleteProduct,
   updateProduct,
+  getAllClients,
 };

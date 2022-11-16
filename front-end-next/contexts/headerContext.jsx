@@ -25,7 +25,7 @@ const BASE_MANAGEMENTS = [
     code: 2,
     name: 'Banners',
     active: false,
-    path: '/admin/products',
+    path: '/admin/banners',
     icon: ViewCarouselIcon,
   },
   {
