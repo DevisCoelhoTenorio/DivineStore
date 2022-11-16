@@ -4,7 +4,7 @@ function formatterForListProducts(response) {
       size: item.size.name,
       quantity: item.quantity,
     }));
-    const newPrice = Number(product.price.replace(',', '.'));
+    const newPrice = Number(product.price.replace(',', '.')).toFixed(2);
     const newPhoto = product.photos.find((img) => img.thumbnail === true);
     const newProduct = {
       ...product,
@@ -25,7 +25,7 @@ export function formatterForInitalEditState({
     quantity: item.quantity,
     id: item.size.id,
   }));
-  const newPrice = Number(price.replace(',', '.'));
+  const newPrice = Number(price.replace(',', '.').toFixed(2));
   const product = {
     name,
     price: newPrice,

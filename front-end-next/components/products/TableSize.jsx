@@ -7,14 +7,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import PropTypes from 'prop-types';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import CloseIcon from '@mui/icons-material/Close';
 
 const TABLE_HEADERS = [{ name: 'Tamanho' }, { name: 'Quantidade' }, { name: 'Excluir' }];
 
 export default function TableSize({ sizes, deleteSize }) {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
+    <TableContainer className="table-size-container" component={Paper}>
+      <Table sx={{ minWidth: 300 }} size="small" className="table-size" aria-label="a dense table">
         <TableHead>
           <TableRow>
             {TABLE_HEADERS.map((headers) => (
@@ -28,11 +28,11 @@ export default function TableSize({ sizes, deleteSize }) {
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell align="center" component="tr" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.quantity}</TableCell>
-              <TableCell align="right"><DeleteForeverIcon onClick={() => deleteSize(row.id)} /></TableCell>
+              <TableCell align="center">{row.quantity}</TableCell>
+              <TableCell align="center"><CloseIcon className="delete-icon-table" onClick={() => deleteSize(row.id)} /></TableCell>
             </TableRow>
           ))}
         </TableBody>

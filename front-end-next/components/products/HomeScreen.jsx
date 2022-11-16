@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import EditIcon from '@mui/icons-material/Edit';
 import Paper from '@mui/material/Paper';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Image from 'next/image';
 import {
   Alert,
@@ -20,9 +21,14 @@ import {
   DialogTitle,
   Fab, Grow, MenuItem, MenuList, Popper, Stack, TextField,
 } from '@mui/material';
+import InputBase from '@mui/material/InputBase';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/router';
-import { getAllProducts, getAllSizes, deleteProduct } from '../../API';
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import {
+  getAllProducts, getAllSizes, deleteProduct, getAllCategory,
+} from '../../API';
 import Loading from '../Loading';
 import useAlert from '../../hooks/useAlert';
 
@@ -31,7 +37,49 @@ const TABLE_HEADERS = [
   'Tamanho', 'Quantidade', 'Registro', 'Editar/Apagar',
 ];
 
-const STOCK_OPTION = ['Com Estoque', 'Sem Estoque', 'Todos'];
+const STOCK_OPTION = ['Com', 'Sem', 'Todos'];
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '30vw',
+      '&:focus': {
+        width: '35vw',
+      },
+    },
+  },
+}));
 
 export default function HomeScreen() {
   const [products, setProducts] = React.useState(null);
@@ -41,7 +89,10 @@ export default function HomeScreen() {
   const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState(null);
   const [inStock, setInStock] = React.useState('Todos');
+  const [searchName, setSearchName] = React.useState('');
   const [alert, setAlert] = useAlert();
+  const [selectedCategory, setSelectedCategory] = React.useState('Todas');
+  const [categoriesList, setCategoriesList] = React.useState(null);
   const anchorRef = React.useRef(null);
   const Router = useRouter();
 
@@ -55,9 +106,20 @@ export default function HomeScreen() {
       const response = await getAllSizes();
       setSizesList([{ id: 0, name: 'Todos' }, ...response]);
     };
+
+    const getCategories = async () => {
+      const response = await getAllCategory();
+      setCategoriesList([{ id: 0, name: 'Todas' }, ...response]);
+    };
+
     getSizes();
     getProducts();
+    getCategories();
   }, []);
+
+  const productsRenderList = products ? products
+    .filter((item) => item.name.toLowerCase().includes(searchName.toLowerCase()))
+    .filter((item2) => (selectedCategory !== 'Todas' ? item2.category.name === selectedCategory : true)) : [];
 
   // Show Alert Delete Product
   const handleClickOpenDeleteAlert = (product) => {
@@ -89,7 +151,7 @@ export default function HomeScreen() {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-    setSelectedSize(size);
+    setSelectedSize(size || 'Todas');
     setOpenSizeOption(false);
   };
 
@@ -162,28 +224,58 @@ export default function HomeScreen() {
       ) : null}
       {products ? (
         <div>
-          <Fab size="small" color="secondary" aria-label="add">
+          <Fab size="small" className="add-product-icon" color="secondary" aria-label="add">
             <AddIcon onClick={() => Router.push('/admin/products/add')} />
           </Fab>
-          <div className="filte-box">
-            <TextField
-              id="category"
-              name="category"
-              select
-              className="category-selection"
-              label="Opções de Estoque"
-              value={inStock}
-              onChange={(e) => setInStock(e.target.value)}
-            >
-              {STOCK_OPTION.map((option) => (
-                <MenuItem
-                  key={option}
-                  value={option}
-                >
-                  {option}
-                </MenuItem>
-              ))}
-            </TextField>
+          <div className="filter-box">
+            <div className="category-filter">
+              <TextField
+                id="category"
+                name="category"
+                select
+                className="category-selection"
+                label="Estoque"
+                value={inStock}
+                onChange={(e) => setInStock(e.target.value)}
+              >
+                {STOCK_OPTION.map((option) => (
+                  <MenuItem
+                    key={option}
+                    value={option}
+                  >
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                id="category"
+                name="category"
+                select
+                className="category-selection"
+                label="Categoria"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
+                {categoriesList ? categoriesList.map((category) => (
+                  <MenuItem
+                    key={category.id}
+                    value={category.name}
+                  >
+                    {category.name}
+                  </MenuItem>
+                )) : null}
+              </TextField>
+            </div>
+            <Search className="search-bar-admin">
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                onChange={(e) => setSearchName(e.target.value)}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
           </div>
           <TableContainer className="table-products-admin" component={Paper}>
             <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
@@ -192,15 +284,15 @@ export default function HomeScreen() {
                   {TABLE_HEADERS.map((headers) => {
                     if (headers === 'Tamanho') {
                       return (
-                        <div>
-                          <Button
+                        <TableCell key={`${headers}`} align="center" className="size-th">
+                          {headers}
+                          <ArrowDropDownIcon
+                            className="drop-down"
                             ref={anchorRef}
                             aria-controls={openSizeOption ? 'menu-list-grow' : undefined}
                             aria-haspopup="true"
                             onClick={handleToggleSizeOption}
-                          >
-                            {headers}
-                          </Button>
+                          />
                           <Popper
                             open={openSizeOption}
                             anchorEl={anchorRef.current}
@@ -230,7 +322,7 @@ export default function HomeScreen() {
                               </Grow>
                             )}
                           </Popper>
-                        </div>
+                        </TableCell>
                       );
                     }
                     return <TableCell key={headers} align="center">{headers}</TableCell>;
@@ -238,15 +330,16 @@ export default function HomeScreen() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {products.map((row) => {
+                {productsRenderList.map((row) => {
                   if (verifyInStock(row.stock)) {
                     return (
                       <TableRow
                         key={row.id}
+                        className="table-row-admin"
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       >
-                        <TableCell component="th" scope="row">{row.id}</TableCell>
-                        <TableCell align="center">
+                        <TableCell component="tr" align="center" scope="row">{row.id}</TableCell>
+                        <TableCell component="tr" align="center">
                           <Image
                             src={row.photos.img}
                             alt={row.name}
@@ -254,16 +347,16 @@ export default function HomeScreen() {
                             height={50}
                           />
                         </TableCell>
-                        <TableCell align="center">{row.name}</TableCell>
-                        <TableCell align="center">{`R$ ${row.price.toFixed(2).replace('.', ',')}`}</TableCell>
-                        <TableCell align="center">{`${row.promotion || 0}%`}</TableCell>
-                        <TableCell align="center">{row.category.name}</TableCell>
-                        <TableCell align="center">{selectedSize}</TableCell>
-                        <TableCell align="center">{getQtd(selectedSize, row.stock)}</TableCell>
-                        <TableCell align="center">{`${new Date(row.createdAt).toLocaleString()}`}</TableCell>
-                        <TableCell align="center">
-                          <DeleteForeverIcon onClick={() => handleClickOpenDeleteAlert(row)} />
-                          <EditIcon onClick={() => Router.push(`/admin/products/edit/${row.id}`)} />
+                        <TableCell component="tr" align="center">{row.name}</TableCell>
+                        <TableCell component="tr" align="center">{`R$ ${row.price.replace('.', ',')}`}</TableCell>
+                        <TableCell component="tr" align="center">{`${row.promotion || 0}%`}</TableCell>
+                        <TableCell component="tr" align="center">{row.category.name}</TableCell>
+                        <TableCell component="tr" align="center">{selectedSize}</TableCell>
+                        <TableCell component="tr" align="center">{getQtd(selectedSize, row.stock)}</TableCell>
+                        <TableCell component="tr" align="center">{`${new Date(row.createdAt).toLocaleString()}`}</TableCell>
+                        <TableCell component="tr" align="center">
+                          <DeleteForeverIcon className="delete-icon-table" onClick={() => handleClickOpenDeleteAlert(row)} />
+                          <EditIcon className="edit-icon" onClick={() => Router.push(`/admin/products/edit/${row.id}`)} />
                         </TableCell>
                       </TableRow>
                     );

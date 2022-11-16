@@ -6,7 +6,8 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Image from 'next/image';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import CloseIcon from '@mui/icons-material/Close';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
@@ -57,7 +58,7 @@ export default function ManagerForm({
   const verifyThumbnail = () => {
     if (photos.some((photo) => photo.thumbnail === true)) {
       setIsDisabled({ ...isDisabled, thumbnail: true });
-      setThumbnail(false);
+      setThumbnail(true);
       return;
     }
     if (isDisabled.thumbnail) {
@@ -189,6 +190,7 @@ export default function ManagerForm({
                 id="description"
                 name="description"
                 type="text"
+                className="text-field"
                 value={formik.values.description}
                 onChange={formik.handleChange}
                 label="Descrição"
@@ -202,7 +204,7 @@ export default function ManagerForm({
                 id="category"
                 name="category"
                 select
-                className="category-selection"
+                className="manage-category-selection"
                 label="Categoria"
                 value={formik.values.category}
                 onChange={formik.handleChange}
@@ -232,9 +234,9 @@ export default function ManagerForm({
               <TextField
                 id="outlined-select-currency"
                 select
+                className="size-quantity"
                 label="Tamanho"
                 value={size.name}
-                className="size-selection"
                 disabled={isDisableSize}
               >
                 {remainingSize.map((option) => (
@@ -251,6 +253,7 @@ export default function ManagerForm({
                 id="quantity"
                 name="quantity"
                 type="number"
+                className="size-quantity"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
                 label="Quantidade"
@@ -277,6 +280,7 @@ export default function ManagerForm({
                 id="urlImg"
                 name="urlImg"
                 type="text"
+                className="link-image-field"
                 value={urlImg}
                 onChange={(e) => setUrlImg(e.target.value)}
                 label="Link"
@@ -284,6 +288,7 @@ export default function ManagerForm({
               <FormControlLabel
                 control={(
                   <Checkbox
+                    checked={isDisabled.thumbnail}
                     disabled={isDisabled.thumbnail}
                     onClick={() => setThumbnail(!thumbnail)}
                   />
@@ -315,7 +320,10 @@ export default function ManagerForm({
             {photos.map((photo) => (
               <div key={photo.img} className="image-div">
                 <Image src={photo.img} width={100} height={100} alt="itensAdd" />
-                <DeleteForeverIcon onClick={() => deletePhoto(photo.img)} />
+                <Button type="button" className="remove-product">
+                  <CloseIcon className="delete-icon" onClick={() => deletePhoto(photo.img)} />
+                </Button>
+                {photo.thumbnail ? <BookmarkAddedIcon className="thumb-icon" /> : null}
               </div>
             ))}
           </div>
@@ -346,3 +354,5 @@ ManagerForm.propTypes = {
   submitFunc: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
+
+// href={https://wa.me/${numBarbara}?text=separadoPor%20}

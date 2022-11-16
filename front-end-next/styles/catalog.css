@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap');
+
 .css-cuefkz-MuiContainer-root {
   display: flex;
   margin: auto;
@@ -23,6 +25,7 @@
   padding-bottom: 10px;
   border-radius: 15px;
   transition: 0.2s;
+  box-shadow: 3px 3px #B886BC;
 }
 
 .product-card:hover {
@@ -36,9 +39,10 @@
 }
 
 .product-card p {
-  font-family: inherit;
+  font-family: 'Yeseva One', cursive;
   margin: 0;
   padding: 0;
+  letter-spacing: 1px;
 }
 
 .catalog-page {
@@ -99,6 +103,11 @@
   min-width: 0;
 }
 
+@media (max-width: 900px) {
+  .advantages-container {
+    display: none;
+  }
+}
 
 @media (max-width: 620px) {
   .catalog-page {
@@ -134,7 +143,7 @@
 
 }
 
-@media(min-width: 620px) {
+@media(min-width: 621px) {
   .mobile-share-btn {
     display: none;
   }
