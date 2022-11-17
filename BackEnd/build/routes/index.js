@@ -21,7 +21,7 @@ routes.use('/order', OrderRoutes_1.default);
 routes.use('/category', CategoryRoutes_1.default);
 routes.use('/product', ProductRoutes_1.default);
 routes.use('/client', ClientRoutes_1.default);
-routes.use('/payment/method', PaymentMethodRoutes_1.default);
+routes.use('/payment/methods', PaymentMethodRoutes_1.default);
 routes.use('/size', SizeRoutes_1.default);
 routes.use('/sale', SaleRoutes_1.default);
 routes.use('/inventory', InventoryRoutes_1.default);

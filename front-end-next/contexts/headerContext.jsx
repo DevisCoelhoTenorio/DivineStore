@@ -47,9 +47,9 @@ const BASE_MANAGEMENTS = [
   },
   {
     code: 6,
-    name: 'Pagamentos',
+    name: 'Formas de Pagamento',
     active: false,
-    path: '/admin/paymentMethods',
+    path: '/admin/payment/methods',
     icon: MonetizationOnIcon,
   },
 ];

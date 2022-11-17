@@ -2,13 +2,13 @@ import * as React from 'react';
 import { parseCookies } from 'nookies';
 import HeaderAdmin from '../../../components/HeaderAdmin';
 import Footer from '../../../components/Footer';
-import HomeScreen from '../../../components/banners/HomeScreen';
+import HomeScreen from '../../../components/paymentMethods/HomeScreen';
 import { valideteAcess } from '../../../API';
 
-export default function Banners() {
+export default function Methods() {
   return (
     <div>
-      <HeaderAdmin text="Gerenciar Banners" showManagement />
+      <HeaderAdmin text="Gerenciar Formas de Pagamento" showManagement />
       <HomeScreen />
       <Footer />
     </div>

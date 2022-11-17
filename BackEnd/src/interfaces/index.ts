@@ -11,6 +11,7 @@ import { IStatusCode } from './IStatusCode';
 import { ICustomRequest } from './ICustomRequest';
 import { IPhoto, ISimplePhoto } from './IPhoto';
 import { IBanner, IBannerCreate } from './IBanner';
+import { IAddress } from './IAddress';
 
 export {
   ICategory,
@@ -32,4 +33,5 @@ export {
   IResponseLogin,
   IBanner,
   IBannerCreate,
+  IAddress,
 };

@@ -39,3 +39,21 @@ export function formatterProductShow({
   };
   return product;
 }
+
+export function formatterOrdersForShow(orderList) {
+  const orderMap = orderList.map((order) => {
+    const newOrder = {
+      id: order.id,
+      price: Number(order.fullPrice.replace(',', '.')).toFixed(2),
+      createdAt: new Date(order.createdAt).toLocaleString(),
+      installments: order.installments,
+      client: {
+        id: order.client.id,
+        name: order.client.name,
+      },
+      paymentMethod: order.paymentMethod.name,
+    };
+    return newOrder;
+  });
+  return orderMap;
+}

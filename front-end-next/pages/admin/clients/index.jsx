@@ -1,14 +1,14 @@
-import * as React from 'react';
 import { parseCookies } from 'nookies';
-import HeaderAdmin from '../../../components/HeaderAdmin';
-import Footer from '../../../components/Footer';
-import HomeScreen from '../../../components/banners/HomeScreen';
+import * as React from 'react';
 import { valideteAcess } from '../../../API';
+import HomeScreen from '../../../components/clients/HomeScreen';
+import Footer from '../../../components/Footer';
+import HeaderAdmin from '../../../components/HeaderAdmin';
 
-export default function Banners() {
+export default function Clients() {
   return (
     <div>
-      <HeaderAdmin text="Gerenciar Banners" showManagement />
+      <HeaderAdmin text="Gerenciar Clientes" showManagement />
       <HomeScreen />
       <Footer />
     </div>

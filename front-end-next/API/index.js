@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { formatterForListProducts, formatterProductShow } from '../Services/formatters';
+import {
+  formatterForListProducts,
+  formatterProductShow,
+  formatterOrdersForShow,
+} from '../Services/formatters';
 // import { parseCookies } from 'nookies';
 
 // const { 'divine.token': token } = parseCookies();
@@ -130,6 +134,29 @@ const getAllSizes = async () => {
   }
 };
 
+// PaymentMethods
+
+const getAllPaymentMethods = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/payment/methods`);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+// Orders
+
+const getAllOrders = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/order`);
+    const formatterdOrders = formatterOrdersForShow(response.data);
+    return formatterdOrders;
+  } catch (error) {
+    return null;
+  }
+};
+
 export {
   getAllProducts,
   getAllCategory,
@@ -142,4 +169,6 @@ export {
   deleteProduct,
   updateProduct,
   getAllClients,
+  getAllPaymentMethods,
+  getAllOrders,
 };

@@ -1,0 +1,55 @@
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+      await queryInterface.createTable('addresses', {
+        clientId: {
+          field: 'client_id',
+          primaryKey: true,
+          allowNull: false,
+          type: Sequelize.INTEGER,
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+          references: {
+            model: 'clients',
+            key: 'id',
+          }
+        },
+        city: {
+          allowNull: false,
+          type: Sequelize.STRING(50),
+        },
+        state: {
+          allowNull: false,
+          type: Sequelize.STRING(50)
+        },
+        district: {
+          allowNull: false,
+          type: Sequelize.STRING(50)
+        },
+        locality : {
+          allowNull: false,
+          type: Sequelize.STRING(400)
+        },
+        number: {
+          type: Sequelize.INTEGER
+        },
+        cep: {
+          type: Sequelize.STRING(50)
+        },
+        updatedAt: {
+          field: 'updated_at',
+          type: Sequelize.DATE
+        },
+        createAt: {
+          field: 'created_at',
+          type: Sequelize.DATE
+        } 
+      })
+  },
+
+  async down (queryInterface, _Sequelize) {
+    await queryInterface.dropTable('addresses');
+  }
+};

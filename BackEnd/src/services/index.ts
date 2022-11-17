@@ -9,6 +9,7 @@ import SaleService from './SaleService';
 import InventoryService from './InventoryService';
 import LoginService from './LoginService';
 import BannerService from './BannerService';
+import AddressService from './AddressService';
 
 export {
   OrderService,
@@ -22,4 +23,5 @@ export {
   InventoryService,
   LoginService,
   BannerService,
+  AddressService,
 };

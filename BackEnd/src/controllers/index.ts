@@ -9,6 +9,7 @@ import SaleController from './SaleController';
 import InventoryController from './InventoryController';
 import LoginController from './LoginController';
 import BannerController from './BannerController';
+import AddressController from './AddressController';
 
 export {
   OrderController,
@@ -22,4 +23,5 @@ export {
   InventoryController,
   LoginController,
   BannerController,
+  AddressController,
 };
