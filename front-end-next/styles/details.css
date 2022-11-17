@@ -1,0 +1,113 @@
+.detail-item-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.images-container {
+  display: flex;
+}
+
+.main-detail-image {
+  border-radius: 8px;
+  box-shadow: 3px 3px #B886BC;
+}
+
+.side-images-container {
+  display: flex;
+  flex-direction: column;
+  padding-right: 10px;
+}
+
+.detail-title {
+  text-align: center;
+}
+
+.side-images-container input {
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 3px 3px #B886BC;
+}
+
+.left-side-wide-view {
+  margin-right: 30px;
+}
+
+.available-size-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.available-size-item {
+  background-color: #B886BC;
+  color: white;
+  padding: 10px;
+  margin: 0;
+  width: 43px;
+  height: 38px;
+  margin-right: 10px;
+  font-weight: bold;
+  border-radius: 100%;
+  text-align: center;
+}
+
+.price-before-discount {
+  text-decoration: line-through;
+}
+
+.price-after-discount {
+  font-weight: bold;
+  color: #BB2C73;
+  font-size: 25px;
+  margin-left: 5px;
+}
+
+.detail-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.detail-info-container p, .detail-info-container h3 {
+  margin-bottom: 0;
+  margin-top: 15px;
+}
+
+.contact-detail-link {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.contact-detail-link p {
+  margin: 0;
+  margin-left: 5px;
+}
+
+
+.whats-app-icon {
+  position: relative;
+  color: #BB2C73;
+  transition: 0.4s;
+  animation: jumpy 1s linear 1s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes jumpy {
+  0% { top: 0 }
+  10% { top: -1.5px }
+  20% { top: 0px }
+  30% {top: 0 }
+  40% { top: 0 }
+  50% { top: -1.5px }
+  60% { top: 0 }
+  70% { top: 0 }
+  80% { top: 0 }
+  90% { top: 0 }
+  100%  { top: 0 }
+}
+
+.whats-app-icon:hover {
+  transform: translateY(-3px);
+  animation-play-state: paused;
+}

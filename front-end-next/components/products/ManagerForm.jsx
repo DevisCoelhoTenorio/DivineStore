@@ -58,12 +58,12 @@ export default function ManagerForm({
   const verifyThumbnail = () => {
     if (photos.some((photo) => photo.thumbnail === true)) {
       setIsDisabled({ ...isDisabled, thumbnail: true });
-      setThumbnail(true);
+      setThumbnail(false);
       return;
     }
     if (isDisabled.thumbnail) {
       setIsDisabled({ ...isDisabled, thumbnail: false });
-      setThumbnail(true);
+      setThumbnail(false);
     }
   };
 
@@ -288,7 +288,7 @@ export default function ManagerForm({
               <FormControlLabel
                 control={(
                   <Checkbox
-                    checked={isDisabled.thumbnail}
+                    checked={thumbnail}
                     disabled={isDisabled.thumbnail}
                     onClick={() => setThumbnail(!thumbnail)}
                   />
