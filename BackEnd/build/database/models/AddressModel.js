@@ -49,6 +49,6 @@ Address.init({
 });
 // Adress Association
 Address.belongsTo(ClientModel_1.default, { foreignKey: 'clientId', as: 'address' });
-ClientModel_1.default.belongsTo(Address, { foreignKey: 'clientId', as: 'address' });
+ClientModel_1.default.belongsTo(Address, { foreignKey: 'id', as: 'address' });
 exports.default = Address;
 //# sourceMappingURL=AddressModel.js.map
