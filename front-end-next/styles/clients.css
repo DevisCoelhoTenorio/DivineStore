@@ -1,0 +1,22 @@
+.clients-page {
+  width: 100%;
+  background-image: url('https://drive.google.com/uc?export=view&id=1QasQHkXQwnUYo6xeGuQxBRNjVVVpkUG4');
+  background-position: center;
+  background-color: rgba(240,230,241,0.75);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-blend-mode: lighten;
+  position: relative;
+  top: 100px;
+}
+
+.client-whats-app-icon {
+  position: relative;
+  color: #BB2C73;
+  transition: 0.4s;
+  margin-left: 10px;
+}
+.client-whats-app-icon:hover {
+  transform: translateY(-3px);
+  animation-play-state: paused;
+}
