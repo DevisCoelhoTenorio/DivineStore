@@ -6,7 +6,7 @@ export default function NavigationIcon({ name, Icon }) {
     <section className="navigation-item">
       <Icon className="nav-icon" />
       <p>{name}</p>
-      <hr />
+      <hr className="navigation-underline" />
     </section>
   );
 }
