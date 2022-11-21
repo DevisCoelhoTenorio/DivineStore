@@ -10,6 +10,9 @@ const nextConfig = {
       },
     ],
   },
+  scripts: [
+    '/home/arthur/divineStore/DivineStore/front-end-next/node_modules/react-chartjs-2/dist/index',
+  ],
 };
 
 module.exports = nextConfig;

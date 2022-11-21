@@ -9,6 +9,11 @@ import '../styles/login.css';
 import '../styles/admin.css';
 import '../styles/products.css';
 import '../styles/details.css';
+import '../styles/sales.css';
+import '../styles/banners.css';
+import '../styles/clients.css';
+import '../styles/sizes.css';
+import '../styles/paymentMethods.css';
 import React from 'react';
 import { HeaderProvider, AuthProvider } from '../contexts';
 

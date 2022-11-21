@@ -1,0 +1,40 @@
+.sales-page {
+  width: 100%;
+  background-image: url('https://drive.google.com/uc?export=view&id=1QasQHkXQwnUYo6xeGuQxBRNjVVVpkUG4');
+  background-position: center;
+  background-color: rgba(240,230,241,0.75);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-blend-mode: lighten;
+  position: relative;
+  top: 100px;
+}
+
+.chart-container {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.title-container {
+  display: flex;
+  margin: 15px;
+  align-items: center;
+}
+
+.title-container > h2 {
+  margin-right: 10px;
+  color: #802785;
+}
+
+.select-year {
+  padding: 0;
+  height: 40px;
+}
+
+.revenue-chart {
+  border-radius: 8px;
+}

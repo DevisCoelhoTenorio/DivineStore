@@ -7,7 +7,7 @@ import { valideteAcess } from '../../../API';
 
 export default function Banners() {
   return (
-    <div>
+    <div className="banners-page">
       <HeaderAdmin text="Gerenciar Banners" showManagement />
       <HomeScreen />
       <Footer />

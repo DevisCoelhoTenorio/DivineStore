@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { getAllClients } from '../../API';
 import Loading from '../Loading';
 
-const TABLE_HEADERS = ['ID', 'Nome', 'Email', 'Telefone', 'Editar'];
+const TABLE_HEADERS = ['ID', 'Nome', 'Email', 'Telefone', 'Cadastro', 'Editar'];
 
 export default function HomeScreen() {
   const [clientList, setClientList] = React.useState(null);
@@ -51,7 +51,7 @@ export default function HomeScreen() {
                         className="contact-detail-link"
                       >
                         <p>{row.phoneNumber}</p>
-                        <WhatsAppIcon className="whats-app-icon" />
+                        <WhatsAppIcon className="client-whats-app-icon" />
                       </Link>
                     </TableCell>
                     <TableCell component="tr" align="center">{`${new Date(row.createdAt).toLocaleString()}`}</TableCell>

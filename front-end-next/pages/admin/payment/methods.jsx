@@ -7,7 +7,7 @@ import { valideteAcess } from '../../../API';
 
 export default function Methods() {
   return (
-    <div>
+    <div className="payment-methods-page">
       <HeaderAdmin text="Gerenciar Formas de Pagamento" showManagement />
       <HomeScreen />
       <Footer />

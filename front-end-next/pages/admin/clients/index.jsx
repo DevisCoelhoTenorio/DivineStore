@@ -7,7 +7,7 @@ import HeaderAdmin from '../../../components/HeaderAdmin';
 
 export default function Clients() {
   return (
-    <div>
+    <div className="clients-page">
       <HeaderAdmin text="Gerenciar Clientes" showManagement />
       <HomeScreen />
       <Footer />

@@ -7,7 +7,7 @@ import { valideteAcess } from '../../../API';
 
 export default function Sizes() {
   return (
-    <div>
+    <div className="sizes-page">
       <HeaderAdmin text="Gerenciar Tamanhos" showManagement />
       <HomeScreen />
       <Footer />
